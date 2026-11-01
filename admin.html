@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orders — Shubhi's Bake A Wish</title>
+<meta name="description" content="Staff order board">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  .adm{background:var(--cream-soft); min-height:100vh; padding:calc(env(safe-area-inset-top,0px) + 110px) 0 120px;}
+  .adm-top{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; margin-bottom:28px;}
+  .adm-top h1{font-size:clamp(2.2rem,4vw,3.4rem); line-height:1;}
+  .adm-top h1 em{font-family:'Mrs Saint Delafield',cursive; font-style:normal; font-weight:400; color:var(--terracotta-deep);}
+  .login{max-width:420px; background:var(--cream); border:1px solid var(--line); border-radius:8px; padding:34px; box-shadow:var(--shadow);}
+  .login .btn{width:100%; justify-content:center;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .chips button{padding:9px 16px; border:1px solid var(--line); border-radius:30px; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft);}
+  .chips button.on{background:var(--ink); color:var(--cream-soft); border-color:var(--ink);}
+  .chips button i{font-style:normal; opacity:.6; margin-left:4px;}
+  .tools{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .tools .muted{font-size:.72rem; color:var(--ink-soft);}
+  .olist{display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap:16px;}
+  .oc{background:var(--cream); border:1px solid var(--line); border-radius:8px; padding:20px; display:flex; flex-direction:column; gap:12px; position:relative; overflow:hidden;}
+  .oc::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--st, var(--gold));}
+  .oc .r1{display:flex; justify-content:space-between; gap:10px; align-items:baseline;}
+  .oc .code{font-family:'Italiana',serif; font-size:1.5rem; letter-spacing:.04em;}
+  .oc .pill{font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; padding:5px 10px; border-radius:20px; background:var(--st); color:#fff; white-space:nowrap;}
+  .oc .who{font-size:.9rem;} .oc .who b{font-weight:500;}
+  .oc .who a{color:var(--terracotta-deep); border-bottom:1px solid currentColor;}
+  .oc .when{font-size:.78rem; color:var(--ink-soft); line-height:1.6;}
+  .oc ul{list-style:none; margin:0; padding:10px 0 0; border-top:1px dashed var(--line); font-size:.86rem;}
+  .oc ul li{display:flex; justify-content:space-between; padding:3px 0;}
+  .oc .tot{font-family:'Cormorant Garamond',serif; font-size:1.25rem; text-align:right;}
+  .oc .note{font-size:.8rem; background:var(--cream-soft); padding:8px 10px; border-radius:6px; color:var(--ink-soft);}
+  .oc .act{display:grid; grid-template-columns:1fr auto; gap:8px; border-top:1px solid var(--line); padding-top:12px;}
+  .oc select, .oc input{width:100%; border:1px solid var(--line); border-radius:6px; background:var(--cream-soft); padding:9px 10px; font:inherit; font-size:.82rem; color:var(--ink); cursor:auto;}
+  .oc .act input{grid-column:1 / -1;}
+  .oc .act .btn{padding:10px 16px; font-size:.6rem;}
+  .oc .next{grid-column:1 / -1; justify-content:center;}
+  .empty{padding:60px 0; color:var(--ink-soft);}
+  [data-st=received]{--st:#c79a4b;} [data-st=confirmed]{--st:#6b8f71;} [data-st=baking]{--st:#bb5a3c;}
+  [data-st=ready], [data-st=out_for_delivery]{--st:#2f4a3a;} [data-st=completed]{--st:#8a7b6a;} [data-st=cancelled]{--st:#9a3b3b;}
+  body.adm-page .bag-fab{display:none;}
+</style>
+</head>
+<body class="adm-page">
+<div class="curtain is-covering"><span class="script">Shubhi's</span></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<header id="siteHeader">
+  <a href="index.html" class="logo-mark">
+    <span class="script">Shubhi's</span>
+    <span class="tiny">Bake&nbsp;A&nbsp;Wish</span>
+  </a>
+  <nav class="links" id="navLinks">
+    <a href="story.html">Our Story</a>
+    <a href="menu.html">Menu</a>
+    <a href="cafe.html">The Café</a>
+    <a href="cafe.html#workshops">Workshops</a>
+    <a href="track.html">Track order</a>
+    <a href="visit.html#order" class="nav-cta">Order Now</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+
+<main class="adm">
+  <div class="wrap">
+    <div class="adm-top">
+      <div><span class="eyebrow">For the café</span><h1>Today's <em>orders</em></h1></div>
+      <div class="tools" id="tools" hidden>
+        <span class="demo-flag" id="aDemo" hidden>Demo mode · orders from this browser</span>
+        <span class="muted" id="aUpd"></span>
+        <button class="btn btn-outline" id="aRefresh" type="button">Refresh</button>
+        <button class="btn btn-outline" id="aOut" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <form class="login" id="login" hidden novalidate>
+      <h3 style="font-size:1.6rem; margin-bottom:6px;">Staff sign-in</h3>
+      <p style="font-size:.85rem; color:var(--ink-soft); margin-bottom:22px; line-height:1.6;">Only accounts added to the café's staff list can see orders.</p>
+      <div class="field"><label for="a-email">Email</label><input id="a-email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="a-pass">Password</label><input id="a-pass" type="password" autocomplete="current-password" required></div>
+      <p class="form-err" id="aErr" role="alert"></p>
+      <button class="btn btn-solid" type="submit">Sign in</button>
+    </form>
+
+    <div id="board" hidden>
+      <div class="chips" id="chips" style="margin-bottom:22px;"></div>
+      <div class="olist" id="olist"></div>
+      <p class="empty" id="aEmpty" hidden>No orders here yet.</p>
+    </div>
+  </div>
+</main>
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="script">Shubhi's Bake A Wish</span>
+        <p>A home bakery &amp; garden café in Prayagraj. Organic where possible, preservative‑free always, zero‑waste on principle.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Explore</h4>
+          <a href="story.html">Our Story</a><a href="menu.html">Menu</a><a href="cafe.html">The Café</a><a href="cafe.html#workshops">Workshops</a><a href="track.html">Track an order</a>
+        </div>
+        <div class="foot-col">
+          <h4>Connect</h4>
+          <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://m.facebook.com/shubhisbakery" target="_blank" rel="noopener">Facebook</a>
+          <span>+91 91984 53309</span>
+        </div>
+        <div class="foot-col">
+          <h4>Visit</h4>
+          <span>Prayagraj, Uttar Pradesh</span>
+          <span>Message for today's timings</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Shubhi's Bake A Wish. Concept website · sample products &amp; prices · not a real store.</span>
+      <span>Designed as a concept site · #triozentech</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/order.js"></script>
+<script>
+(function(){
+  const S = window.SBW; if(!S) return;
+  const $ = id => document.getElementById(id);
+  const STEPS = {
+  received:{t:'Order received', d:'The café has your order and will confirm it on WhatsApp.'},
+  confirmed:{t:'Confirmed', d:'Confirmed by the café — your bake is scheduled.'},
+  baking:{t:'In the oven', d:'Being handbaked right now.'},
+  ready:{t:'Ready for pickup', d:'All boxed up and waiting for you at the café.'},
+  out_for_delivery:{t:'Out for delivery', d:'On its way to you.'},
+  completed:{t:'Enjoyed', d:'Delivered with love. Thank you for wishing with us!'},
+  cancelled:{t:'Cancelled', d:'This order was cancelled. Message the café if this is unexpected.'}
+};
+  const FLOW = ['received','confirmed','baking','ready','out_for_delivery','completed'];
+  const FILTERS = {active:['received','confirmed','baking','ready','out_for_delivery'], completed:['completed'], cancelled:['cancelled'], all:null};
+  let token = null, orders = [], filter = 'active', timer = null;
+  try{ token = sessionStorage.getItem('sbw-staff'); }catch(_){}
+
+  const start = () => { $('login').hidden = true; $('board').hidden = false; $('tools').hidden = false; load(); clearInterval(timer); timer = setInterval(load, 30000); };
+  if(!S.API.live){ $('aDemo').hidden = false; start(); }
+  else if(token){ $('aOut').hidden = false; start(); }
+  else $('login').hidden = false;
+
+  $('login').addEventListener('submit', async e => {
+    e.preventDefault(); $('aErr').textContent = '';
+    try{
+      const d = await S.API.signIn($('a-email').value.trim(), $('a-pass').value);
+      token = d.access_token; try{ sessionStorage.setItem('sbw-staff', token); }catch(_){}
+      $('aOut').hidden = false; start();
+    }catch(ex){ $('aErr').textContent = ex.message; }
+  });
+  $('aOut').addEventListener('click', () => { try{ sessionStorage.removeItem('sbw-staff'); }catch(_){} location.reload(); });
+  $('aRefresh').addEventListener('click', load);
+
+  async function load(){
+    try{
+      orders = await S.API.staffOrders(token);
+      $('aUpd').textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN', {hour:'numeric', minute:'2-digit'});
+      render();
+    }catch(ex){
+      if(ex.expired){ try{ sessionStorage.removeItem('sbw-staff'); }catch(_){} token = null; $('board').hidden = true; $('tools').hidden = true; $('login').hidden = false; $('aErr').textContent = ex.message; clearInterval(timer); }
+      else $('aUpd').textContent = ex.message;
+    }
+  }
+
+  function render(){
+    const chips = $('chips'); chips.textContent = '';
+    Object.keys(FILTERS).forEach(k => {
+      const n = orders.filter(o => !FILTERS[k] || FILTERS[k].includes(o.status)).length;
+      const b = document.createElement('button'); b.type = 'button'; b.className = k === filter ? 'on' : '';
+      b.append(k[0].toUpperCase() + k.slice(1)); const i = document.createElement('i'); i.textContent = n; b.append(i);
+      b.onclick = () => { filter = k; render(); }; chips.append(b);
+    });
+    const list = $('olist'); list.textContent = '';
+    const shown = orders.filter(o => !FILTERS[filter] || FILTERS[filter].includes(o.status));
+    $('aEmpty').hidden = shown.length > 0;
+    shown.forEach(o => list.append(card(o)));
+  }
+
+  function txt(tag, cls, t){ const e = document.createElement(tag); if(cls) e.className = cls; if(t != null) e.textContent = t; return e; }
+  function card(o){
+    const c = txt('article', 'oc'); c.dataset.st = o.status;
+    const r1 = txt('div', 'r1'); r1.append(txt('span', 'code', o.code), txt('span', 'pill', (STEPS[o.status]||{}).t || o.status)); c.append(r1);
+    const who = txt('div', 'who'); who.append(txt('b', '', o.name || o.first_name || ''), ' · ');
+    if(o.phone){ const a = txt('a', '', o.phone); a.href = 'https://wa.me/' + (o.phone.length === 10 ? '91' + o.phone : o.phone) + '?text=' + encodeURIComponent('Hi ' + (o.name||'').split(' ')[0] + ', this is Shubhi\'s Bake A Wish about your order ' + o.code + '.'); a.target = '_blank'; a.rel = 'noopener'; who.append(a); }
+    c.append(who);
+    const when = txt('div', 'when');
+    when.textContent = (o.fulfilment === 'delivery' ? 'Delivery' : 'Pickup') + ' · ' + new Date(o.wanted_date + 'T00:00').toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'}) + (o.wanted_time ? ' at ' + o.wanted_time : '') +
+      (o.address ? ' · ' + o.address : '') + ' · placed ' + new Date(o.created_at).toLocaleString('en-IN', {day:'numeric', month:'short', hour:'numeric', minute:'2-digit'});
+    c.append(when);
+    const ul = txt('ul');
+    (o.items||[]).forEach(l => { const li = txt('li'); li.append(txt('span', '', l.qty + ' × ' + l.name), txt('span', '', l.unit_paise == null ? 'on request' : S.rupees(l.unit_paise*l.qty/100))); ul.append(li); });
+    c.append(ul, txt('div', 'tot', S.rupees(o.total_paise/100) + (o.has_on_request ? ' + on request' : '')));
+    if(o.note) c.append(txt('div', 'note', o.note));
+    const act = txt('div', 'act');
+    const sel = document.createElement('select'); sel.setAttribute('aria-label', 'Status for ' + o.code);
+    Object.keys(STEPS).forEach(s => { const op = document.createElement('option'); op.value = s; op.textContent = STEPS[s].t; if(s === o.status) op.selected = true; sel.append(op); });
+    const save = txt('button', 'btn btn-solid', 'Save'); save.type = 'button';
+    const msg = document.createElement('input'); msg.placeholder = 'Message the customer sees on tracking (optional)'; msg.value = o.message || ''; msg.maxLength = 300;
+    const doSave = async (status) => { save.disabled = true; try{ await S.API.staffUpdate(token, o.code, status, msg.value.trim()); S.toast(o.code + ' updated'); await load(); }catch(ex){ S.toast(ex.message); if(ex.expired) load(); } save.disabled = false; };
+    save.onclick = () => doSave(sel.value);
+    act.append(sel, save, msg);
+    const path = FLOW.filter(s => s !== (o.fulfilment === 'delivery' ? 'ready' : 'out_for_delivery'));
+    const i = path.indexOf(o.status);
+    if(i >= 0 && i < path.length - 1){ const nx = txt('button', 'btn btn-outline next', 'Move to: ' + STEPS[path[i+1]].t); nx.type = 'button'; nx.onclick = () => doSave(path[i+1]); act.append(nx); }
+    c.append(act);
+    return c;
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -35,6 +35,41 @@
   @media(max-width:760px){ .love-grid{grid-template-columns:1fr;} }
   .findus{background:var(--cream);}
   .map-card .dusk{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.38; mix-blend-mode:luminosity;}
+  .checkout{display:flex; flex-direction:column;}
+  .co-top{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .co-basket{border:1px solid var(--line); border-radius:8px; padding:6px 16px 14px; margin-bottom:24px; background:var(--cream-soft);}
+  .co-basket ul{list-style:none; margin:0; padding:0;}
+  .co-basket li{display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line);}
+  .co-basket li img{width:44px; height:44px; border-radius:6px; object-fit:cover;}
+  .co-basket li b{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.08rem; display:block; line-height:1.1;}
+  .co-basket li small{font-size:.7rem; color:var(--ink-soft);}
+  .co-basket li .p{font-family:'Cormorant Garamond',serif; color:var(--terracotta-deep); font-size:1.05rem;}
+  .co-empty{padding:14px 0 6px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; color:var(--ink-soft);}
+  .co-sum{display:flex; justify-content:space-between; align-items:baseline; padding-top:12px;}
+  .co-sum span{font-size:.66rem; letter-spacing:.2em; text-transform:uppercase;}
+  .co-sum b{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:1.7rem; font-variant-numeric:tabular-nums;}
+  .co-fine{font-size:.74rem; color:var(--ink-soft); line-height:1.55; margin-top:4px;}
+  .co-seg{border:none; padding:0; margin:0 0 22px; display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .co-seg legend{font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-soft); margin-bottom:10px;}
+  .co-seg label{cursor:pointer;}
+  .co-seg input{position:absolute; opacity:0; pointer-events:none;}
+  .co-seg span{display:block; text-align:center; padding:12px 10px; border:1px solid var(--line); border-radius:40px; font-size:.78rem; transition:all .3s;}
+  .co-seg input:checked + span{background:var(--ink); color:var(--cream-soft); border-color:var(--ink);}
+  .co-seg input:focus-visible + span{outline:2px solid var(--terracotta); outline-offset:2px;}
+  .field select{cursor:pointer;}
+  .co-legal{font-size:.7rem; color:var(--ink-soft); text-align:center; margin-top:12px; line-height:1.5;}
+  #coBtn[disabled]{opacity:.55; pointer-events:none;}
+  .co-done{position:absolute; inset:0; background:var(--cream); padding:44px; display:flex; flex-direction:column; justify-content:center; gap:10px; overflow:auto;}
+  .co-done .script{font-size:2.2rem; color:var(--terracotta-deep);}
+  .co-done h3{font-size:2.2rem; margin:0 0 8px;}
+  .co-done > p.lbl{font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);}
+  .co-code{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .co-code b{font-family:'Italiana',serif; font-weight:400; font-size:clamp(2rem,4vw,2.8rem); letter-spacing:.06em; color:var(--ink); user-select:all;}
+  .co-copy{font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; padding:8px 14px; border:1px solid var(--line); border-radius:30px;}
+  .co-done .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+  .co-done .btn{padding:14px 22px;}
+  .co-again{align-self:flex-start; margin-top:10px; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--terracotta-deep); border-bottom:1px solid currentColor; padding-bottom:2px;}
+  @media(max-width:620px){ .co-done{padding:28px 22px;} .order-form{padding:28px 20px;} }
 </style>
 </head>
 <body class="dark-top">
@@ -52,7 +87,7 @@
     <a href="menu.html">Menu</a>
     <a href="cafe.html">The Café</a>
     <a href="cafe.html#workshops">Workshops</a>
-    <a href="visit.html#reviews">Reviews</a>
+    <a href="track.html">Track order</a>
     <a href="visit.html#order" class="nav-cta current">Order Now</a>
   </nav>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -81,10 +116,10 @@
     <div class="order-copy">
       <span class="eyebrow">Get in touch</span>
       <h2 data-lines style="margin:18px 0 24px;">
-        <span class="ln"><span>Wishes go straight</span></span>
-        <span class="ln"><span>to <em>the kitchen.</em></span></span>
+        <span class="ln"><span>Your order,</span></span>
+        <span class="ln"><span>straight to <em>the oven.</em></span></span>
       </h2>
-      <p class="fade-up">Fill in the form and we'll turn it into a WhatsApp message to the café — you check it, you send it. Orders and questions are answered there.</p>
+      <p class="fade-up">Order straight from the menu — pick up at the café or have it delivered. You'll get an order code to track every step, from the oven to your door.</p>
       <div class="order-detail fade-up">
         <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
         <div><b>Order &amp; enquiries</b><span class="sel">+91 91984 53309</span></div>
@@ -97,33 +132,59 @@
         <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
         <div><b>Café timings</b><span>Message us for today's timings</span></div>
       </div>
+      <div class="order-detail fade-up">
+        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16v12H4z"/><path d="M8 8c0-2 1.5-4 4-4s4 2 4 4"/></svg></div>
+        <div><b>Something not on the menu?</b><span>Custom cakes &amp; hampers — <a href="https://wa.me/919198453309" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">message on WhatsApp</a></span></div>
+      </div>
+      <a href="track.html" class="btn btn-outline fade-up" data-hover style="margin-top:12px;">Track an existing order</a>
     </div>
 
-    <form class="order-form fade-up" id="wishForm" novalidate>
-      <span class="script">Shubhi's</span>
-      <h3>Place a Wish Order</h3>
-      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="Full name" autocomplete="name" required></div>
-      <div class="field-row">
-        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="+91" autocomplete="tel" required></div>
-        <div class="field"><label for="f-date">Date needed</label><input id="f-date" name="date" type="date"></div>
-      </div>
-      <div class="field"><label for="f-what">What would you like?</label>
-        <select id="f-what" name="what"><option>Celebration cake</option><option>Millet range</option><option>Desserts &amp; slices</option><option>Savouries</option><option>Festive / gifting hamper</option><option>Café table</option><option>Baking workshop</option></select>
-      </div>
-      <div class="field"><label for="f-note">A little note</label><textarea id="f-note" name="note" rows="3" placeholder="Flavour, size, occasion, message on the cake…"></textarea></div>
-      <p class="form-err" id="formErr" role="alert"></p>
-      <button type="submit" class="btn btn-solid" data-hover>Prepare my wish →</button>
+    <form class="order-form checkout fade-up" id="checkout" novalidate>
+      <div class="co-top"><span class="script">Shubhi's</span><span class="demo-flag" id="demoFlag" hidden>Demo mode · orders stay in this browser</span></div>
+      <h3>Checkout</h3>
 
-      <div class="form-done" id="formDone" hidden>
-        <span class="script">Almost there</span>
-        <h3>Your wish is ready to send.</h3>
-        <pre id="wishText"></pre>
-        <div class="row">
-          <a class="btn btn-solid" id="waLink" href="https://wa.me/919198453309" target="_blank" rel="noopener">Open in WhatsApp</a>
-          <button type="button" class="btn btn-outline" id="copyWish">Copy message</button>
+      <div class="co-basket" id="coBasket">
+        <ul id="coLines"></ul>
+        <div class="co-empty" id="coEmpty" hidden>
+          <p>Your basket is empty.</p>
+          <a href="menu.html" class="btn btn-outline">Choose from the menu</a>
         </div>
-        <small>Nothing is sent until you press send in WhatsApp. If the button doesn't open, copy the message and send it to +91 91984 53309.</small>
-        <button type="button" id="editWish" style="align-self:flex-start; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--terracotta-deep); border-bottom:1px solid currentColor; padding:0 0 2px;">← Edit the wish</button>
+        <div class="co-sum" id="coSum"><span>Total</span><b id="coTotal">₹0</b></div>
+        <p class="co-fine" id="coFine"></p>
+      </div>
+
+      <fieldset class="co-seg" id="coFul">
+        <legend>How would you like it?</legend>
+        <label><input type="radio" name="ful" value="pickup" checked><span>Pick up at the café</span></label>
+        <label><input type="radio" name="ful" value="delivery"><span>Deliver to me</span></label>
+      </fieldset>
+
+      <div class="field"><label for="c-name">Your name</label><input id="c-name" type="text" autocomplete="name" placeholder="Full name" required></div>
+      <div class="field-row">
+        <div class="field"><label for="c-phone">Phone (WhatsApp)</label><input id="c-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="98765 43210" required></div>
+        <div class="field"><label for="c-date">Date</label><input id="c-date" type="date" required></div>
+      </div>
+      <div class="field" id="addrField" hidden><label for="c-addr">Delivery address</label><textarea id="c-addr" rows="2" autocomplete="street-address" placeholder="House, street, area — Prayagraj"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label for="c-time">Preferred time</label><input id="c-time" type="time"></div>
+        <div class="field"><label for="c-pay">Payment</label><select id="c-pay"><option>Pay at pickup / on delivery</option><option>UPI after the café confirms</option></select></div>
+      </div>
+      <div class="field"><label for="c-note">A little note</label><textarea id="c-note" rows="2" placeholder="Message on the cake, allergies, occasion…"></textarea></div>
+      <p class="form-err" id="coErr" role="alert"></p>
+      <button type="submit" class="btn btn-solid" id="coBtn" data-hover>Place order</button>
+      <p class="co-legal">The café confirms every order, its time and any delivery charge on WhatsApp before baking.</p>
+
+      <div class="co-done" id="coDone" hidden>
+        <span class="script">wish received —</span>
+        <h3>Order placed!</h3>
+        <p class="lbl">Your order code</p>
+        <div class="co-code"><b id="doneCode">SBW-XXXXXX</b><button type="button" id="copyCode" class="co-copy">Copy</button></div>
+        <p class="co-fine" id="doneNote"></p>
+        <div class="row">
+          <a class="btn btn-solid" id="doneTrack" href="track.html">Track my order</a>
+          <a class="btn btn-outline" id="doneWa" href="https://wa.me/919198453309" target="_blank" rel="noopener">Tell the café on WhatsApp</a>
+        </div>
+        <button type="button" id="newOrder" class="co-again">Start a new order</button>
       </div>
     </form>
   </div>
@@ -205,7 +266,7 @@
       <div class="foot-cols">
         <div class="foot-col">
           <h4>Explore</h4>
-          <a href="story.html">Our Story</a><a href="menu.html">Menu</a><a href="cafe.html">The Café</a><a href="cafe.html#workshops">Workshops</a>
+          <a href="story.html">Our Story</a><a href="menu.html">Menu</a><a href="cafe.html">The Café</a><a href="cafe.html#workshops">Workshops</a><a href="track.html">Track an order</a>
         </div>
         <div class="foot-col">
           <h4>Connect</h4>
@@ -227,37 +288,84 @@
   </div>
 </footer>
 
-<script>
-/* order form → a WhatsApp message the visitor reviews and sends themselves */
-(function(){
-  const form = document.getElementById('wishForm');
-  if(!form) return;
-  const done = document.getElementById('formDone'), err = document.getElementById('formErr');
-  const out = document.getElementById('wishText'), wa = document.getElementById('waLink');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const v = id => (document.getElementById(id).value || '').trim();
-    if(!v('f-name') || !v('f-phone')){ err.textContent = 'Add your name and phone number so the café can reply.'; return; }
-    err.textContent = '';
-    const date = v('f-date') ? new Date(v('f-date') + 'T00:00').toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}) : 'Flexible';
-    const msg = `Hi Shubhi's Bake A Wish! I'd like to place a wish order.\n\nName: ${v('f-name')}\nPhone: ${v('f-phone')}\nFor: ${v('f-what')}\nDate needed: ${date}` + (v('f-note') ? `\nNote: ${v('f-note')}` : '');
-    out.textContent = msg;
-    wa.href = 'https://wa.me/919198453309?text=' + encodeURIComponent(msg);
-    done.hidden = false;
-    if(window.gsap) gsap.fromTo(done, {opacity:0, y:20}, {opacity:1, y:0, duration:.6, ease:'power3.out'});
-  });
-  document.getElementById('editWish').addEventListener('click', () => { done.hidden = true; });
-  document.getElementById('copyWish').addEventListener('click', e => {
-    const btn = e.currentTarget, text = out.textContent;
-    const ok = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy message', 1800); };
-    const fallback = () => { const r = document.createRange(); r.selectNodeContents(out); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected — press copy'; };
-    try { navigator.clipboard.writeText(text).then(ok, fallback); } catch(_) { fallback(); }
-  });
-})();
-</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/order.js"></script>
+<script>
+(function(){
+  const S = window.SBW; if(!S) return;
+  const $ = id => document.getElementById(id);
+  const form = $('checkout'), err = $('coErr'), btn = $('coBtn');
+  if(!S.API.live) $('demoFlag').hidden = false;
+
+  /* earliest date = today in India */
+  const today = new Date(Date.now() + 5.5*3600e3).toISOString().slice(0,10);
+  $('c-date').min = today; if(!$('c-date').value) $('c-date').value = today;
+  const max = new Date(Date.now() + 5.5*3600e3 + 60*864e5).toISOString().slice(0,10); $('c-date').max = max;
+
+  /* remember the visitor's details on this device */
+  const saved = (()=>{ try{ return JSON.parse(localStorage.getItem('sbw-details')||'{}'); }catch(_){ return {}; } })();
+  ['name','phone','addr'].forEach(k => { if(saved[k]) $('c-'+k).value = saved[k]; });
+
+  const render = () => {
+    const items = S.Basket.items(), ul = $('coLines'); ul.textContent = '';
+    items.forEach(l => {
+      const m = S.CATALOGUE[l.slug], li = document.createElement('li');
+      const img = document.createElement('img'); img.src = 'assets/' + l.slug + '.jpg'; img.alt = '';
+      const mid = document.createElement('div'); const b = document.createElement('b'); b.textContent = m.name;
+      const sm = document.createElement('small'); sm.textContent = l.qty + ' × ' + (m.price == null ? 'price on request' : S.rupees(m.price)); mid.append(b, sm);
+      const p = document.createElement('span'); p.className = 'p'; p.textContent = m.price == null ? '—' : S.rupees(m.price * l.qty);
+      li.append(img, mid, p); ul.append(li);
+    });
+    $('coEmpty').hidden = items.length > 0; $('coSum').hidden = !items.length;
+    $('coTotal').textContent = S.rupees(S.Basket.total());
+    $('coFine').textContent = !items.length ? '' : (S.Basket.hasOnRequest() ? 'Includes an item priced on request — the café confirms its price.' : 'Delivery charges, if any, are confirmed by the café.');
+    btn.disabled = !items.length;
+    const edit = document.createElement('li'); edit.style.cssText = 'display:block;border:none;padding:8px 0 0';
+    if(items.length){ const a = document.createElement('button'); a.type = 'button'; a.textContent = 'Edit basket'; a.className = 'co-copy'; a.onclick = () => S.openBasket && S.openBasket(); edit.append(a); ul.append(edit); }
+  };
+  S.onChange(render); render();
+
+  form.querySelectorAll('input[name=ful]').forEach(r => r.addEventListener('change', () => { $('addrField').hidden = form.ful.value !== 'delivery'; }));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault(); err.textContent = '';
+    const f = { name:$('c-name').value, phone:$('c-phone').value, fulfilment:form.ful.value, address:$('c-addr').value,
+      date:$('c-date').value, time:$('c-time').value, note:[$('c-note').value.trim(), 'Payment: ' + $('c-pay').value].filter(Boolean).join(' · ') };
+    const phone = f.phone.replace(/\D/g,'');
+    if(f.name.trim().length < 2){ err.textContent = 'Add your name so the café knows who the order is for.'; $('c-name').focus(); return; }
+    if(!/^[0-9]{10,13}$/.test(phone)){ err.textContent = 'Add a 10-digit phone number — the café confirms on WhatsApp.'; $('c-phone').focus(); return; }
+    if(f.fulfilment === 'delivery' && f.address.trim().length < 8){ err.textContent = 'Add a delivery address, or choose pickup.'; $('c-addr').focus(); return; }
+    if(!f.date){ err.textContent = 'Choose the date you need it.'; return; }
+    btn.disabled = true; btn.textContent = 'Placing your order…';
+    try{
+      const items = S.Basket.items();
+      const res = await S.API.placeOrder({...f, phone});
+      try{ localStorage.setItem('sbw-details', JSON.stringify({name:f.name.trim(), phone:f.phone.trim(), addr:f.address.trim()})); }catch(_){}
+      S.API.rememberOrder(res.code, phone.slice(-4));
+      $('doneCode').textContent = res.code;
+      $('doneNote').textContent = (res.hasOnRequest ? 'Total so far ' + S.rupees(res.total) + ' plus the item priced on request.' : 'Total ' + S.rupees(res.total) + '.') +
+        ' To track it, use this code and the last 4 digits of your phone (' + phone.slice(-4) + ').' + (S.API.live ? '' : ' Demo mode: this order is not sent to the café.');
+      $('doneTrack').href = 'track.html#' + res.code;
+      const lines = items.map(l => l.qty + ' × ' + S.CATALOGUE[l.slug].name).join(', ');
+      $('doneWa').href = 'https://wa.me/' + ((window.SBW_CONFIG||{}).whatsapp || '919198453309') + '?text=' + encodeURIComponent('Hi Shubhi\'s Bake A Wish! I just placed order ' + res.code + ' on the website: ' + lines + '.');
+      S.Basket.clear();
+      $('coDone').hidden = false;
+      $('checkout').scrollIntoView({block:'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+      if(window.gsap) gsap.fromTo('#coDone', {opacity:0, y:24}, {opacity:1, y:0, duration:.7, ease:'expo.out'});
+    }catch(ex){ err.textContent = ex.message || 'Something went wrong — please try again.'; }
+    finally{ btn.disabled = !S.Basket.items().length; btn.textContent = 'Place order'; }
+  });
+  $('copyCode').addEventListener('click', e => {
+    const b = e.currentTarget, t = $('doneCode').textContent;
+    try{ navigator.clipboard.writeText(t).then(() => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1600); }, () => { b.textContent = 'Select & copy'; }); }catch(_){ b.textContent = 'Select & copy'; }
+  });
+  $('newOrder').addEventListener('click', () => { $('coDone').hidden = true; });
+})();
+</script>
 </body>
 </html>
