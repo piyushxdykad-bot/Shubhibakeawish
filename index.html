@@ -5,8 +5,142 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+/* ===== "Make a wish" hero ===== */
+.wh{
+  --gl:max(6vw, env(safe-area-inset-left,0px));
+  --gr:max(6vw, env(safe-area-inset-right,0px));
+  position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden;
+  background:var(--ink); color:var(--cream-soft); isolation:isolate;
+}
+.wh canvas{position:absolute; inset:0; width:100%; height:100%; display:block;}
+.wh-video{z-index:0;}
+.wh-shade{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+  background:
+    linear-gradient(90deg, rgba(18,12,7,.78) 0%, rgba(18,12,7,.42) 42%, rgba(18,12,7,0) 72%),
+    linear-gradient(0deg, rgba(18,12,7,.82) 0%, rgba(18,12,7,0) 46%),
+    linear-gradient(180deg, rgba(18,12,7,.5) 0%, rgba(18,12,7,0) 20%);
+}
+.wh-motes{z-index:2; pointer-events:none;}
+.wh-mask{z-index:5; pointer-events:none;}
+
+/* intro printed on the cream page */
+.wh-intro{position:absolute; inset:0; z-index:6; pointer-events:none; color:var(--ink);}
+.wh-corner{
+  position:absolute; font-family:'Jost',sans-serif; font-size:.66rem; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.wh-corner.tl{left:var(--gl); top:clamp(92px,13vh,120px);}
+.wh-corner.tr{right:var(--gr); top:clamp(92px,13vh,120px);}
+.wh-corner.bl{left:var(--gl); bottom:clamp(22px,4vh,40px);}
+.wh-corner.br{right:var(--gr); bottom:clamp(22px,4vh,40px);}
+.wh-script{
+  position:absolute; left:0; right:0; text-align:center;
+  top:var(--word-top, 30%); transform:translateY(-82%);
+  font-family:'Mrs Saint Delafield',cursive; font-size:clamp(3rem,7vw,6.2rem); line-height:1;
+  color:var(--terracotta-deep);
+}
+.wh-script span{display:inline-block; clip-path:inset(0 100% 0 0); padding:0 .2em;}
+.wh-under{
+  position:absolute; left:0; right:0; top:var(--word-bottom, 70%);
+  display:flex; flex-direction:column; align-items:center; gap:14px; padding-top:clamp(14px,2.4vh,26px);
+}
+.wh-tag{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.05rem,1.6vw,1.4rem); color:var(--ink-soft);}
+.wh-cue{display:inline-flex; align-items:center; gap:12px; font-family:'Jost',sans-serif; font-size:.64rem; letter-spacing:.32em; text-transform:uppercase; color:var(--terracotta-deep);}
+.wh-cue i{display:block; width:42px; height:1px; background:currentColor; transform-origin:left; animation:whCue 2.2s cubic-bezier(.7,0,.2,1) infinite;}
+@keyframes whCue{0%{transform:scaleX(0)}50%{transform:scaleX(1); transform-origin:left}50.01%{transform-origin:right}100%{transform:scaleX(0); transform-origin:right}}
+
+/* chapters */
+.wh-chapters{
+  position:absolute; z-index:4; left:var(--gl); top:clamp(96px,14vh,128px);
+  list-style:none; margin:0; padding:0; display:flex; gap:26px; opacity:0;
+  font-family:'Jost',sans-serif; font-size:.62rem; letter-spacing:.24em; text-transform:uppercase;
+}
+.wh-chapters li{color:rgba(247,236,217,.42); display:flex; align-items:baseline; gap:8px; transition:color .5s;}
+.wh-chapters li b{font-family:'Cormorant Garamond',serif; font-size:1.05rem; letter-spacing:0; font-weight:500;}
+.wh-chapters li.on{color:var(--gold-light);}
+
+/* seal */
+.wh-ring{
+  position:absolute; z-index:4; right:var(--gr); top:50%; width:clamp(130px,12vw,176px); aspect-ratio:1; max-width:100%;
+  margin-top:calc(clamp(130px,12vw,176px) / -2); opacity:0;
+}
+.wh-ring svg{width:100%; height:100%; animation:whSpin 26s linear infinite; overflow:visible;}
+.wh-ring text{font-family:'Jost',sans-serif; font-size:11.2px; letter-spacing:.32em; fill:var(--cream-soft);}
+.wh-ring-core{
+  position:absolute; inset:24%; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:rgba(247,236,217,.1); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(227,199,136,.35);
+}
+.wh-ring-core b{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.5rem,2.2vw,2rem); color:var(--gold-light); line-height:1;}
+.wh-ring-core span{font-family:'Jost',sans-serif; font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(247,236,217,.8); margin-top:4px;}
+@keyframes whSpin{to{transform:rotate(360deg)}}
+
+/* badge */
+.wh-badge{
+  position:absolute; z-index:4; right:var(--gr); top:clamp(92px,13vh,120px);
+  display:inline-flex; align-items:center; gap:10px; padding:.6rem 1.05rem .6rem .85rem; border-radius:999px;
+  background:rgba(247,236,217,.12); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(247,236,217,.28); color:var(--cream-soft);
+  font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; opacity:0;
+}
+.wh-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--gold-light); box-shadow:0 0 12px 3px rgba(227,199,136,.7); animation:whPulse 2s ease-in-out infinite;}
+@keyframes whPulse{50%{box-shadow:0 0 4px 1px rgba(227,199,136,.4)}}
+
+/* content */
+.wh-content{
+  position:absolute; z-index:4; left:var(--gl); right:var(--gr); bottom:clamp(40px,7vh,76px);
+}
+.wh-eyebrow{
+  display:flex; align-items:center; gap:14px; margin:0 0 clamp(14px,2.2vh,24px);
+  font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-light);
+}
+.wh-eyebrow .rule{width:38px; height:1px; background:currentColor;}
+.wh-title{
+  margin:0; font-family:'Cormorant Garamond',serif; font-weight:500; color:var(--cream-soft);
+  font-size:clamp(2.7rem,7.2vw,7rem); line-height:.95; letter-spacing:-.015em; text-wrap:balance;
+}
+.wh-title .ln{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em;}
+.wh-title .ln > span{display:inline-block; will-change:transform;}
+.wh-title em{font-family:'Mrs Saint Delafield',cursive; font-style:normal; font-weight:400; color:var(--gold-light); font-size:1.18em; letter-spacing:0; padding-right:.06em;}
+.wh-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px 48px; flex-wrap:wrap; margin-top:clamp(18px,3vh,32px);}
+.wh-sub{margin:0; max-width:44ch; min-width:0; font-size:clamp(.92rem,1.1vw,1.04rem); line-height:1.7; color:rgba(247,236,217,.86);}
+.wh .hero-ctas{margin-top:0;}
+.wh .btn-outline{border-color:rgba(247,236,217,.6); color:var(--cream-soft);}
+.wh .btn-outline:hover{background:var(--cream-soft); color:var(--ink);}
+.wh-meta{
+  display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:18px; margin-top:clamp(22px,4vh,42px);
+  padding-top:clamp(16px,2.4vh,24px); border-top:1px solid rgba(247,236,217,.2); max-width:780px;
+}
+.wh-meta .m b{display:block; font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.3rem,2vw,1.7rem); color:var(--gold-light); font-variant-numeric:tabular-nums;}
+.wh-meta .m span{font-family:'Jost',sans-serif; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(247,236,217,.72);}
+
+/* progress */
+.wh-bar{position:absolute; z-index:7; left:0; right:0; bottom:0; height:2px; background:rgba(247,236,217,.08);}
+.wh-bar span{display:block; height:100%; width:100%; background:linear-gradient(90deg, var(--terracotta), var(--gold-light)); transform:scaleX(0); transform-origin:left;}
+
+@media (max-width:860px){
+  .wh-ring, .wh-chapters{display:none;}
+  .wh-corner.tr, .wh-corner.br{display:none;}
+  .wh-meta{grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px 18px;}
+  .wh-row{gap:18px;}
+  .wh-sub{font-size:.9rem; line-height:1.6;}
+  .wh .hero-ctas .btn{padding:14px 24px;}
+}
+@media (max-width:520px){
+  .wh-sub{display:none;}
+  .wh-corner.tl{font-size:.56rem; letter-spacing:.2em;}
+}
+
+/* reduced motion: a composed still, not a broken animation */
+.wh.still .wh-mask, .wh.still .wh-intro, .wh.still .wh-motes{display:none;}
+.wh.still .wh-shade, .wh.still .wh-badge, .wh.still .wh-ring, .wh.still .wh-chapters{opacity:1;}
+body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);}
+</style>
+
 
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
@@ -33,37 +167,67 @@
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="home">
-  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-  <div class="hero-scrim"></div>
+<!-- ============ HERO : "Make a wish" — fly through the word into the café ============ -->
+<section class="wh" id="home" aria-label="Shubhi's Bake A Wish — home bakery &amp; garden café">
+  <canvas class="wh-video" id="whVideo" aria-hidden="true"></canvas>
+  <div class="wh-shade" id="whShade"></div>
+  <canvas class="wh-motes" id="whMotes" aria-hidden="true"></canvas>
+  <canvas class="wh-mask" id="whMask" aria-hidden="true"></canvas>
 
-  <div class="hero-badge" id="heroBadge"><span class="dot"></span><span id="heroBadgeText">100% Organic</span></div>
-
-  <div class="wrap">
-    <div class="hero-top-row">
-      <h1 id="heroHeading">
-        <span class="line"><span>Baked with</span></span>
-        <span class="line"><span>heart, <span class="script-word">a wish</span></span></span>
-        <span class="line"><span>at a time.</span></span>
-      </h1>
-      <p class="hero-sub reveal">Shubhi's Bake A Wish is a home bakery &amp; garden café in Prayagraj — organic, preservative‑free handbaking of cakes, cookies, breads &amp; tarts, served with a side of calm.</p>
+  <!-- intro: printed on the cream page around the cut-out word -->
+  <div class="wh-intro" id="whIntro" aria-hidden="true">
+    <div class="wh-corner tl ic">Organic · Preservative‑free · Zero‑waste</div>
+    <div class="wh-corner tr ic">Prayagraj, Uttar Pradesh</div>
+    <div class="wh-script ic" id="whScript"><span>Shubhi's</span></div>
+    <div class="wh-under ic">
+      <span class="wh-tag">Home bakery &amp; garden café</span>
+      <span class="wh-cue"><i></i>Scroll to step inside</span>
     </div>
+    <div class="wh-corner bl ic">Est. in a home kitchen</div>
+    <div class="wh-corner br ic">@shubhisbakeawish</div>
+  </div>
 
-    <div class="hero-meta">
-      <div class="item reveal"><b>655+</b><span>Bakes Shared</span></div>
-      <div class="item reveal"><b>3.8K+</b><span>Happy Wishers</span></div>
-      <div class="item reveal"><b>0%</b><span>Preservatives</span></div>
-      <div class="item reveal"><b>Prayagraj</b><span>Home &amp; Café</span></div>
+  <!-- chapters: the three real stages of the scroll -->
+  <ol class="wh-chapters" id="whChapters" aria-hidden="true">
+    <li class="on"><b>I</b>Make a wish</li>
+    <li><b>II</b>Step inside</li>
+    <li><b>III</b>Take a seat</li>
+  </ol>
+
+  <!-- rotating seal -->
+  <div class="wh-ring" id="whRing" aria-hidden="true">
+    <svg viewBox="0 0 200 200">
+      <defs><path id="whCircle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+      <text id="whRingText"><textPath href="#whCircle">HANDBAKED DAILY · ORGANIC · ZERO WASTE · </textPath></text>
+    </svg>
+    <div class="wh-ring-core"><b>0%</b><span>preservatives</span></div>
+  </div>
+
+  <div class="wh-badge" id="whBadge"><span class="dot"></span><span id="whBadgeText">100% Organic</span></div>
+
+  <!-- revealed over the film -->
+  <div class="wh-content" id="whContent">
+    <p class="wh-eyebrow"><span class="rule"></span>Home bakery &amp; garden café · Prayagraj</p>
+    <h1 class="wh-title">
+      <span class="ln"><span>Baked with heart,</span></span>
+      <span class="ln"><span><em>a wish</em> at a time.</span></span>
+    </h1>
+    <div class="wh-row">
+      <p class="wh-sub">Cakes, cookies, breads &amp; tarts — handbaked with organic, preservative‑free love, and served under the vines with a side of calm.</p>
+      <div class="hero-ctas">
+        <a href="visit.html#order" class="btn btn-solid" data-hover>Order on WhatsApp</a>
+        <a href="menu.html" class="btn btn-outline" data-hover>Explore the Menu</a>
+      </div>
     </div>
-
-    <div class="hero-ctas">
-      <a href="visit.html#order" class="btn btn-solid" data-hover>Order on WhatsApp</a>
-      <a href="menu.html" class="btn btn-outline" data-hover>Explore the Menu</a>
+    <div class="wh-meta" id="whMeta">
+      <div class="m"><b data-to="655" data-suf="+">0</b><span>Bakes shared</span></div>
+      <div class="m"><b data-to="3.8" data-suf="K+">0</b><span>Happy wishers</span></div>
+      <div class="m"><b data-to="27" data-suf="">0</b><span>Bakes on the menu</span></div>
+      <div class="m"><b>Prayagraj</b><span>Home &amp; café</span></div>
     </div>
   </div>
 
-  <div class="scroll-cue"><span>Scroll</span><div class="stick"></div></div>
+  <div class="wh-bar"><span id="whBar"></span></div>
 </section>
 
 <!-- ============ MARQUEE ============ -->
@@ -216,116 +380,274 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="assets/site.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-/* hero: scroll-scrubbed cinematic frame sequence + second scroll moment */
+/* ============ "Make a wish" hero ============ */
 (function(){
-  const canvas = document.getElementById('heroCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const TOTAL = 63;
-  const frames = [];
-  let current = 0;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.getElementById('home');
+  if(!hero) return;
+  const vC = document.getElementById('whVideo'), vX = vC.getContext('2d');
+  const mC = document.getElementById('whMask'),  mX = mC.getContext('2d');
+  const pC = document.getElementById('whMotes'), pX = pC.getContext('2d');
+  const intro = document.getElementById('whIntro');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function pad(n){ return String(n).padStart(3,'0'); }
+  const TOTAL = 63, frames = [];
+  const FONT = '"Playfair Display", "Bodoni Moda", Didot, Georgia, serif';
+  const st = { zoom:0, prog:0, mx:0, my:0, tmx:0, tmy:0 };
+  const geo = {};
+  let W = 0, H = 0, DPR = 1, frame = 0, grain = null, maskShown = true;
 
-  function draw(i){
-    const img = frames[i];
-    if(!img || !img.complete || !img.naturalWidth) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cw = canvas.clientWidth * dpr, ch = canvas.clientHeight * dpr;
-    if(canvas.width !== cw) canvas.width = cw;
-    if(canvas.height !== ch) canvas.height = ch;
-    const iw = img.naturalWidth, ih = img.naturalHeight;
-    const scale = Math.max(cw/iw, ch/ih);
-    const dw = iw*scale, dh = ih*scale;
-    const dx = (cw-dw)/2, dy = (ch-dh)/2;
-    ctx.clearRect(0,0,cw,ch);
-    ctx.drawImage(img, dx, dy, dw, dh);
+  /* ---------- paper grain (drawn once) ---------- */
+  function makeGrain(){
+    const g = document.createElement('canvas'); g.width = g.height = 180;
+    const x = g.getContext('2d'), d = x.createImageData(180,180);
+    for(let i=0;i<d.data.length;i+=4){
+      const v = 120 + Math.random()*90;
+      d.data[i]=v; d.data[i+1]=v*0.92; d.data[i+2]=v*0.8; d.data[i+3]=Math.random()<0.5 ? 14 : 0;
+    }
+    x.putImageData(d,0,0);
+    grain = mX.createPattern(g,'repeat');
   }
 
+  /* ---------- geometry of the cut-out word ---------- */
+  function measure(){
+    mX.setTransform(1,0,0,1,0,0);
+    mX.font = `900 100px ${FONT}`;
+    const w100 = mX.measureText('wish').width || 260;
+    const fs = Math.min((W*0.86)/w100*100, H*0.44);
+    mX.font = `900 ${fs}px ${FONT}`;
+    const tw = mX.measureText('wish').width;
+    const ww = mX.measureText('w').width, wi = mX.measureText('wi').width;
+    const asc = mX.measureText('h').actualBoundingBoxAscent || fs*0.74;
+    const xh  = mX.measureText('x').actualBoundingBoxAscent || fs*0.52;
+    const baseline = H*0.53 + asc*0.42;
+    geo.fs = fs; geo.left = W/2 - tw/2; geo.baseline = baseline;
+    geo.fx = geo.left + (ww + wi)/2;          /* centre of the stem of the "i" */
+    geo.fy = baseline - xh*0.42;
+    geo.smax = Math.max(W,H)*2.4 / (fs*0.1);  /* enough zoom for the stem to swallow the screen */
+    intro.style.setProperty('--word-top', (baseline - asc) + 'px');
+    intro.style.setProperty('--word-bottom', (baseline + fs*0.04) + 'px');
+  }
+
+  function size(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = hero.clientWidth; H = hero.clientHeight;
+    [vC, mC, pC].forEach(c => { c.width = Math.round(W*DPR); c.height = Math.round(H*DPR); });
+    if(!grain) makeGrain();
+    measure(); drawVideo(); drawMask();
+  }
+
+  /* ---------- film ---------- */
+  function drawVideo(){
+    const img = frames[frame];
+    if(!img || !img.complete || !img.naturalWidth) return;
+    const cw = vC.width, ch = vC.height;
+    const push = 1 + 0.22*(1 - st.zoom);            /* film settles as we fly through the letter */
+    const s = Math.max(cw/img.naturalWidth, ch/img.naturalHeight) * push;
+    const dw = img.naturalWidth*s, dh = img.naturalHeight*s;
+    vX.drawImage(img, (cw-dw)/2 - st.mx*8*DPR, (ch-dh)/2 - st.my*6*DPR, dw, dh);
+  }
+
+  /* ---------- cream page with the word cut out ---------- */
+  function drawMask(){
+    if(reduce) return;
+    const t = st.zoom;
+    mX.setTransform(DPR,0,0,DPR,0,0);
+    mX.globalCompositeOperation = 'source-over';
+    mX.clearRect(0,0,W,H);
+    if(t >= 0.995){ mC.style.visibility = 'hidden'; maskShown = false; return; }
+    mC.style.visibility = 'visible'; maskShown = true;
+    /* dissolve the paper over the last stretch so the handoff is seamless at any screen ratio */
+    mC.style.opacity = t > 0.82 ? Math.max(0, 1 - (t - 0.82)/0.16).toFixed(3) : '1';
+
+    const g = mX.createRadialGradient(W/2, H*0.46, 0, W/2, H/2, Math.max(W,H)*0.78);
+    g.addColorStop(0, '#fbf5ea'); g.addColorStop(1, '#e9d7b8');
+    mX.fillStyle = g; mX.fillRect(0,0,W,H);
+    if(grain){ mX.fillStyle = grain; mX.fillRect(0,0,W,H); }
+
+    const s  = Math.pow(geo.smax, Math.pow(t, 1.35));
+    const ox = st.mx*16*(1-t), oy = st.my*10*(1-t);
+    mX.save();
+    mX.translate(geo.fx + ox, geo.fy + oy); mX.scale(s, s); mX.translate(-geo.fx, -geo.fy);
+    mX.font = `900 ${geo.fs}px ${FONT}`; mX.textAlign = 'left'; mX.textBaseline = 'alphabetic';
+    /* hairline edge first, then punch the letters out — keeps only the outer half of the line,
+       so overlapping glyph contours (Playfair's "w") never show as stray strokes */
+    mX.lineWidth = 2.6 / s; mX.strokeStyle = 'rgba(156,69,48,.6)'; mX.lineJoin = 'round';
+    mX.strokeText('wish', geo.left, geo.baseline);
+    mX.globalCompositeOperation = 'destination-out';
+    mX.fillStyle = '#000';
+    mX.fillText('wish', geo.left, geo.baseline);
+    mX.restore();
+    mX.globalCompositeOperation = 'source-over';
+  }
+
+  /* ---------- frames ---------- */
+  const pad = n => String(n).padStart(3,'0');
   for(let i=1;i<=TOTAL;i++){
     const img = new Image();
+    img.decoding = 'async';
     img.src = `assets/hero-frames/frame-${pad(i)}.jpg`;
-    if(i===1) img.onload = ()=>draw(0);
+    img.onload = () => { if(i-1 === frame) drawVideo(); };
     frames.push(img);
   }
 
-  window.addEventListener('resize', ()=>draw(current));
-
-  const badge = document.getElementById('heroBadge');
-  const badgeText = document.getElementById('heroBadgeText');
-  const badgeStates = ['100% Organic', 'Zero-Waste Kitchen', 'Preservative-Free', 'Handbaked Daily'];
-  let lastBand = -1;
-
-  if(reduceMotion){
-    const mid = Math.floor(TOTAL/2);
-    const showMid = ()=>{ current = mid; draw(current); };
-    frames[mid].onload = showMid;
-    if(frames[mid].complete) showMid();
-    if(badge){ badge.style.opacity = 1; }
-  } else {
-    ScrollTrigger.create({
-      trigger: '.hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-      onUpdate: self => {
-        const p = self.progress;
-        current = Math.min(TOTAL-1, Math.max(0, Math.floor(p * TOTAL)));
-        draw(current);
-
-        /* second scroll moment: glass badge fades in/out and cycles copy by scroll band */
-        if(badge){
-          const visible = p > 0.18 && p < 0.92;
-          badge.style.opacity = visible ? Math.min(1, (p-0.18)*6, (0.92-p)*6) : 0;
-          const band = Math.min(badgeStates.length-1, Math.floor(p * badgeStates.length));
-          if(band !== lastBand && badgeText){
-            lastBand = band;
-            gsap.to(badgeText, { opacity:0, duration:.18, onComplete:()=>{
-              badgeText.textContent = badgeStates[band];
-              gsap.to(badgeText, { opacity:1, duration:.25 });
-            }});
-          }
-        }
-
-        /* meta + ctas ease back as the scrub nears its end, for a settling, cinematic pullback */
-        const settle = Math.min(1, p / 0.55);
-        gsap.set('.hero-meta', { scale: 1 - settle*0.06, opacity: 1 - settle*0.35 });
-        gsap.set('.hero-ctas', { opacity: 1 - settle*0.5, y: settle*10 });
+  /* ---------- sunlit dust ---------- */
+  let motes = [];
+  function seedMotes(){
+    const n = W < 700 ? 38 : 80;
+    motes = [];
+    for(let i=0;i<n;i++) motes.push(mote(true, false));
+    for(let i=0;i<(W<700?3:7);i++) motes.push(mote(true, true));
+  }
+  function mote(init, bokeh){
+    return {
+      x: Math.random()*W, y: init ? Math.random()*H : H + 40,
+      r: bokeh ? 16 + Math.random()*46 : 0.5 + Math.random()*1.9,
+      vy: -(bokeh ? 0.05 + Math.random()*0.08 : 0.08 + Math.random()*0.32),
+      vx: (Math.random() - 0.5)*0.14, ph: Math.random()*6.28,
+      a: bokeh ? 0.05 + Math.random()*0.07 : 0.3 + Math.random()*0.5, bokeh
+    };
+  }
+  let heroVisible = true;
+  function tick(){
+    st.mx += (st.tmx - st.mx)*0.06; st.my += (st.tmy - st.my)*0.06;
+    if(heroVisible){
+      if(st.zoom < 0.995 || maskShown) drawMask();
+      drawVideo();
+      pX.setTransform(DPR,0,0,DPR,0,0);
+      pX.clearRect(0,0,W,H);
+      pX.globalCompositeOperation = 'lighter';
+      for(const m of motes){
+        m.ph += 0.012; m.x += m.vx + Math.sin(m.ph)*0.16 + st.mx*0.05; m.y += m.vy;
+        if(m.y < -80 || m.x < -80 || m.x > W + 80){ Object.assign(m, mote(false, m.bokeh)); }
+        const tw = m.bokeh ? 1 : 0.55 + 0.45*Math.sin(m.ph*2.3);
+        const gr = pX.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r*(m.bokeh?1:3));
+        gr.addColorStop(0, `rgba(255,222,160,${m.a*tw})`);
+        gr.addColorStop(1, 'rgba(255,222,160,0)');
+        pX.fillStyle = gr;
+        pX.beginPath(); pX.arc(m.x, m.y, m.r*(m.bokeh?1:3), 0, Math.PI*2); pX.fill();
       }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('mousemove', e => {
+    st.tmx = (e.clientX / window.innerWidth - 0.5)*2;
+    st.tmy = (e.clientY / window.innerHeight - 0.5)*2;
+  });
+
+  /* ---------- count-ups ---------- */
+  let counted = false;
+  function countUp(){
+    if(counted) return; counted = true;
+    document.querySelectorAll('#whMeta b[data-to]').forEach(b => {
+      const to = parseFloat(b.dataset.to), suf = b.dataset.suf || '', o = {v:0};
+      gsap.to(o, {v:to, duration:1.6, ease:'power2.out', onUpdate:() => {
+        b.textContent = (to % 1 ? o.v.toFixed(1) : Math.round(o.v)) + suf;
+      }});
     });
   }
-})();
 
-/* preloader + filmic word-by-word headline reveal */
-window.addEventListener('load', () => {
-  const tl = gsap.timeline({ onComplete: () => document.getElementById('preloader').style.display='none' });
-  tl.to('#preloader .script', {opacity:1, duration:.6, ease:'power2.out'})
-    .to('#preloader', {autoAlpha:0, duration:.7, delay:.5, ease:'power2.inOut'})
-    .fromTo('header', {y:-40, opacity:0}, {y:0, opacity:1, duration:.7}, '-=.3')
-    .fromTo('.hero h1 .word', {yPercent:120, opacity:0, filter:'blur(14px)'}, {yPercent:0, opacity:1, filter:'blur(0px)', duration:1.15, stagger:.09, ease:'power4.out'}, '-=.4')
-    .fromTo('.hero-sub, .hero-meta .item, .hero-ctas .btn', {opacity:0, y:30}, {opacity:1, y:0, duration:.9, stagger:.08, ease:'power3.out'}, '-=.7');
-});
+  /* ---------- reduced motion: a composed still ---------- */
+  if(reduce){
+    hero.classList.add('still');
+    document.body.classList.add('wh-still');
+    size();
+    frame = 40;
+    const show = () => drawVideo();
+    frames[frame].complete ? show() : frames[frame].onload = show;
+    document.querySelectorAll('#whMeta b[data-to]').forEach(b => b.textContent = b.dataset.to + (b.dataset.suf||''));
+    window.addEventListener('resize', size);
+    return;
+  }
 
-/* split hero headline into word spans for the filmic reveal above */
-(function(){
-  document.querySelectorAll('.hero h1 .line > span').forEach(lineSpan=>{
-    const html = lineSpan.innerHTML;
-    // preserve the script-word span (e.g. "a wish") as a single atomic word unit
-    const parts = html.split(/(<span class="script-word">.*?<\/span>)/g).filter(Boolean);
-    let out = '';
-    parts.forEach(part=>{
-      if(part.startsWith('<span class="script-word">')){
-        out += `<span class="word" style="display:inline-block;">${part}</span> `;
-      } else {
-        part.split(' ').filter(Boolean).forEach(w=>{
-          out += `<span class="word" style="display:inline-block;">${w}</span> `;
-        });
+  /* ---------- scroll choreography (pinned) ---------- */
+  const chapters = document.querySelectorAll('#whChapters li');
+  const badgeText = document.getElementById('whBadgeText');
+  const badgeStates = ['100% Organic', 'Zero‑waste kitchen', 'Preservative‑free', 'Handbaked daily'];
+  const bar = document.getElementById('whBar');
+  let lastBand = -1, lastCh = -1;
+
+  function onProgress(p){
+    st.prog = p;
+    frame = Math.max(0, Math.min(TOTAL-1, Math.round(((p - 0.02)/0.94) * (TOTAL-1))));
+    bar.style.transform = `scaleX(${p})`;
+    const ch = p < 0.3 ? 0 : p < 0.62 ? 1 : 2;
+    if(ch !== lastCh){ lastCh = ch; chapters.forEach((li,i) => li.classList.toggle('on', i === ch)); }
+    const band = Math.min(badgeStates.length-1, Math.floor(Math.max(0, p - 0.45)/0.12));
+    if(p > 0.45 && band !== lastBand){
+      lastBand = band;
+      gsap.to(badgeText, {opacity:0, duration:.15, onComplete:() => { badgeText.textContent = badgeStates[band]; gsap.to(badgeText, {opacity:1, duration:.25}); }});
+    }
+    if(p > 0.6) countUp();
+  }
+
+  /* fit the seal's words exactly once around its circle */
+  function fitRing(){
+    const t = document.getElementById('whRingText');
+    if(!t || !t.getComputedTextLength) return;
+    t.style.letterSpacing = '0px';
+    const chars = t.textContent.length, C = 2*Math.PI*76;
+    const L = t.getComputedTextLength();
+    t.style.letterSpacing = ((C - L) / chars).toFixed(2) + 'px';
+  }
+
+  function build(){
+    size(); seedMotes(); fitRing();
+    const tl = gsap.timeline({
+      defaults:{ ease:'none' },
+      scrollTrigger:{
+        trigger: hero, start:'top top', end:'+=280%', pin:true, scrub:0.9, anticipatePin:1,
+        refreshPriority: 10,   /* measure the pin first so every reveal further down the page accounts for it */
+        onUpdate: self => onProgress(self.progress)
       }
     });
-    lineSpan.innerHTML = out.trim();
-  });
+    tl.to(st, {zoom:1, duration:.32, ease:'power1.in'}, 0)
+      .to(intro, {opacity:0, filter:'blur(10px)', scale:1.06, duration:.1}, .015)
+      .to('#whShade', {opacity:1, duration:.12}, .2)
+      .to('#whChapters', {opacity:1, duration:.06}, .22)
+      .fromTo('.wh-eyebrow', {opacity:0, y:18}, {opacity:1, y:0, duration:.07}, .33)
+      .fromTo('.wh-title .ln > span', {yPercent:112, rotate:2}, {yPercent:0, rotate:0, duration:.12, stagger:.045, ease:'power3.out'}, .35)
+      .fromTo(['.wh-sub', '.wh .hero-ctas'], {opacity:0, y:26}, {opacity:1, y:0, duration:.09, stagger:.03}, .46)
+      .fromTo('#whBadge', {opacity:0, y:-12}, {opacity:1, y:0, duration:.06}, .45)
+      .fromTo('#whRing', {opacity:0, scale:.7, rotate:-60}, {opacity:1, scale:1, rotate:0, duration:.14, ease:'power2.out'}, .5)
+      .fromTo('#whMeta .m', {opacity:0, y:28}, {opacity:1, y:0, duration:.08, stagger:.025}, .6)
+      .to('#whContent', {y:-18, duration:.1}, .9)
+      .set({}, {}, 1);
+
+    /* the hero is on screen for the whole pinned stretch plus one viewport after it */
+    const pinST = tl.scrollTrigger;
+    const checkVisible = () => { heroVisible = window.scrollY < pinST.end + H; };
+    window.addEventListener('scroll', checkVisible, {passive:true});
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+
+    window.addEventListener('resize', () => { size(); seedMotes(); });
+    requestAnimationFrame(tick);
+  }
+
+  /* wait for the cut-out face before measuring, so the word is never drawn in a fallback font */
+  const ready = (document.fonts && document.fonts.load)
+    ? Promise.race([document.fonts.load(`900 100px "Playfair Display"`), new Promise(r => setTimeout(r, 2500))])
+    : Promise.resolve();
+  ready.then(build);
+  window.__whRefit = () => { size(); ScrollTrigger.refresh(); };
 })();
+
+/* ---------- entrance: curtain lifts, the name writes itself ---------- */
+window.addEventListener('load', () => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pre = document.getElementById('preloader');
+  const tl = gsap.timeline({ onComplete: () => { pre.style.display = 'none'; if(window.__whRefit) window.__whRefit(); } });
+  tl.to('#preloader .script', {opacity:1, duration:.5, ease:'power2.out'})
+    .to(pre, {yPercent:-100, duration:1.05, ease:'expo.inOut', delay:.35})
+    .fromTo('header', {y:-30, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, '-=.45');
+  if(reduce){
+    tl.fromTo('#whContent', {opacity:0}, {opacity:1, duration:.6}, '-=.3');
+    return;
+  }
+  tl.fromTo('#whMask', {scale:1.08, filter:'blur(6px)'}, {scale:1, filter:'blur(0px)', duration:1.3, ease:'expo.out', clearProps:'transform,filter'}, '-=.75')
+    .to('#whScript span', {clipPath:'inset(0 0% 0 0)', duration:1.25, ease:'power2.inOut'}, '-=.95')
+    .fromTo('.wh-intro .wh-under, .wh-intro .wh-corner', {opacity:0, y:12}, {opacity:1, y:0, duration:.8, stagger:.06, ease:'power3.out'}, '-=.9');
+});
 </script>
+
