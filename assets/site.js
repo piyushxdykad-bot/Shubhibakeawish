@@ -19,7 +19,13 @@ gsap.registerPlugin(ScrollTrigger);
 (function(){
   const header = document.getElementById('siteHeader');
   if(!header) return;
-  ScrollTrigger.create({ start: 80, end: 99999, onUpdate: self => { header.classList.toggle('solid', self.scroll() > 80); } });
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => {
+    const y = self.scroll();
+    header.classList.toggle('solid', y > 80);
+    const hide = self.direction === 1 && y > 420 && !document.querySelector('.bag.open, nav.links.open');
+    header.classList.toggle('hide', hide);
+    document.body.classList.toggle('hdr-hidden', hide);
+  } });
 })();
 
 /* mobile nav */
@@ -31,13 +37,7 @@ gsap.registerPlugin(ScrollTrigger);
   navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>navLinks.classList.remove('open')));
 })();
 
-/* generic reveal */
-gsap.utils.toArray('.fade-up').forEach(el=>{
-  gsap.to(el, {
-    opacity:1, y:0, duration:1, ease:'power3.out',
-    scrollTrigger:{ trigger: el, start:'top 88%' }
-  });
-});
+/* generic reveal: see V4 reveal system at the end of this file */
 
 /* ================= V2 ================= */
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,10 +53,16 @@ const DESKTOP = window.matchMedia('(min-width: 861px)').matches;
     document.body.appendChild(curtain);
   }
   if(REDUCE){ curtain.classList.remove('is-covering'); return; }
+  const under = document.createElement('div'); under.className = 'curtain-under'; under.setAttribute('aria-hidden','true');
+  document.body.appendChild(under);
+  const sig = curtain.querySelector('.script');
   const lift = () => {
     if(!curtain.classList.contains('is-covering')) return;
-    gsap.fromTo(curtain, {y:0, yPercent:0}, {yPercent:-100, duration:1.05, ease:'expo.inOut', delay:.15,
-      onComplete:() => { curtain.classList.remove('is-covering'); gsap.set(curtain, {clearProps:'transform'}); }});
+    gsap.set(under, {y:0, yPercent:0});
+    const tl = gsap.timeline({delay:.12, onComplete:() => { curtain.classList.remove('is-covering'); gsap.set([curtain, under], {clearProps:'transform'}); gsap.set(under, {yPercent:100}); }});
+    tl.to(sig, {yPercent:-60, opacity:0, duration:.5, ease:'power2.in'}, 0)
+      .to(curtain, {yPercent:-100, duration:1, ease:'expo.inOut'}, .1)
+      .to(under, {yPercent:-100, duration:1, ease:'expo.inOut'}, .24);
   };
   if(document.readyState === 'complete') lift(); else window.addEventListener('load', lift);
   window.addEventListener('pageshow', e => { if(e.persisted){ curtain.classList.remove('is-covering'); gsap.set(curtain, {y:0, yPercent:100}); } });
@@ -71,7 +77,11 @@ const DESKTOP = window.matchMedia('(min-width: 861px)').matches;
     if(file === here) return;                                          /* same-page anchors scroll normally */
     e.preventDefault();
     /* y:0 first — otherwise GSAP reads the CSS translateY(100%) as a pixel offset and the curtain never arrives */
-    gsap.fromTo(curtain, {y:0, yPercent:100}, {yPercent:0, duration:.8, ease:'expo.inOut', onComplete:() => { location.href = href; }});
+    const tl = gsap.timeline({onComplete:() => { location.href = href; }});
+    tl.fromTo(under, {y:0, yPercent:100}, {yPercent:0, duration:.75, ease:'expo.inOut'}, 0)
+      .fromTo(curtain, {y:0, yPercent:100}, {yPercent:0, duration:.75, ease:'expo.inOut'}, .12)
+      .fromTo(sig, {yPercent:60, opacity:0, clipPath:'inset(0 100% 0 0)'}, {yPercent:0, opacity:1, clipPath:'inset(0 0% 0 0)', duration:.6, ease:'power2.out'}, .55)
+      .to({}, {duration:.15});
   });
 })();
 
@@ -79,10 +89,10 @@ const DESKTOP = window.matchMedia('(min-width: 861px)').matches;
 document.querySelectorAll('[data-lines]').forEach(el => {
   const spans = el.querySelectorAll('.ln > span');
   if(REDUCE || !spans.length) return;
-  gsap.set(spans, {yPercent:115});
+  gsap.set(spans, {yPercent:118, rotate:3.5, transformOrigin:'0% 100%'});
   if(el.closest('.ph')) return;                                        /* hero titles run in the entrance below */
-  ScrollTrigger.create({ trigger: el, start:'top 86%', once:true,
-    onEnter:() => gsap.to(spans, {yPercent:0, duration:1.15, stagger:.09, ease:'power4.out'}) });
+  ScrollTrigger.create({ trigger: el, start:'top 88%', once:true,
+    onEnter:() => gsap.to(spans, {yPercent:0, rotate:0, duration:1.3, stagger:.1, ease:'expo.out'}) });
 });
 
 /* ---------- cinematic page hero: entrance + scroll-out ---------- */
@@ -100,7 +110,7 @@ document.querySelectorAll('[data-lines]').forEach(el => {
     tl.fromTo('header', {y:-30, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, 0)
       .fromTo(media, {scale:1.18}, {scale:1.06, duration:2.4, ease:'expo.out'}, 0)
       .fromTo('.ph-crumb', {opacity:0, y:14}, {opacity:1, y:0, duration:.7, ease:'power3.out'}, .2)
-      .to('.ph-title .ln > span', {yPercent:0, duration:1.25, stagger:.1, ease:'power4.out'}, .25)
+      .to('.ph-title .ln > span', {yPercent:0, rotate:0, duration:1.4, stagger:.12, ease:'expo.out'}, .25)
       .fromTo('.ph-foot > *, .ph-index', {opacity:0, y:22}, {opacity:1, y:0, duration:.9, stagger:.08, ease:'power3.out'}, .7);
   };
   if(document.readyState === 'complete') intro(); else window.addEventListener('load', intro);
@@ -380,5 +390,98 @@ document.addEventListener('click', e => {
   if(!t) return;
   e.preventDefault();
   const off = document.querySelector('.cat-bar') ? 130 : 70;
-  window.scrollTo({top: t.getBoundingClientRect().top + scrollY - off, behavior: REDUCE ? 'auto' : 'smooth'});
+  if(window.__lenis) window.__lenis.scrollTo(t, {offset:-off, duration:1.4});
+  else window.scrollTo({top: t.getBoundingClientRect().top + scrollY - off, behavior: REDUCE ? 'auto' : 'smooth'});
 });
+
+
+/* ================= V4 — motion pass ================= */
+
+/* ---------- inertia scrolling (wheel / trackpad only; touch stays native) ---------- */
+(function(){
+  if(REDUCE || typeof Lenis === 'undefined') return;
+  const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), wheelMultiplier: 1, smoothWheel: true });
+  window.__lenis = lenis;
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('.bag, .bag-list, nav.links, .co-done, .cat-list').forEach(el => el.setAttribute('data-lenis-prevent', ''));
+  /* pause page scroll while the basket or mobile menu is open */
+  new MutationObserver(() => {
+    document.querySelector('.bag.open, nav.links.open') ? lenis.stop() : lenis.start();
+  }).observe(document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+})();
+
+/* ---------- headings rise word by word from behind a mask ---------- */
+(function(){
+  const heads = [...document.querySelectorAll('main h2, section h2, section h3.wh-cap, .cat-head h2, .ig-top h2')]
+    .filter(h => !h.hasAttribute('data-lines') && !h.closest('.ph, .wh, .wish-card, .co-done, .bag, .card, .oc, .login, .garden-end') && !h.dataset.words);
+  heads.forEach(h => {
+    h.dataset.words = '1';
+    const wrapWord = node => { const o = document.createElement('span'); o.className = 'wd'; const i = document.createElement('span'); i.append(node); o.append(i); return o; };
+    const walk = parent => {
+      [...parent.childNodes].forEach(n => {
+        if(n.nodeType === 3){
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(part => {
+            if(!part) return;
+            if(/^\s+$/.test(part)) frag.append(document.createTextNode(part));
+            else frag.append(wrapWord(document.createTextNode(part)));
+          });
+          n.replaceWith(frag);
+        } else if(n.nodeType === 1 && n.tagName !== 'BR'){
+          n.replaceWith(wrapWord(n.cloneNode(true)));
+        }
+      });
+    };
+    walk(h);
+    h.classList.remove('fade-up'); h.style.opacity = 1; h.style.transform = 'none';
+    if(REDUCE) return;
+    const inner = h.querySelectorAll('.wd > span');
+    gsap.set(inner, {yPercent:110, rotate:4, transformOrigin:'0% 100%'});
+    ScrollTrigger.create({ trigger:h, start:'top 90%', once:true,
+      onEnter:() => gsap.to(inner, {yPercent:0, rotate:0, duration:1.2, stagger:.045, ease:'expo.out'}) });
+  });
+})();
+
+/* ---------- everything else: batched, staggered; text comes into focus ---------- */
+(function(){
+  const els = gsap.utils.toArray('.fade-up');
+  if(REDUCE){ gsap.set(els, {opacity:1, y:0, clearProps:'filter'}); return; }
+  const isText = el => /^(P|SPAN|LI|UL|A|BLOCKQUOTE|FIGURE|DIV)$/.test(el.tagName) && !el.querySelector('img, video, canvas') && !el.classList.contains('item-card');
+  els.forEach(el => { if(isText(el)) el.classList.add('fu-text'); });
+  ScrollTrigger.batch(els, {
+    start:'top 90%', once:true,
+    onEnter: batch => gsap.to(batch, {opacity:1, y:0, filter:'blur(0px)', duration:1.1, ease:'expo.out', stagger:{each:.085, from:'start'},
+      /* drop the blurred starting class first — clearing the inline filter alone lets the stylesheet blur come back */
+      onComplete(){ this.targets().forEach(t => t.classList.remove('fu-text')); gsap.set(this.targets(), {clearProps:'filter'}); }})
+  });
+  /* anything already on screen at load (e.g. after a reload mid-page) */
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+})();
+
+/* ---------- buttons and nav links: label rolls to a fresh copy ---------- */
+(function(){
+  const roll = el => {
+    if(el.dataset.roll || el.children.length || !el.textContent.trim()) return;
+    const t = el.textContent.trim();
+    el.dataset.roll = '1'; el.textContent = '';
+    const r = document.createElement('span'); r.className = 'roll'; r.setAttribute('data-t', t);
+    const i = document.createElement('span'); i.textContent = t; r.append(i); el.append(r);
+    el.setAttribute('aria-label', el.getAttribute('aria-label') || t);
+  };
+  document.querySelectorAll('.btn, nav.links a').forEach(roll);
+  /* buttons whose text the page rewrites later (e.g. "Placing your order…") simply lose the roll — harmless */
+})();
+
+/* ---------- dark bands open out of a rounded panel as they arrive ---------- */
+(function(){
+  if(REDUCE) return;
+  const lum = c => { const m = (c || '').match(/\d+(\.\d+)?/g); if(!m || (m[3] !== undefined && +m[3] === 0)) return 1; return (0.299*m[0] + 0.587*m[1] + 0.114*m[2]) / 255; };
+  document.querySelectorAll('section.manifesto, section.feature, section.gallery, section.love, section.ig-strip, section.space, section.cafe, section.wish, section.words').forEach(sec => {
+    const prev = sec.previousElementSibling;
+    if(!prev || lum(getComputedStyle(prev).backgroundColor) < 0.35) return;   /* dark after dark: no gap */
+    gsap.fromTo(sec, {clipPath:'inset(3.5% 3% 0% 3% round 34px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none',
+      scrollTrigger:{ trigger:sec, start:'top bottom', end:'top 30%', scrub:.6 }});
+  });
+})();
