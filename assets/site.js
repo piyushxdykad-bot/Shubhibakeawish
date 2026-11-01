@@ -338,16 +338,96 @@ document.querySelectorAll('.marquee-band').forEach(band => {
   });
 });
 
-/* ---------- footer signature writes itself in ---------- */
+/* ---------- footer: order call, living signature, clock, back to top ---------- */
 document.querySelectorAll('footer .foot-top').forEach(top => {
-  if(top.parentElement.querySelector('.foot-sign')) return;
+  const foot = top.closest('footer'), wrap = top.parentElement;
+  if(wrap.querySelector('.foot-sign')) return;
+  const here = location.pathname.split('/').pop() || 'index.html';
+
+  /* 1. the last call to order */
+  if(here !== 'admin.html'){
+    const cta = document.createElement('div'); cta.className = 'foot-cta';
+    cta.innerHTML = `<div class="fc-copy"><span class="kick">Still thinking about it?</span>
+      <h2 class="fc-h"><span class="fc-l"><span>Hungry for</span></span> <span class="fc-l"><span>a <em>wish?</em></span></span></h2>
+      <p>Order ahead for pickup or delivery in Prayagraj — or message us for a custom cake.</p></div>
+      <a href="menu.html" class="fc-orb" aria-label="Order now">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="orbP" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
+        <text><textPath href="#orbP">ORDER NOW ✦ FRESH FROM THE OVEN ✦ BAKE A WISH ✦ </textPath></text></svg>
+        <span class="fc-core">Order<i>→</i></span></a>`;
+    wrap.insertBefore(cta, top);
+  }
+
+  /* 2. the signature, with drifting gold dust */
   const s = document.createElement('div');
   s.className = 'foot-sign'; s.setAttribute('aria-hidden','true');
-  s.innerHTML = "<span>Shubhi's</span><small>Bake a wish · Prayagraj</small>";
+  s.innerHTML = "<canvas class='fs-dust'></canvas><span>Shubhi's</span><small>Bake a wish · Prayagraj</small>";
   top.after(s);
+
+  /* 3. clock + back to top */
+  const fb = wrap.querySelector('.foot-bottom');
+  if(fb){
+    const tools = document.createElement('div'); tools.className = 'fb-tools';
+    tools.innerHTML = `<span class="fb-clock"><i></i><span>Prayagraj</span><b class="fb-time">--:--</b></span>
+      <button type="button" class="fb-top" aria-label="Back to top"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" class="tr"/><circle cx="22" cy="22" r="20" class="pr"/></svg><span>↑</span></button>`;
+    fb.prepend(tools);
+    const t = tools.querySelector('.fb-time');
+    const tick = () => { t.textContent = new Date().toLocaleTimeString('en-IN', {timeZone:'Asia/Kolkata', hour:'numeric', minute:'2-digit'}); };
+    tick(); setInterval(tick, 15000);
+    const ring = tools.querySelector('.pr');
+    const prog = () => { const max = document.documentElement.scrollHeight - innerHeight; ring.style.strokeDashoffset = (126 * (1 - (max > 0 ? scrollY / max : 0))).toFixed(1); };
+    addEventListener('scroll', prog, {passive:true}); prog();
+    tools.querySelector('.fb-top').addEventListener('click', () => { window.__lenis ? window.__lenis.scrollTo(0, {duration:2.2}) : scrollTo({top:0, behavior:REDUCE ? 'auto' : 'smooth'}); });
+  }
+
+  /* cursor glow + sheen */
+  foot.addEventListener('pointermove', e => {
+    const r = foot.getBoundingClientRect();
+    foot.style.setProperty('--fx', (e.clientX - r.left) + 'px'); foot.style.setProperty('--fy', (e.clientY - r.top) + 'px');
+    const sr = s.getBoundingClientRect();
+    s.style.setProperty('--sx', ((e.clientX - sr.left) / sr.width * 100).toFixed(1) + '%');
+  });
+
   if(REDUCE) return;
-  gsap.to(s.querySelector('span'), {clipPath:'inset(0 0% 0 0)', y:0, ease:'none',
+  gsap.fromTo(s.querySelector('span'), {clipPath:'inset(-40% 100% -30% 0%)'}, {clipPath:'inset(-40% 0% -30% 0%)', y:0, ease:'none',
     scrollTrigger:{trigger:s, start:'top 100%', end:'bottom bottom', scrub:.8}});
+  const cta = wrap.querySelector('.foot-cta');
+  if(cta){
+    gsap.from(cta.querySelectorAll('.fc-l > span'), {yPercent:115, rotate:4, duration:1.2, stagger:.1, ease:'expo.out', scrollTrigger:{trigger:cta, start:'top 85%', once:true}});
+    gsap.from(cta.querySelectorAll('.kick, p'), {y:20, opacity:0, duration:1, stagger:.1, ease:'power3.out', scrollTrigger:{trigger:cta, start:'top 85%', once:true}});
+    gsap.from(cta.querySelector('.fc-orb'), {scale:0, rotate:-120, duration:1.4, ease:'back.out(1.5)', scrollTrigger:{trigger:cta, start:'top 80%', once:true}});
+    const orb = cta.querySelector('.fc-orb');
+    if(FINE){
+      const qx = gsap.quickTo(orb, 'x', {duration:.7, ease:'power3'}), qy = gsap.quickTo(orb, 'y', {duration:.7, ease:'power3'});
+      cta.addEventListener('mousemove', e => { const r = orb.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy); if(d < 260){ qx(dx * .35); qy(dy * .35); } else { qx(0); qy(0); } });
+      cta.addEventListener('mouseleave', () => { qx(0); qy(0); });
+    }
+  }
+
+  /* gold dust: rises slowly, scatters from the cursor */
+  const cv = s.querySelector('.fs-dust'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, DPR = 1, motes = [], run = false, mx = -999, my = -999;
+  const size = () => { DPR = Math.min(devicePixelRatio || 1, 2); W = s.clientWidth; H = s.clientHeight; cv.width = W * DPR; cv.height = H * DPR;
+    motes = Array.from({length: Math.round(W / 14)}, () => ({x:Math.random() * W, y:Math.random() * H, r:.6 + Math.random() * 1.8, v:.15 + Math.random() * .45, p:Math.random() * 6.28, vx:0, vy:0})); };
+  s.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+  s.style.pointerEvents = 'auto';
+  s.addEventListener('pointerleave', () => { mx = my = -999; });
+  const frame = () => {
+    if(!run) return;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+    for(const m of motes){
+      const dx = m.x - mx, dy = m.y - my, d = Math.hypot(dx, dy);
+      if(d < 110){ const f = (110 - d) / 110; m.vx += dx / d * f * .9; m.vy += dy / d * f * .9; }
+      m.vx *= .93; m.vy *= .93; m.p += .02;
+      m.x += m.vx + Math.sin(m.p) * .25; m.y += m.vy - m.v;
+      if(m.y < -6){ m.y = H + 6; m.x = Math.random() * W; } if(m.x < -6) m.x = W + 6; if(m.x > W + 6) m.x = -6;
+      const a = .35 + .45 * Math.sin(m.p * 1.7) ** 2;
+      ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, 6.283); ctx.fillStyle = `rgba(227,199,136,${a.toFixed(3)})`; ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  };
+  size(); addEventListener('resize', size);
+  new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting && !run){ run = true; requestAnimationFrame(frame); } else if(!e.isIntersecting) run = false; })).observe(s);
 });
 
 /* ---------- printed menu card: photo follows the cursor ---------- */
