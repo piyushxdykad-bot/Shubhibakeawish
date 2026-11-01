@@ -226,6 +226,20 @@ body{background:var(--cream);}
 .sec-head.lit h2 em{background-position:0 0;}
 .fly-dot{position:fixed; z-index:9000; left:0; top:0; border-radius:50%; object-fit:cover; pointer-events:none; box-shadow:0 12px 30px -8px rgba(42,31,22,.5);}
 @media (prefers-reduced-motion: reduce){ .hx-seal{animation:none;} .hx-band{rotate:0deg;} }
+
+/* ===== motion layer ===== */
+.fx:not(.in){transition:none !important;}
+.steps{position:relative;}
+.steps-line{position:absolute; left:0; right:0; top:43px; height:2px; z-index:0; pointer-events:none; display:block;}
+.steps-line path{fill:none; stroke:var(--terracotta); stroke-width:2; stroke-dasharray:6 8;}
+.steps li{z-index:1;}
+.steps li:not(:last-child)::after{display:none;}
+.steps .n{position:relative;}
+.steps .n::after{content:""; position:absolute; inset:-6px; border-radius:50%; border:1px solid var(--terracotta); opacity:0; transform:scale(.6);}
+.steps li.on .n::after{animation:ring 1.4s var(--ease) forwards;}
+@keyframes ring{40%{opacity:.8;} 100%{opacity:0; transform:scale(1.6);}}
+@media(max-width:980px){ .steps-line{display:none;} }
+.wish-shell .wish{transform-origin:50% 100%;}
 </style>
 
 <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Shubhi's Bake A Wish">
@@ -365,7 +379,7 @@ body{background:var(--cream);}
       <div><span class="kick">Today at Shubhi's</span><h2 id="todayH">Fresh out of the <em>oven</em></h2></div>
     </div>
     <div class="today">
-      <article class="t-card t-hero fade-up" id="todayPick">
+      <article class="t-card t-hero fx" id="todayPick">
         <img src="assets/cinnabon.jpg" alt="" loading="lazy" id="tdImg">
         <div class="t-body">
           <span class="chip">Bake of the day</span>
@@ -374,15 +388,15 @@ body{background:var(--cream);}
           <div class="t-row"><b id="tdPrice">₹150</b><span class="stepper-slot" data-slug="cinnabon" id="tdSlot"></span></div>
         </div>
       </article>
-      <article class="t-card t-stat fade-up">
+      <article class="t-card t-stat fx">
         <span class="t-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span>
         <b>~30 min</b><span>Pickup after the café confirms your order</span>
       </article>
-      <article class="t-card t-stat fade-up">
+      <article class="t-card t-stat fx">
         <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4-3-7-6.5-7-10.5A7 7 0 0 1 12 4a7 7 0 0 1 7 6.5c0 4-3 7.5-7 10.5Z"/><path d="M12 8v6M9 11h6"/></svg></span>
         <b>0%</b><span>Preservatives. Millets where they make sense, organic where we can.</span>
       </article>
-      <article class="t-card t-stat t-dark fade-up">
+      <article class="t-card t-stat t-dark fx">
         <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4c2.5 2.5 3.5 5 3.5 8S14.5 17.5 12 20c-2.5-2.5-3.5-5-3.5-8S9.5 6.5 12 4Z"/><circle cx="12" cy="12" r="8"/></svg></span>
         <b>3.8K+</b><span>Wishers following along on Instagram</span>
       </article>
@@ -398,10 +412,10 @@ body{background:var(--cream);}
       <a href="menu.html" class="see-all">Full menu <i>→</i></a>
     </div>
     <div class="cats">
-      <a href="menu.html#desserts" class="cat-tile fade-up"><img src="assets/biscoff-cheesecake.jpg" alt="" loading="lazy"><span><b>Desserts</b><small>12 bakes · from ₹120</small></span><em class="ct-go">Shop →</em></a>
-      <a href="menu.html#millet" class="cat-tile fade-up"><img src="assets/millet-laddo.jpg" alt="" loading="lazy"><span><b>Millet Range</b><small>5 bakes · from ₹169</small></span><em class="ct-go">Shop →</em></a>
-      <a href="menu.html#savouries" class="cat-tile fade-up"><img src="assets/mushroom-toast.jpg" alt="" loading="lazy"><span><b>Savouries</b><small>7 plates · from ₹60</small></span><em class="ct-go">Shop →</em></a>
-      <a href="menu.html#bakes" class="cat-tile fade-up"><img src="assets/mushroom-croissant.jpg" alt="" loading="lazy"><span><b>Bakes &amp; More</b><small>3 bakes · from ₹130</small></span><em class="ct-go">Shop →</em></a>
+      <a href="menu.html#desserts" class="cat-tile fx"><img src="assets/biscoff-cheesecake.jpg" alt="" loading="lazy"><span><b>Desserts</b><small>12 bakes · from ₹120</small></span><em class="ct-go">Shop →</em></a>
+      <a href="menu.html#millet" class="cat-tile fx"><img src="assets/millet-laddo.jpg" alt="" loading="lazy"><span><b>Millet Range</b><small>5 bakes · from ₹169</small></span><em class="ct-go">Shop →</em></a>
+      <a href="menu.html#savouries" class="cat-tile fx"><img src="assets/mushroom-toast.jpg" alt="" loading="lazy"><span><b>Savouries</b><small>7 plates · from ₹60</small></span><em class="ct-go">Shop →</em></a>
+      <a href="menu.html#bakes" class="cat-tile fx"><img src="assets/mushroom-croissant.jpg" alt="" loading="lazy"><span><b>Bakes &amp; More</b><small>3 bakes · from ₹130</small></span><em class="ct-go">Shop →</em></a>
     </div>
   </div>
 </section>
@@ -464,11 +478,11 @@ body{background:var(--cream);}
       <a href="cafe.html" class="see-all">The café <i>→</i></a>
     </div>
     <div class="visit-grid">
-      <a href="cafe.html" class="v-card fade-up">
+      <a href="cafe.html" class="v-card fx">
         <img src="assets/cafe-garden-stairs.jpg" alt="Climbing greens and fairy lights around the café's garden staircase" loading="lazy">
         <span class="v-body"><span class="chip light">Garden café</span><b>Tables under the vines</b><small>Fairy lights, slow coffee, the whole menu fresh from the counter.</small><i class="v-go">Plan a visit →</i></span>
       </a>
-      <a href="cafe.html#workshops" class="v-card fade-up">
+      <a href="cafe.html#workshops" class="v-card fx">
         <img src="assets/workshop-scene.jpg" alt="A baking workshop at the café table" loading="lazy">
         <span class="v-body"><span class="chip light">Workshops</span><b>Bake it with us</b><small>Festive and weekend baking workshops for kids and grown-ups.</small><i class="v-go">See workshops →</i></span>
       </a>
@@ -483,10 +497,10 @@ body{background:var(--cream);}
       <div><span class="kick">How ordering works</span><h2 id="howH">Three taps to <em>warm bread</em></h2></div>
     </div>
     <div class="my-orders" id="myOrders" hidden></div>
-    <ol class="steps">
-      <li class="fade-up"><span class="n">1</span><b>Add to basket</b><small>Pick from 27 bakes, or ask for a custom cake.</small></li>
-      <li class="fade-up"><span class="n">2</span><b>Checkout in a minute</b><small>Name, phone, pickup or delivery. Pay on pickup or by UPI.</small></li>
-      <li class="fade-up"><span class="n">3</span><b>Track it live</b><small>Received → In the oven → Ready, with a note from the kitchen.</small></li>
+    <ol class="steps"><svg class="steps-line" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true"><path d="M60 1H940"/></svg>
+      <li class="fx"><span class="n">1</span><b>Add to basket</b><small>Pick from 27 bakes, or ask for a custom cake.</small></li>
+      <li class="fx"><span class="n">2</span><b>Checkout in a minute</b><small>Name, phone, pickup or delivery. Pay on pickup or by UPI.</small></li>
+      <li class="fx"><span class="n">3</span><b>Track it live</b><small>Received → In the oven → Ready, with a note from the kitchen.</small></li>
     </ol>
   </div>
 </section>
@@ -494,7 +508,7 @@ body{background:var(--cream);}
 <!-- ============ STORY + INSTAGRAM ============ -->
 <section class="blk blk-last" aria-labelledby="storyH">
   <div class="shell">
-    <div class="story-card fade-up">
+    <div class="story-card fx">
       <figure><img src="assets/about-hero.jpg" alt="Flour-dusted hands kneading dough in a home kitchen" loading="lazy"></figure>
       <div class="sc-body">
         <span class="kick">Our story</span>
@@ -508,12 +522,12 @@ body{background:var(--cream);}
       <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="see-all">Follow <i>↗</i></a>
     </div>
     <div class="ig">
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-slice.jpg" alt="A slice of layered cake" loading="lazy"></a>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-latte.jpg" alt="A latte on a garden table" loading="lazy"></a>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-hamper.jpg" alt="A festive bake hamper" loading="lazy"></a>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-hands.jpg" alt="Hands finishing a cake" loading="lazy"></a>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-flatlay.jpg" alt="A flat lay of cookies and breads" loading="lazy"></a>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-corner.jpg" alt="A cosy corner of the café" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-slice.jpg" alt="A slice of layered cake" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-latte.jpg" alt="A latte on a garden table" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-hamper.jpg" alt="A festive bake hamper" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-hands.jpg" alt="Hands finishing a cake" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-flatlay.jpg" alt="A flat lay of cookies and breads" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fx"><img src="assets/ig-corner.jpg" alt="A cosy corner of the café" loading="lazy"></a>
     </div>
   </div>
 </section>
@@ -572,6 +586,7 @@ body{background:var(--cream);}
     tl.to('header', {y:0, opacity:1, duration:.8, ease:'power3.out', clearProps:'opacity'}, .3);
     if(reduce){ gsap.set('#hxScript span', {clipPath:'inset(0 0% 0 0)'}); return; }
     tl.to('#hxStage', {scale:1, filter:'blur(0px)', opacity:1, duration:1.4, ease:'expo.out', clearProps:'transform,filter,opacity'}, 0)
+      .to(window.__wishA || {}, {in:1, duration:1.7, ease:'none', onUpdate:() => window.__wishPaint && window.__wishPaint()}, .05)
       .to('#hxScript span', {clipPath:'inset(0 0% 0 0)', duration:1.2, ease:'power2.inOut'}, .45)
       .to(parts, {y:0, opacity:1, duration:.9, stagger:.06, ease:'power3.out', clearProps:'transform,opacity'}, .35);
   };
@@ -650,6 +665,28 @@ body{background:var(--cream);}
   const stage = document.getElementById('hxStage'), cv = document.getElementById('hxMask'), ctx = cv.getContext('2d');
   const video = document.getElementById('hxVideo'), script = document.getElementById('hxScript');
   const FONT = w => `700 ${w}px "Cormorant Garamond"`;
+  /* letters: A.in = intro (0→1, each letter rises in turn), A.spread = scroll (letters drift apart) */
+  const A = window.__wishA = {in: REDUCE ? 1 : 0, spread:0};
+  let G = null;
+  const ease = t => 1 - Math.pow(1 - Math.max(0, Math.min(1, t)), 3);
+  function paint(){
+    if(!G) return;
+    const {W, H, DPR, fs, x, base, tw, bg, xs} = G;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.font = FONT(fs);
+    const gap = A.spread * fs * .22, off = -gap * 1.5;
+    ctx.lineWidth = Math.max(1, fs / 260);
+    for(let i = 0; i < 4; i++){
+      const p = ease(A.in * 1.9 - i * .3);
+      const lx = x + xs[i] + off + gap * i, ly = base + (1 - p) * fs * .95;
+      ctx.save(); ctx.translate(lx, ly); ctx.rotate((1 - p) * .18 * (i % 2 ? 1 : -1));
+      ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; ctx.fillText('wish'[i], 0, 0);
+      ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = `rgba(199,154,75,${(.55 * p).toFixed(3)})`; ctx.strokeText('wish'[i], 0, 0);
+      ctx.restore();
+    }
+  }
+  window.__wishPaint = paint;
   function drawMask(){
     const W = stage.clientWidth, DPR = Math.min(devicePixelRatio || 1, 2), small = innerWidth < 720;
     ctx.font = FONT(100);
@@ -666,13 +703,8 @@ body{background:var(--cream);}
     ctx.fillRect(0, 0, W, H);
     ctx.font = FONT(fs); ctx.textBaseline = 'alphabetic';
     const tw = ctx.measureText('wish').width, x = (W - tw) / 2, base = pad + asc * fs / 100;
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.fillStyle = '#000';
-    ctx.fillText('wish', x, base);
-    ctx.globalCompositeOperation = 'source-over';
-    /* a hairline of gold around the letters */
-    ctx.lineWidth = Math.max(1, fs / 260); ctx.strokeStyle = 'rgba(199,154,75,.55)';
-    ctx.strokeText('wish', x, base);
+    G = {W, H, DPR, fs, x, base, tw, bg:ctx.fillStyle, xs:[0,1,2,3].map(i => ctx.measureText('wish'.slice(0, i)).width)};
+    paint();
     stage.style.setProperty('--sx', (x + tw * .02) + 'px');
     const sf = Math.max(34, fs * .3);
     stage.style.setProperty('--sy', (base - fs * .44 - sf * .78) + 'px');
@@ -692,6 +724,7 @@ body{background:var(--cream);}
       stage.closest('.hx').addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * -26); qy((e.clientY / innerHeight - .5) * -14); });
     }
     gsap.to(video, {yPercent:6, scale:1.06, ease:'none', scrollTrigger:{trigger:'.hx', start:'top top', end:'bottom top', scrub:.6}});
+    gsap.to(A, {spread:1, ease:'none', onUpdate:paint, scrollTrigger:{trigger:'.hx', start:'top top', end:'bottom top', scrub:.8}});
     gsap.fromTo('#hxStage .hx-film, #hxMask, #hxScript', {opacity:1}, {opacity:.35, ease:'none', immediateRender:false, scrollTrigger:{trigger:'.hx', start:'40% top', end:'bottom top', scrub:.6}});
   }
 
@@ -822,8 +855,52 @@ body{background:var(--cream);}
     gsap.from('.hx-float', {opacity:0, scale:.8, y:60, duration:1.2, stagger:.15, ease:'back.out(1.6)', delay:window.__arrivedVia ? .9 : 3.2, clearProps:'opacity,scale'});
     document.querySelectorAll('.sec-head').forEach(h => ScrollTrigger.create({trigger:h, start:'top 82%', once:true, onEnter:() => h.classList.add('lit')}));
   } else document.querySelectorAll('.sec-head').forEach(h => h.classList.add('lit'));
+
+  /* ---------- motion layer: 3D card entrances, image wipes, counters, drawn steps ---------- */
+  setTimeout(() => { if(A.in < 1){ A.in = 1; paint(); } }, 9000);
+  if(!REDUCE && window.gsap){
+    const flip = (sel, opts) => ScrollTrigger.batch(sel, {start:'top 88%', once:true, onEnter: els => gsap.fromTo(els,
+      {opacity:0, y:70, rotateX:-28, transformPerspective:1100, transformOrigin:'50% 100%'},
+      Object.assign({opacity:1, y:0, rotateX:0, duration:1.1, stagger:.09, ease:'expo.out', clearProps:'transform,opacity', onComplete:() => els.forEach(e => e.classList.add('in'))}, opts || {}))});
+    gsap.set('.fx', {opacity:0});
+    flip('.t-card'); flip('.cat-tile'); flip('.v-card'); flip('.steps li'); flip('.story-card', {stagger:0});
+    ScrollTrigger.batch('.ig a', {start:'top 92%', once:true, onEnter: els => gsap.fromTo(els, {opacity:0, scale:.6, rotate:() => gsap.utils.random(-12, 12)}, {opacity:1, scale:1, rotate:0, duration:.9, stagger:.06, ease:'back.out(1.7)', clearProps:'transform,opacity', onComplete:() => els.forEach(e => e.classList.add('in'))})});
+    /* photos open like a shutter */
+    document.querySelectorAll('.cat-tile img, .v-card img, .t-hero img, .story-card img').forEach(img => {
+      gsap.fromTo(img, {clipPath:'inset(100% 0% 0% 0%)', scale:1.35}, {clipPath:'inset(0% 0% 0% 0%)', scale:1, duration:1.5, ease:'expo.inOut', delay:.15,
+        clearProps:'clip-path,transform', scrollTrigger:{trigger:img.parentElement, start:'top 85%', once:true}});
+    });
+    /* stats count up */
+    document.querySelectorAll('.t-stat > b').forEach(b => {
+      const m = b.textContent.match(/^(~?)([\d.]+)(.*)$/); if(!m) return;
+      const end = parseFloat(m[2]), dec = (m[2].split('.')[1] || '').length, o = {v:0};
+      b.textContent = m[1] + (0).toFixed(dec) + m[3];
+      ScrollTrigger.create({trigger:b, start:'top 90%', once:true, onEnter:() => gsap.to(o, {v:end, duration:1.8, ease:'power3.out', delay:.3, onUpdate:() => { b.textContent = m[1] + o.v.toFixed(dec) + m[3]; }})});
+    });
+    /* the ordering path draws itself, each step lights up as it passes */
+    const path = document.querySelector('.steps-line path');
+    if(path){
+      gsap.fromTo(path, {strokeDashoffset:1000, strokeDasharray:'1000 1000'}, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.steps', start:'top 75%', end:'bottom 55%', scrub:.6,
+        onUpdate:self => document.querySelectorAll('.steps li').forEach((li, i) => { if(self.progress > i / 3 + .02) li.classList.add('on'); })}});
+    }
+    /* the candle card rises like a stage */
+    gsap.fromTo('.wish-shell .wish', {scale:.88, borderRadius:60}, {scale:1, borderRadius:26, ease:'none', scrollTrigger:{trigger:'.wish-shell', start:'top 95%', end:'top 35%', scrub:.8}});
+    /* bestsellers lean into fast scrolling */
+    const cards = rail.querySelectorAll('.pcard'); let skew = 0;
+    ScrollTrigger.create({trigger:rail, start:'top bottom', end:'bottom top', onUpdate:self => {
+      const v = gsap.utils.clamp(-8, 8, self.getVelocity() / -250);
+      if(Math.abs(v) > Math.abs(skew)){ skew = v; gsap.to(cards, {skewY:skew, y:skew * 2, duration:.35, ease:'power3', overwrite:true, onComplete:() => { skew = 0; gsap.to(cards, {skewY:0, y:0, duration:.8, ease:'elastic.out(1,.5)'}); }}); }
+    }});
+    /* magnetic primary buttons */
+    if(matchMedia('(hover:hover)').matches) document.querySelectorAll('.sc-body .btn, .see-all, .rn').forEach(btn => {
+      const qx = gsap.quickTo(btn, 'x', {duration:.6, ease:'power3'}), qy = gsap.quickTo(btn, 'y', {duration:.6, ease:'power3'});
+      btn.addEventListener('mousemove', e => { const r = btn.getBoundingClientRect(); qx((e.clientX - r.left - r.width / 2) * .3); qy((e.clientY - r.top - r.height / 2) * .4); });
+      btn.addEventListener('mouseleave', () => { qx(0); qy(0); });
+    });
+  }
   /* lift effect on the static cards too */
   document.querySelectorAll('.t-card, .steps li').forEach(c => c.classList.add('lift'));
+  if(REDUCE || !window.gsap) document.querySelectorAll('.fx').forEach(e => e.classList.add('in'));
 })();
 </script>
 <script>
