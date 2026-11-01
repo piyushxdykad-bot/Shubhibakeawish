@@ -7,7 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
   const ring = document.querySelector('.cursor-ring');
   if(!cursor || !ring) return;
   let mx=0,my=0, rx=0, ry=0;
-  window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+  window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+    if(!document.body.classList.contains('cursor-ready')){ rx=mx; ry=my; document.body.classList.add('cursor-ready'); } });
+  document.documentElement.addEventListener('mouseleave', ()=>document.body.classList.remove('cursor-ready'));
   gsap.ticker.add(()=>{ rx += (mx-rx)*0.15; ry += (my-ry)*0.15; ring.style.left=rx+'px'; ring.style.top=ry+'px'; });
   document.querySelectorAll('[data-hover], a, button, .menu-card, .item-card, .w-card, .ig-cell, .g-card').forEach(el=>{
     el.addEventListener('mouseenter', ()=>ring.classList.add('big'));
@@ -390,8 +392,9 @@ document.addEventListener('click', e => {
   if(!t) return;
   e.preventDefault();
   const off = document.querySelector('.cat-bar') ? 130 : 70;
-  if(window.__lenis) window.__lenis.scrollTo(t, {offset:-off, duration:1.4});
-  else window.scrollTo({top: t.getBoundingClientRect().top + scrollY - off, behavior: REDUCE ? 'auto' : 'smooth'});
+  const top = Math.max(0, t.getBoundingClientRect().top + window.scrollY - off);
+  if(window.__lenis){ window.__lenis.resize(); window.__lenis.scrollTo(top, {duration:1.4}); }
+  else window.scrollTo({top, behavior: REDUCE ? 'auto' : 'smooth'});
 });
 
 
@@ -403,6 +406,8 @@ document.addEventListener('click', e => {
   const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), wheelMultiplier: 1, smoothWheel: true });
   window.__lenis = lenis;
   lenis.on('scroll', ScrollTrigger.update);
+  window.addEventListener('load', () => { lenis.resize(); });
+  ScrollTrigger.addEventListener('refresh', () => lenis.resize());
   gsap.ticker.add(t => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
   document.querySelectorAll('.bag, .bag-list, nav.links, .co-done, .cat-list').forEach(el => el.setAttribute('data-lenis-prevent', ''));
