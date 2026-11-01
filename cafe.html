@@ -2,20 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Café — Shubhi's Bake A Wish</title>
-<meta name="description" content="A garden café in Prayagraj — climbing greens, fairy lights, hand-painted signage and a staircase worth the walk. Workshops & celebrations too.">
+<meta name="description" content="Inside Shubhi's Bake A Wish — a garden café in Prayagraj with climbing vines, fairy lights, baking workshops and festive evenings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+  .space{background:var(--forest-deep); color:var(--cream-soft);}
+  .space .split p{color:rgba(247,236,217,.78);}
+  .space .split h2{color:var(--cream-soft);} .space .split h2 em{color:var(--gold-light);}
+  .space .eyebrow{color:var(--gold-light);} .space .eyebrow::before{background:var(--gold-light);}
+  .sign-words{display:flex; flex-wrap:wrap; gap:6px 0; margin-top:34px; border-top:1px solid rgba(247,236,217,.14); padding-top:24px;}
+  .sign-words span{font-family:'Italiana',serif; font-size:clamp(1.3rem,2.2vw,1.9rem); letter-spacing:.22em; text-transform:uppercase; color:var(--gold-light); padding-right:28px;}
+  .sign-words span + span::before{content:"·"; color:rgba(227,199,136,.45); margin-right:28px; letter-spacing:0;}
+  .gallery{background:var(--ink); color:var(--cream-soft); padding:clamp(100px,15vh,150px) 0 clamp(80px,12vh,120px);}
+  .gallery .sh{align-items:end;}
+  .words{background:var(--ink); color:var(--cream-soft); padding:0 0 clamp(100px,15vh,150px);}
+  .words-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid rgba(247,236,217,.14);}
+  .words-grid figure{margin:0; padding:34px 28px 0 0; display:flex; flex-direction:column; gap:16px;}
+  .words-grid blockquote{margin:0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.5rem,2.4vw,2.2rem); line-height:1.15; color:var(--cream-soft); text-wrap:balance;}
+  .words-grid blockquote b{font-weight:500; color:var(--gold-light);}
+  .words-grid figcaption{font-size:.62rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(247,236,217,.5);}
+  @media(max-width:860px){ .words-grid{grid-template-columns:1fr;} .words-grid figure{padding-bottom:10px;} }
+  .ws-section{background:var(--cream-soft);}
+</style>
 </head>
-<body>
-
+<body class="dark-top">
+<div class="curtain is-covering"><span class="script">Shubhi's</span></div>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
-<header id="siteHeader" class="solid">
+<header id="siteHeader">
   <a href="index.html" class="logo-mark">
     <span class="script">Shubhi's</span>
     <span class="tiny">Bake&nbsp;A&nbsp;Wish</span>
@@ -26,112 +45,115 @@
     <a href="cafe.html" class="current">The Café</a>
     <a href="cafe.html#workshops">Workshops</a>
     <a href="visit.html#reviews">Reviews</a>
-    <a href="visit.html" class="nav-cta">Order Now</a>
+    <a href="visit.html#order" class="nav-cta">Order Now</a>
   </nav>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </header>
 
-<section class="page-banner">
-  <img src="assets/cafe-garden-stairs.jpg" alt="Shubhi's Bake A Wish — garden staircase entrance" loading="eager">
-  <div class="wrap">
-    <span class="crumb"><a href="index.html">Home</a> / The Café</span>
-    <span class="eyebrow fade-up" style="opacity:1;">The Café</span>
-    <h1>Straight out of<br><span class="script" style="color:var(--gold-light); font-size:1.05em;">a daydream.</span></h1>
+<!-- ============ FILM HERO (dusk) ============ -->
+<section class="ph" aria-label="The café">
+  <video class="ph-media" autoplay muted loop playsinline preload="metadata" poster="assets/video/cafe-hero-poster.jpg">
+    <source src="assets/video/cafe-hero.mp4" type="video/mp4">
+  </video>
+  <div class="ph-index" aria-hidden="true"><b>03</b>The café</div>
+  <div class="wrap ph-inner">
+    <nav class="ph-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a><i></i><span>The Café</span></nav>
+    <h1 class="ph-title" data-lines>
+      <span class="ln"><span>Straight out of</span></span>
+      <span class="ln"><span><em>a daydream.</em></span></span>
+    </h1>
+    <div class="ph-foot">
+      <p class="ph-lede">Stone stairs wound in green, fairy lights at dusk, and a coffee that's never in a hurry — a garden café tucked away in Prayagraj.</p>
+      <span class="ph-scroll"><i></i>Step inside</span>
+    </div>
   </div>
 </section>
 
-<!-- ============ CAFE EXPERIENCE ============ -->
-<section class="cafe" id="cafe" style="padding-top:5rem;">
-  <div class="wrap cafe-wrap">
-    <div class="cafe-copy">
-      <span class="eyebrow fade-up">The Space</span>
-      <h2 class="fade-up">A garden café,<br>straight out of a daydream.</h2>
-      <p class="fade-up">Stone stairs wound in green, fairy lights at dusk, a hand-painted sign promising coffee, cookies, dessert, savour — Shubhi's Bake A Wish is as much a place to sit a while as it is a bakery.</p>
-      <p class="fade-up">Come for the cake. Stay for the quiet, the climbing vines, and a coffee that's never in a hurry.</p>
-      <div class="cafe-sign fade-up">
-        <span>Coffee</span><span>Cookies</span><span>Dessert</span><span>Savour</span>
-      </div>
+<!-- ============ THE SPACE ============ -->
+<section class="space">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">The space</span>
+      <h2 data-lines>
+        <span class="ln"><span>Come for the cake.</span></span>
+        <span class="ln"><span><em>Stay</em> for the quiet.</span></span>
+      </h2>
+      <p class="fade-up">A hand-painted sign promises coffee, cookies, dessert and savour. Behind it: climbing vines, a staircase that photographs better than it has any right to, and small tables where an afternoon disappears without anyone noticing.</p>
+      <p class="fade-up">Water comes in reusable glass bottles, the bakes come out of the oven in small batches, and nobody will rush you.</p>
+      <div class="sign-words fade-up"><span>Coffee</span><span>Cookies</span><span>Dessert</span><span>Savour</span></div>
     </div>
-    <div class="cafe-visual fade-up">
-      <div class="cafe-card cc1">
-        <img src="assets/cafe-interior.jpg" alt="Shubhi's Bake A Wish — climbing greens &amp; garden café interior" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The climbing greens</div>
-      </div>
-      <div class="cafe-card cc2">
-        <img src="assets/cafe-tablescape.jpg" alt="Shubhi's Bake A Wish — café tablescape" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">A table set for a wish</div>
-      </div>
+    <div class="frame fade-up">
+      <img src="assets/cafe-interior.jpg" alt="Climbing greens around the café's wooden staircase" loading="lazy" data-parallax>
+      <div class="tag"><span>The climbing greens</span><span>Inside</span></div>
     </div>
   </div>
+</section>
 
+<!-- ============ DRAG GALLERY ============ -->
+<section class="gallery on-dark" aria-label="Around the café">
   <div class="wrap">
-    <div class="section-head" style="margin-top:4rem;">
+    <div class="sh">
       <div>
-        <span class="eyebrow fade-up">Around the Café</span>
-        <h2 class="fade-up">Every corner,<br>a little scene.</h2>
+        <span class="eyebrow">Around the café</span>
+        <h2 data-lines><span class="ln"><span>Every corner,</span></span><span class="ln"><span><em>a little scene.</em></span></span></h2>
       </div>
-      <p class="fade-up">The sign out front, the reading nook upstairs, the staircase everyone photographs.</p>
-    </div>
-    <div class="cafe-gallery">
-      <div class="g-card fade-up">
-        <img src="assets/cafe-sign-closeup.jpg" alt="Hand-painted café sign at Shubhi's Bake A Wish" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The hand-painted sign</div>
-      </div>
-      <div class="g-card fade-up">
-        <img src="assets/cafe-reading-nook.jpg" alt="Reading nook corner at Shubhi's Bake A Wish" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The reading nook</div>
-      </div>
-      <div class="g-card fade-up">
-        <img src="assets/cafe-garden-stairs.jpg" alt="Garden staircase entrance at Shubhi's Bake A Wish" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The garden stairs</div>
+      <div class="fade-up" style="display:flex; flex-direction:column; gap:18px; align-items:flex-start;">
+        <p>The sign out front, the reading nook, the staircase everyone photographs — drag through the café.</p>
+        <span class="drag-hint"><i></i>Drag to explore</span>
       </div>
     </div>
   </div>
+  <div class="drag" tabindex="0" aria-label="Café photo gallery, scroll sideways">
+    <div class="d-card"><figure><img src="assets/cafe-sign-closeup.jpg" alt="The hand-painted Shubhi's Bake A Wish sign" draggable="false"></figure><div class="cap"><b>The hand-painted sign</b><span>Out front</span></div></div>
+    <div class="d-card wide"><figure><img src="assets/cafe-garden-stairs.jpg" alt="The garden staircase wrapped in vines" draggable="false"></figure><div class="cap"><b>The garden stairs</b><span>The way in</span></div></div>
+    <div class="d-card"><figure><img src="assets/ig-latte.jpg" alt="A latte with heart latte art held in the garden" draggable="false"></figure><div class="cap"><b>A slow coffee</b><span>Any hour</span></div></div>
+    <div class="d-card"><figure><img src="assets/cafe-reading-nook.jpg" alt="A reading nook with an armchair and plants" draggable="false"></figure><div class="cap"><b>The reading nook</b><span>Upstairs</span></div></div>
+    <div class="d-card wide"><figure><img src="assets/cafe-tablescape.jpg" alt="A table set with coffee, cake and rose petals" draggable="false"></figure><div class="cap"><b>A table set for a wish</b><span>Afternoons</span></div></div>
+    <div class="d-card"><figure><img src="assets/ig-corner.jpg" alt="A cosy corner with a rattan chair and string lights" draggable="false"></figure><div class="cap"><b>The quiet corner</b><span>By the vines</span></div></div>
+  </div>
+</section>
 
+<!-- ============ IN THEIR OWN WORDS ============ -->
+<section class="words" aria-label="From the café's own posts">
   <div class="wrap">
-    <div class="cafe-words">
-      <span>"<b>straight out</b> of Pinterest"</span>
-      <span>"<b>your next</b> little coffee escape"</span>
-      <span>"<b>love the place</b> with wish"</span>
+    <div class="words-grid">
+      <figure class="fade-up"><blockquote>&ldquo;This place in Prayagraj looks <b>straight out of Pinterest.</b>&rdquo;</blockquote><figcaption>From the café's Instagram</figcaption></figure>
+      <figure class="fade-up"><blockquote>&ldquo;Your next <b>little coffee escape</b> is waiting for you.&rdquo;</blockquote><figcaption>From the café's Instagram</figcaption></figure>
+      <figure class="fade-up"><blockquote>&ldquo;Your sign to <b>explore Prayagraj</b> differently.&rdquo;</blockquote><figcaption>From the café's Instagram</figcaption></figure>
     </div>
   </div>
 </section>
 
 <!-- ============ WORKSHOPS ============ -->
-<section class="workshops" id="workshops">
+<section class="ws-section" id="workshops">
   <div class="wrap">
-    <div class="section-head">
+    <div class="sh">
       <div>
-        <span class="eyebrow fade-up">Workshops &amp; Celebrations</span>
-        <h2 class="fade-up">More than a bakery —<br>a gathering place.</h2>
+        <span class="eyebrow">Workshops &amp; celebrations</span>
+        <h2 data-lines><span class="ln"><span>More than a bakery —</span></span><span class="ln"><span><em>a gathering place.</em></span></span></h2>
       </div>
-      <p class="fade-up">From hands-on baking workshops to festive café evenings — Diwali, Halloween, Rakhi &amp; more.</p>
+      <p class="fade-up">Hands-on baking workshops and festive café evenings through the year — Diwali, Rakhi, Halloween and more. Hover a card for the details.</p>
     </div>
-    <div class="w-scroll">
-      <div class="w-card w1 fade-up">
-        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Baking workshop at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></svg></div>
-        <div class="w-body"><span class="tag">Baking Workshop</span><h3>Learn to Bake a Wish</h3><p>Hands-on sessions on cakes, cookies &amp; breads — taught the home-bakery way, small batches at a time.</p></div>
-      </div>
-      <div class="w-card w2 fade-up">
-        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Festive café evening at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 8c6 8 10 12 10 20a10 10 0 0 1-20 0c0-8 4-12 10-20Z"/></svg></div>
-        <div class="w-body"><span class="tag">Festive Edition</span><h3>Diwali at the Café</h3><p>Festive hampers, diyas on the stairs, and a menu dressed for the season.</p></div>
-      </div>
-      <div class="w-card w3 fade-up">
-        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Gifting hampers at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M14 20c0-6 5-10 10-10s10 4 10 10v8H14v-8Z"/><path d="M10 34h28"/></svg></div>
-        <div class="w-body"><span class="tag">Gifting</span><h3>Rakhi &amp; Superfood Hampers</h3><p>Nourishing festive gift boxes, hand-picked for siblings who irritate you most — and deserve it most.</p></div>
-      </div>
-      <div class="w-card w4 fade-up">
-        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Halloween café evening at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 10a14 14 0 1 0 0 28 14 14 0 0 0 0-28Z"/><path d="M19 20h1M28 20h1M19 28c2 2 8 2 10 0"/></svg></div>
-        <div class="w-body"><span class="tag">Spooky Edition</span><h3>Vampire Halloween</h3><p>Spooky vibes, sweet treats &amp; a dress code — face painting and games for the little ones too.</p></div>
-      </div>
+    <div class="ws-grid">
+      <article class="ws fade-up" tabindex="0">
+        <img src="assets/ws-baking.jpg" alt="Hands piping buttercream at a baking workshop" loading="lazy">
+        <div class="ws-body"><span class="tag">Baking workshop</span><h3>Learn to bake a wish</h3><p>Hands-on sessions on cakes, cookies and breads — taught the home-bakery way, small batches at a time.</p></div>
+      </article>
+      <article class="ws fade-up" tabindex="0">
+        <img src="assets/ws-diwali.jpg" alt="Diyas along the café stairs at Diwali" loading="lazy">
+        <div class="ws-body"><span class="tag">Festive edition</span><h3>Diwali at the café</h3><p>Diyas on the stairs, festive hampers and a menu dressed for the season.</p></div>
+      </article>
+      <article class="ws fade-up" tabindex="0">
+        <img src="assets/ws-rakhi.jpg" alt="A Rakhi gift box with millet cookies" loading="lazy">
+        <div class="ws-body"><span class="tag">Gifting</span><h3>Rakhi superfood hampers</h3><p>Nourishing festive boxes of hand-picked superfood bakes — for the siblings who irritate you most, and deserve it most.</p></div>
+      </article>
+      <article class="ws fade-up" tabindex="0">
+        <img src="assets/ws-halloween.jpg" alt="A Halloween dessert table with ghost meringues" loading="lazy">
+        <div class="ws-body"><span class="tag">Spooky edition</span><h3>Vampire Halloween</h3><p>Spooky vibes, sweet treats and a dress code — with face painting and games for the little ones.</p></div>
+      </article>
     </div>
-    <div class="wrap" style="padding:3rem 0 0; text-align:center;">
-      <a href="visit.html" class="btn btn-solid" data-hover>Book a Workshop</a>
+    <div style="display:flex; justify-content:center; margin-top:clamp(40px,6vh,64px);">
+      <a href="visit.html#order" class="btn btn-solid" data-hover>Book a Workshop</a>
     </div>
   </div>
 </section>
@@ -158,7 +180,7 @@
         <div class="foot-col">
           <h4>Visit</h4>
           <span>Prayagraj, Uttar Pradesh</span>
-          <span>Tue – Sun · 11am – 9pm</span>
+          <span>Message for today's timings</span>
         </div>
       </div>
     </div>

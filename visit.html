@@ -2,20 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Visit & Order — Shubhi's Bake A Wish</title>
-<meta name="description" content="Order a cake, book the café, or just find your way to Shubhi's Bake A Wish in Prayagraj. Contact, hours and a wish order form.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Visit &amp; Order — Shubhi's Bake A Wish</title>
+<meta name="description" content="Order a custom cake, book a workshop or visit Shubhi's Bake A Wish, a home bakery and garden café in Prayagraj.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+  .order{background:var(--cream-soft);}
+  .order-copy h2{line-height:1.02;}
+  .order-copy h2 em{font-family:'Mrs Saint Delafield',cursive; font-style:normal; font-weight:400; color:var(--terracotta-deep); font-size:1.1em;}
+  .order-detail span.sel{user-select:all;}
+  .order-form{position:relative; overflow:hidden;}
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible{outline:none; border-color:var(--terracotta);}
+  .form-done{position:absolute; inset:0; background:var(--cream); display:flex; flex-direction:column; justify-content:center; gap:16px; padding:44px;}
+  .form-done .script{font-size:2.4rem; color:var(--terracotta-deep);}
+  .form-done h3{font-size:1.8rem; margin:0;}
+  .form-done pre{white-space:pre-wrap; font-family:'Jost',sans-serif; font-size:.85rem; line-height:1.6; color:var(--ink-soft); background:var(--cream-soft); border:1px solid var(--line); border-radius:6px; padding:14px 16px; margin:0; max-height:180px; overflow:auto;}
+  .form-done .row{display:flex; gap:12px; flex-wrap:wrap;}
+  .form-done small{font-size:.74rem; color:var(--ink-soft); line-height:1.5;}
+  .form-err{font-size:.74rem; color:var(--terracotta-deep); margin:-8px 0 14px; min-height:1em;}
+  .love{background:var(--forest-deep); color:var(--cream-soft);}
+  .love-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(14px,1.6vw,24px);}
+  .love-card{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:16/10; isolation:isolate; display:flex; align-items:flex-end; padding:26px;}
+  .love-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform 1s cubic-bezier(.2,.8,.2,1);}
+  .love-card::before{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(18,12,7,.05) 30%, rgba(18,12,7,.85) 100%);}
+  .love-card:hover img{transform:scale(1.06);}
+  .love-card b{display:block; font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.5rem,2.4vw,2.2rem); line-height:1.05; color:var(--cream-soft);}
+  .love-card span{font-size:.64rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-light);}
+  .love-card i{font-style:normal; display:inline-block; margin-top:12px; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--cream-soft); border-bottom:1px solid rgba(247,236,217,.5); padding-bottom:2px;}
+  @media(max-width:760px){ .love-grid{grid-template-columns:1fr;} }
+  .findus{background:var(--cream);}
+  .map-card .dusk{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.38; mix-blend-mode:luminosity;}
+</style>
 </head>
-<body>
-
+<body class="dark-top">
+<div class="curtain is-covering"><span class="script">Shubhi's</span></div>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
-<header id="siteHeader" class="solid">
+<header id="siteHeader">
   <a href="index.html" class="logo-mark">
     <span class="script">Shubhi's</span>
     <span class="tiny">Bake&nbsp;A&nbsp;Wish</span>
@@ -25,35 +52,126 @@
     <a href="menu.html">Menu</a>
     <a href="cafe.html">The Café</a>
     <a href="cafe.html#workshops">Workshops</a>
-    <a href="visit.html#reviews" class="current">Reviews</a>
-    <a href="visit.html#order" class="nav-cta">Order Now</a>
+    <a href="visit.html#reviews">Reviews</a>
+    <a href="visit.html#order" class="nav-cta current">Order Now</a>
   </nav>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </header>
 
-<section class="page-banner">
-  <img src="assets/cafe-tablescape.jpg" alt="Shubhi's Bake A Wish — café tablescape" loading="eager">
-  <div class="wrap">
-    <span class="crumb"><a href="index.html">Home</a> / Visit</span>
-    <span class="eyebrow fade-up" style="opacity:1;">Get In Touch</span>
-    <h1>Make a wish.<br><span class="script" style="color:var(--gold-light); font-size:1.05em;">We'll bake it.</span></h1>
+<!-- ============ HERO (dusk entrance) ============ -->
+<section class="ph" aria-label="Visit and order">
+  <img class="ph-media" src="assets/visit-dusk.jpg" alt="" aria-hidden="true">
+  <div class="ph-index" aria-hidden="true"><b>04</b>Visit</div>
+  <div class="wrap ph-inner">
+    <nav class="ph-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a><i></i><span>Visit &amp; Order</span></nav>
+    <h1 class="ph-title" data-lines>
+      <span class="ln"><span>Make a wish.</span></span>
+      <span class="ln"><span><em>We'll bake it.</em></span></span>
+    </h1>
+    <div class="ph-foot">
+      <p class="ph-lede">Custom cakes, festive hampers, workshop seats or a table under the vines — tell us what you're wishing for.</p>
+      <a href="#order" class="ph-scroll"><i></i>Place an order</a>
+    </div>
   </div>
 </section>
 
-<!-- ============ REVIEWS ============ -->
-<section class="reviews" id="reviews" style="padding-top:5rem;">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow fade-up">Client Love</span>
-        <h2 class="fade-up">Treasured by<br>every wisher.</h2>
+<!-- ============ ORDER ============ -->
+<section class="order" id="order">
+  <div class="wrap order-grid">
+    <div class="order-copy">
+      <span class="eyebrow">Get in touch</span>
+      <h2 data-lines style="margin:18px 0 24px;">
+        <span class="ln"><span>Wishes go straight</span></span>
+        <span class="ln"><span>to <em>the kitchen.</em></span></span>
+      </h2>
+      <p class="fade-up">Fill in the form and we'll turn it into a WhatsApp message to the café — you check it, you send it. Orders and questions are answered there.</p>
+      <div class="order-detail fade-up">
+        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
+        <div><b>Order &amp; enquiries</b><span class="sel">+91 91984 53309</span></div>
       </div>
-      <p class="fade-up">A few notes from the community — concept copy, styled in the spirit of real client love.</p>
+      <div class="order-detail fade-up">
+        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></div>
+        <div><b>Find us</b><span>Prayagraj, Uttar Pradesh</span></div>
+      </div>
+      <div class="order-detail fade-up">
+        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div><b>Café timings</b><span>Message us for today's timings</span></div>
+      </div>
     </div>
-    <div class="rev-grid">
-      <div class="rev-card fade-up"><span class="quote-mark">"</span><p>This place in Prayagraj looks straight out of Pinterest — and tastes even better. The red velvet is unreal.</p><div class="who"><div class="avatar">A</div><div><b>Ananya R.</b><span>Regular Wisher</span></div></div></div>
-      <div class="rev-card fade-up"><span class="quote-mark">"</span><p>Ordered a custom cake with a day's notice — handled with so much care. You can taste the "homemade" in every bite.</p><div class="who"><div class="avatar">R</div><div><b>Rhea K.</b><span>Birthday Order</span></div></div></div>
-      <div class="rev-card fade-up"><span class="quote-mark">"</span><p>The café itself is a vibe — greenery, fairy lights, the best filter coffee in the city. My weekend ritual now.</p><div class="who"><div class="avatar">S</div><div><b>Samar J.</b><span>Café Regular</span></div></div></div>
+
+    <form class="order-form fade-up" id="wishForm" novalidate>
+      <span class="script">Shubhi's</span>
+      <h3>Place a Wish Order</h3>
+      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="Full name" autocomplete="name" required></div>
+      <div class="field-row">
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="+91" autocomplete="tel" required></div>
+        <div class="field"><label for="f-date">Date needed</label><input id="f-date" name="date" type="date"></div>
+      </div>
+      <div class="field"><label for="f-what">What would you like?</label>
+        <select id="f-what" name="what"><option>Celebration cake</option><option>Millet range</option><option>Desserts &amp; slices</option><option>Savouries</option><option>Festive / gifting hamper</option><option>Café table</option><option>Baking workshop</option></select>
+      </div>
+      <div class="field"><label for="f-note">A little note</label><textarea id="f-note" name="note" rows="3" placeholder="Flavour, size, occasion, message on the cake…"></textarea></div>
+      <p class="form-err" id="formErr" role="alert"></p>
+      <button type="submit" class="btn btn-solid" data-hover>Prepare my wish →</button>
+
+      <div class="form-done" id="formDone" hidden>
+        <span class="script">Almost there</span>
+        <h3>Your wish is ready to send.</h3>
+        <pre id="wishText"></pre>
+        <div class="row">
+          <a class="btn btn-solid" id="waLink" href="https://wa.me/919198453309" target="_blank" rel="noopener">Open in WhatsApp</a>
+          <button type="button" class="btn btn-outline" id="copyWish">Copy message</button>
+        </div>
+        <small>Nothing is sent until you press send in WhatsApp. If the button doesn't open, copy the message and send it to +91 91984 53309.</small>
+        <button type="button" id="editWish" style="align-self:flex-start; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--terracotta-deep); border-bottom:1px solid currentColor; padding:0 0 2px;">← Edit the wish</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ CLIENT LOVE (real highlights) ============ -->
+<section class="love on-dark" id="reviews">
+  <div class="wrap">
+    <div class="sh">
+      <div>
+        <span class="eyebrow">Client love</span>
+        <h2 data-lines><span class="ln"><span>Treasured by</span></span><span class="ln"><span><em>every wisher.</em></span></span></h2>
+      </div>
+      <p class="fade-up">Real notes from customers live on the café's Instagram — in the Client Reviews and Client Diaries highlights.</p>
+    </div>
+    <div class="love-grid">
+      <a class="love-card fade-up" href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener">
+        <img src="assets/ig-flatlay.jpg" alt="" loading="lazy">
+        <div><span>Instagram highlight</span><b>Client Reviews</b><i>Read on Instagram ↗</i></div>
+      </a>
+      <a class="love-card fade-up" href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener">
+        <img src="assets/ig-slice.jpg" alt="" loading="lazy">
+        <div><span>Instagram highlight</span><b>Client Diaries</b><i>Read on Instagram ↗</i></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIND US ============ -->
+<section class="findus">
+  <div class="wrap">
+    <div class="find-us" style="margin-top:0;">
+      <div>
+        <span class="eyebrow">On the map</span>
+        <h2 data-lines style="font-size:clamp(2.2rem,4.4vw,3.6rem); margin:16px 0 18px; line-height:1.02;"><span class="ln"><span>Tucked away,</span></span><span class="ln"><span>easy to find.</span></span></h2>
+        <p class="fade-up" style="color:var(--ink-soft); max-width:42ch; line-height:1.8;">A quiet garden address in Prayagraj, Uttar Pradesh — look for the climbing vines, the fairy lights and the hand-painted sign. Message the café for directions.</p>
+      </div>
+      <div class="map-card fade-up">
+        <img class="dusk" src="assets/visit-dusk.jpg" alt="" aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="rgba(247,236,217,.08)" stroke-width="1"/></pattern></defs>
+          <rect width="400" height="300" fill="url(#grid)"/>
+          <path d="M0 210 C 80 180, 140 230, 210 190 S 320 160, 400 200" fill="none" stroke="rgba(227,199,136,.45)" stroke-width="3"/>
+          <path d="M0 90 C 90 120, 160 70, 240 100 S 340 70, 400 95" fill="none" stroke="rgba(247,236,217,.18)" stroke-width="2"/>
+        </svg>
+        <div class="pin"><div class="pin-pulse"></div><div class="pin-dot"></div></div>
+        <span class="map-label">Prayagraj, Uttar Pradesh</span>
+      </div>
     </div>
   </div>
 </section>
@@ -67,78 +185,12 @@
     </div>
   </div>
   <div class="ig-grid fade-up">
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#bb5a3c,#7a3a26);"></div></div>
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#2f4a3a,#14201a);"></div></div>
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#c79a4b,#7a5c28);"></div></div>
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#c97e6e,#8a4e42);"></div></div>
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#efe2c7,#bb5a3c);"></div></div>
-    <div class="ig-cell"><div style="background:linear-gradient(135deg,#4a6350,#1f332a);"></div></div>
-  </div>
-</section>
-
-<!-- ============ ORDER / CONTACT ============ -->
-<section class="order" id="order">
-  <div class="wrap order-grid">
-    <div class="order-copy">
-      <span class="eyebrow fade-up">Get In Touch</span>
-      <h2 class="fade-up">Make a wish.<br>We'll bake it.</h2>
-      <p class="fade-up">Custom cake orders, café reservations, or workshop bookings — reach out and we'll take it from there.</p>
-
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg></div>
-        <div><b>Order &amp; Enquiries</b><span>+91 91984 53309</span></div>
-      </div>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></div>
-        <div><b>Find Us</b><span>Prayagraj, Uttar Pradesh</span></div>
-      </div>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <div><b>Café Hours</b><span>Tue – Sun · 11am – 9pm</span></div>
-      </div>
-    </div>
-
-    <div class="order-form fade-up">
-      <span class="script">Shubhi's</span>
-      <h3>Place a Wish Order</h3>
-      <div class="field"><label>Your Name</label><input type="text" placeholder="Full name"></div>
-      <div class="field-row">
-        <div class="field"><label>Phone</label><input type="tel" placeholder="+91"></div>
-        <div class="field"><label>Date Needed</label><input type="date"></div>
-      </div>
-      <div class="field"><label>What would you like?</label>
-        <select><option>Celebration Cake</option><option>Cookies &amp; Bites</option><option>Organic Bread</option><option>Tart / Pastry</option><option>Café Reservation</option><option>Baking Workshop</option></select>
-      </div>
-      <div class="field"><label>A little note</label><textarea rows="3" placeholder="Flavour, occasion, message on cake…"></textarea></div>
-      <button type="button" class="btn btn-solid" data-hover>Send Wish →</button>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="find-us">
-      <div class="fade-up">
-        <span class="eyebrow">On the Map</span>
-        <h2 style="font-size:clamp(1.7rem,3.4vw,2.4rem); margin:.4rem 0 1rem;">Tucked away,<br>easy to find.</h2>
-        <p style="color:var(--ink-soft); max-width:40ch;">A quiet garden address in Prayagraj, Uttar Pradesh — look for the climbing vines and the hand-painted sign at the foot of the stairs.</p>
-      </div>
-      <div class="map-card fade-up">
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <defs>
-            <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-              <path d="M28 0H0V28" fill="none" stroke="rgba(247,236,217,.08)" stroke-width="1"/>
-            </pattern>
-          </defs>
-          <rect width="400" height="300" fill="url(#grid)"/>
-          <path d="M0 210 C 80 180, 140 230, 210 190 S 320 160, 400 200" fill="none" stroke="rgba(227,199,136,.35)" stroke-width="3"/>
-          <path d="M0 90 C 90 120, 160 70, 240 100 S 340 70, 400 95" fill="none" stroke="rgba(247,236,217,.14)" stroke-width="2"/>
-        </svg>
-        <div class="pin">
-          <div class="pin-pulse"></div>
-          <div class="pin-dot"></div>
-        </div>
-        <span class="map-label">Prayagraj, Uttar Pradesh</span>
-      </div>
-    </div>
+    <div class="ig-cell"><img src="assets/ig-flatlay.jpg" alt="Red velvet slice and cappuccino" loading="lazy"></div>
+    <div class="ig-cell"><img src="assets/ig-latte.jpg" alt="Latte art in the garden" loading="lazy"></div>
+    <div class="ig-cell"><img src="assets/ig-hands.jpg" alt="Hands shaping dough" loading="lazy"></div>
+    <div class="ig-cell"><img src="assets/ig-slice.jpg" alt="A slice of chocolate cake" loading="lazy"></div>
+    <div class="ig-cell"><img src="assets/ig-corner.jpg" alt="A cosy café corner" loading="lazy"></div>
+    <div class="ig-cell"><img src="assets/ig-hamper.jpg" alt="A festive gift hamper" loading="lazy"></div>
   </div>
 </section>
 
@@ -164,7 +216,7 @@
         <div class="foot-col">
           <h4>Visit</h4>
           <span>Prayagraj, Uttar Pradesh</span>
-          <span>Tue – Sun · 11am – 9pm</span>
+          <span>Message for today's timings</span>
         </div>
       </div>
     </div>
@@ -174,6 +226,35 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* order form → a WhatsApp message the visitor reviews and sends themselves */
+(function(){
+  const form = document.getElementById('wishForm');
+  if(!form) return;
+  const done = document.getElementById('formDone'), err = document.getElementById('formErr');
+  const out = document.getElementById('wishText'), wa = document.getElementById('waLink');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const v = id => (document.getElementById(id).value || '').trim();
+    if(!v('f-name') || !v('f-phone')){ err.textContent = 'Add your name and phone number so the café can reply.'; return; }
+    err.textContent = '';
+    const date = v('f-date') ? new Date(v('f-date') + 'T00:00').toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}) : 'Flexible';
+    const msg = `Hi Shubhi's Bake A Wish! I'd like to place a wish order.\n\nName: ${v('f-name')}\nPhone: ${v('f-phone')}\nFor: ${v('f-what')}\nDate needed: ${date}` + (v('f-note') ? `\nNote: ${v('f-note')}` : '');
+    out.textContent = msg;
+    wa.href = 'https://wa.me/919198453309?text=' + encodeURIComponent(msg);
+    done.hidden = false;
+    if(window.gsap) gsap.fromTo(done, {opacity:0, y:20}, {opacity:1, y:0, duration:.6, ease:'power3.out'});
+  });
+  document.getElementById('editWish').addEventListener('click', () => { done.hidden = true; });
+  document.getElementById('copyWish').addEventListener('click', e => {
+    const btn = e.currentTarget, text = out.textContent;
+    const ok = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy message', 1800); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(out); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected — press copy'; };
+    try { navigator.clipboard.writeText(text).then(ok, fallback); } catch(_) { fallback(); }
+  });
+})();
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
