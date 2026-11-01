@@ -258,3 +258,127 @@ if(document.querySelector('.cafe-visual')){
 gsap.utils.toArray('.menu-card').forEach((card,i)=>{
   gsap.from(card, { opacity:0, y:50, duration:.8, delay:i*0.06, ease:'power3.out', scrollTrigger:{ trigger:card, start:'top 92%' }});
 });
+
+/* ================= V3 ================= */
+const FINE = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ---------- cursor context labels: data-cursor="View" ---------- */
+(function(){
+  const ring = document.querySelector('.cursor-ring'), dot = document.querySelector('.cursor');
+  if(!ring || !FINE) return;
+  const lab = document.createElement('span'); lab.className = 'c-label'; ring.appendChild(lab);
+  const auto = [['.item-card','View'],['.d-card','Drag'],['.ws','Explore'],['.love-card','Open'],['.ig-cell','♡'],['.mrow','Order']];
+  auto.forEach(([sel, t]) => document.querySelectorAll(sel).forEach(el => { if(!el.dataset.cursor) el.dataset.cursor = t; }));
+  document.querySelectorAll('[data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', () => { lab.textContent = el.dataset.cursor; ring.classList.add('labelled'); dot.classList.add('hide'); });
+    el.addEventListener('mouseleave', () => { ring.classList.remove('labelled'); dot.classList.remove('hide'); });
+  });
+})();
+
+/* ---------- photo wipe reveals ---------- */
+if(!REDUCE){
+  document.querySelectorAll('.frame, .ws, .love-card, .d-card figure, .step figure, .item-photo').forEach(el => {
+    el.classList.add('wipe');
+    const img = el.querySelector('img');
+    const tl = gsap.timeline({ scrollTrigger:{ trigger:el, start:'top 90%', once:true } });
+    tl.fromTo(el, {clipPath:'inset(100% 0% 0% 0%)'}, {clipPath:'inset(0% 0% 0% 0%)', duration:1.25, ease:'expo.out'});
+    /* photos that already move (parallax, drag gallery, pinned process) keep their own transforms */
+    if(img && !img.hasAttribute('data-parallax') && !el.closest('.drag, .step')) tl.fromTo(img, {scale:1.3}, {scale:1, duration:1.6, ease:'expo.out', clearProps:'scale'}, 0);
+  });
+}
+
+/* ---------- marquee that answers your scroll speed ---------- */
+document.querySelectorAll('.marquee-band').forEach(band => {
+  const track = band.querySelector('.marquee-track');
+  if(!track || REDUCE) return;
+  band.classList.add('v');
+  let x = 0, vel = 0, skew = 0, dir = 1;
+  ScrollTrigger.create({ onUpdate: self => { vel = self.getVelocity(); dir = self.direction; } });
+  gsap.ticker.add(() => {
+    const half = track.scrollWidth / 2;
+    const boost = Math.min(Math.abs(vel)/180, 14);
+    x -= (0.6 + boost) * dir;
+    if(x <= -half) x += half; if(x > 0) x -= half;
+    skew += ((Math.max(-10, Math.min(10, vel/220))) - skew) * 0.1;
+    vel *= 0.92;
+    track.style.transform = `translate3d(${x}px,0,0) skewX(${(-skew).toFixed(2)}deg)`;
+  });
+});
+
+/* ---------- footer signature writes itself in ---------- */
+document.querySelectorAll('footer .foot-top').forEach(top => {
+  if(top.parentElement.querySelector('.foot-sign')) return;
+  const s = document.createElement('div');
+  s.className = 'foot-sign'; s.setAttribute('aria-hidden','true');
+  s.innerHTML = "<span>Shubhi's</span><small>Bake a wish · Prayagraj</small>";
+  top.after(s);
+  if(REDUCE) return;
+  gsap.to(s.querySelector('span'), {clipPath:'inset(0 0% 0 0)', y:0, ease:'none',
+    scrollTrigger:{trigger:s, start:'top 100%', end:'bottom bottom', scrub:.8}});
+});
+
+/* ---------- printed menu card: photo follows the cursor ---------- */
+document.querySelectorAll('.mcard-list').forEach(list => {
+  if(!FINE) return;
+  const fl = document.createElement('div'); fl.className = 'mfloat'; fl.setAttribute('aria-hidden','true');
+  const imgs = {};
+  list.querySelectorAll('.mrow[data-img]').forEach(r => {
+    const src = r.dataset.img;
+    if(!imgs[src]){ const i = new Image(); i.src = src; i.alt = ''; fl.appendChild(i); imgs[src] = i; }
+  });
+  document.body.appendChild(fl);
+  let mx = innerWidth/2, my = innerHeight/2, fx = mx, fy = my, on = false, rot = 0;
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  gsap.ticker.add(() => {
+    const dx = mx - fx; fx += dx*0.14; fy += (my - fy)*0.14;
+    rot += ((Math.max(-12, Math.min(12, dx*0.08))) - rot)*0.12;
+    fl.style.left = fx + 'px'; fl.style.top = fy + 'px';
+    fl.style.rotate = rot.toFixed(2) + 'deg';
+  });
+  list.querySelectorAll('.mrow[data-img]').forEach(r => {
+    r.addEventListener('mouseenter', () => {
+      Object.values(imgs).forEach(i => i.classList.toggle('on', i === imgs[r.dataset.img]));
+      if(!on){ on = true; gsap.to(fl, {opacity:1, scale:1, duration:.5, ease:'expo.out'}); }
+    });
+  });
+  list.addEventListener('mouseleave', () => { on = false; gsap.to(fl, {opacity:0, scale:.6, duration:.4, ease:'power3.in'}); });
+});
+
+/* ---------- item cards tilt toward the cursor ---------- */
+if(FINE && !REDUCE){
+  document.querySelectorAll('.item-card').forEach(c => {
+    c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect(), px = (e.clientX - r.left)/r.width, py = (e.clientY - r.top)/r.height;
+      c.style.setProperty('--mx', (px*100).toFixed(1)+'%'); c.style.setProperty('--my', (py*100).toFixed(1)+'%');
+      gsap.to(c, {rotateY:(px-.5)*9, rotateX:(.5-py)*9, transformPerspective:900, duration:.5, ease:'power3.out'});
+    });
+    c.addEventListener('mouseleave', () => gsap.to(c, {rotateY:0, rotateX:0, duration:.8, ease:'elastic.out(1,.5)'}));
+  });
+}
+
+/* ---------- menu page: grid / menu-card toggle (remembered per visitor) ---------- */
+(function(){
+  const t = document.querySelector('.view-toggle');
+  if(!t) return;
+  const btns = t.querySelectorAll('button');
+  const set = v => {
+    document.body.classList.toggle('view-card', v === 'card');
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+    try{ localStorage.setItem('sbaw-view', v); }catch(_){}
+    ScrollTrigger.refresh();
+  };
+  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.view)));
+  let saved = 'grid'; try{ saved = localStorage.getItem('sbaw-view') || 'grid'; }catch(_){}
+  set(saved);
+})();
+
+/* in-page anchors glide (CSS smooth scrolling is off because it breaks ScrollTrigger's measurements) */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if(!a || a.getAttribute('href').length < 2) return;
+  const t = document.querySelector(a.getAttribute('href'));
+  if(!t) return;
+  e.preventDefault();
+  const off = document.querySelector('.cat-bar') ? 130 : 70;
+  window.scrollTo({top: t.getBoundingClientRect().top + scrollY - off, behavior: REDUCE ? 'auto' : 'smooth'});
+});

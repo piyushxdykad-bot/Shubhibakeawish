@@ -238,78 +238,112 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
   </div>
 </div>
 
-<!-- ============ STORY TEASER ============ -->
+<!-- ============ STORY ============ -->
 <section class="about" id="story">
-  <div class="wrap about-grid">
-    <div class="about-art fade-up">
-      <img src="assets/about-hero.jpg" alt="Shubhi's Bake A Wish — home kitchen bakes" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" loading="lazy">
-      <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(31,51,39,0) 55%, rgba(21,36,27,.88) 100%);"></div>
-      <div class="tag" style="color:var(--cream);"><span>Surabhi Shrivastava Sahai</span><span>Founder</span></div>
+  <div class="wrap split">
+    <div class="frame">
+      <img src="assets/about-hero.jpg" alt="Flour-dusted hands kneading dough in a home kitchen" loading="lazy" data-parallax>
+      <div class="tag"><span>Surabhi Shrivastava Sahai</span><span>Founder</span></div>
     </div>
-    <div class="about-copy">
-      <span class="eyebrow fade-up">Our Story</span>
-      <h2 class="fade-up">U wish, <span class="script" style="color:var(--terracotta-deep); font-size:1.15em;">I'll accomplish.</span></h2>
-      <p class="fade-up">It started the way most good things do — in a home kitchen, with a whisk, a wish, and a stubborn love for doing things the slow, honest way. No shortcuts, no preservatives, no waste.</p>
+    <div>
+      <span class="eyebrow">Our story</span>
+      <h2 data-lines>
+        <span class="ln"><span>U wish,</span></span>
+        <span class="ln"><span><em>I'll accomplish.</em></span></span>
+      </h2>
+      <p class="fade-up">It started in a home kitchen, with a whisk, a wish, and a stubborn love for doing things the slow, honest way. No shortcuts, no preservatives, no waste.</p>
       <div class="about-stats">
         <div class="stat fade-up"><b>655+</b><span>Bakes shared</span></div>
         <div class="stat fade-up"><b>3.8K+</b><span>Wishers</span></div>
         <div class="stat fade-up"><b>27</b><span>Bakes on the menu</span></div>
         <div class="stat fade-up"><b>0%</b><span>Preservatives</span></div>
       </div>
-      <a href="story.html" class="btn btn-outline fade-up" data-hover style="margin-top:1.8rem; display:inline-block;">Read the Full Story</a>
+      <a href="story.html" class="btn btn-outline fade-up" data-hover style="margin-top:34px;">Read the full story</a>
     </div>
   </div>
 </section>
 
-<!-- ============ MENU HIGHLIGHTS ============ -->
-<section class="menu" id="menu">
+<!-- ============ PRINTED MENU CARD ============ -->
+<section class="mcard" id="menu">
   <div class="wrap">
-    <div class="teaser-head">
+    <div class="sh">
       <div>
-        <span class="eyebrow fade-up">The Menu</span>
-        <h2 class="fade-up">Handbaked, <span class="script" style="color:var(--terracotta-deep); font-size:1.1em;">always.</span></h2>
+        <span class="eyebrow">From the menu</span>
+        <h2 data-lines><span class="ln"><span>Handbaked,</span></span><span class="ln"><span><em>always.</em></span></span></h2>
       </div>
-      <a href="menu.html" class="more fade-up" data-hover>View Full Menu →</a>
+      <div class="fade-up" style="display:flex; flex-direction:column; gap:20px; align-items:flex-start;">
+        <p>A few favourites from the real Shubhi's catalogue — hover a name to see it, tap to find it on the menu.</p>
+        <a href="menu.html" class="btn btn-solid" data-hover>See all 27 bakes</a>
+      </div>
     </div>
+    <ul class="mcard-list">
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/tiramisu.jpg"><span class="th"><img src="assets/tiramisu.jpg" alt="" loading="lazy"></span><span class="n">01</span><span class="nm">Tiramisu<small>a slice</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/strawberry-cheesecake.jpg"><span class="th"><img src="assets/strawberry-cheesecake.jpg" alt="" loading="lazy"></span><span class="n">02</span><span class="nm">Strawberry Cheesecake</span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/hummingbird-cake.jpg"><span class="th"><img src="assets/hummingbird-cake.jpg" alt="" loading="lazy"></span><span class="n">03</span><span class="nm">Hummingbird Cake<small>slice</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
+      <li><a class="mrow" href="menu.html#millet" data-img="assets/jowar-joy.jpg"><span class="th"><img src="assets/jowar-joy.jpg" alt="" loading="lazy"></span><span class="n">04</span><span class="nm">Jowar Joy<small>100g · millet</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹169</span></a></li>
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/biscoff-cheesecake.jpg"><span class="th"><img src="assets/biscoff-cheesecake.jpg" alt="" loading="lazy"></span><span class="n">05</span><span class="nm">Biscoff Cheesecake</span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
+      <li><a class="mrow" href="menu.html#bakes" data-img="assets/mushroom-croissant.jpg"><span class="th"><img src="assets/mushroom-croissant.jpg" alt="" loading="lazy"></span><span class="n">06</span><span class="nm">Mushroom Croissant</span><span class="lead" aria-hidden="true"></span><span class="pr">₹190</span></a></li>
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/chocolate-eclair.jpg"><span class="th"><img src="assets/chocolate-eclair.jpg" alt="" loading="lazy"></span><span class="n">07</span><span class="nm">Chocolate Eclair</span><span class="lead" aria-hidden="true"></span><span class="pr">₹120</span></a></li>
+      <li><a class="mrow" href="menu.html#desserts" data-img="assets/cinnabon.jpg"><span class="th"><img src="assets/cinnabon.jpg" alt="" loading="lazy"></span><span class="n">08</span><span class="nm">Cinnabon</span><span class="lead" aria-hidden="true"></span><span class="pr">₹150</span></a></li>
+    </ul>
+  </div>
+</section>
 
-    <div class="highlight-grid">
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/jowar-joy.jpg" alt="Jowar Joy millet cookies" loading="lazy"></div><div class="item-body"><span class="mi-name">Jowar Joy<span class="mi-note">100g</span></span><span class="mi-price">₹169</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/tiramisu.jpg" alt="Tiramisu" loading="lazy"></div><div class="item-body"><span class="mi-name">Tiramisu<span class="mi-note">a slice</span></span><span class="mi-price">₹250</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/strawberry-cheesecake.jpg" alt="Strawberry Cheesecake" loading="lazy"></div><div class="item-body"><span class="mi-name">Strawberry Cheesecake</span><span class="mi-price">₹250</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/hummingbird-cake.jpg" alt="Hummingbird Cake" loading="lazy"></div><div class="item-body"><span class="mi-name">Hummingbird Cake<span class="mi-note">slice</span></span><span class="mi-price">₹250</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/chocolate-eclair.jpg" alt="Chocolate Eclair" loading="lazy"></div><div class="item-body"><span class="mi-name">Chocolate Eclair</span><span class="mi-price">₹120</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/mushroom-croissant.jpg" alt="Mushroom Croissant" loading="lazy"></div><div class="item-body"><span class="mi-name">Mushroom Croissant</span><span class="mi-price">₹190</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/cheese-garlic-bread.jpg" alt="Cheese Garlic Bread" loading="lazy"></div><div class="item-body"><span class="mi-name">Cheese Garlic Bread</span><span class="mi-price">₹100</span></div></div>
-      <div class="item-card fade-up"><div class="item-photo"><img src="assets/smoothie-bowl.jpg" alt="Smoothie Bowl" loading="lazy"></div><div class="item-body"><span class="mi-name">Smoothie Bowl</span><span class="mi-price">₹130</span></div></div>
+<!-- ============ STEP INTO THE GARDEN (circle reveal) ============ -->
+<section class="garden" id="cafe" aria-label="The garden café">
+  <div class="garden-pin">
+    <div class="garden-film" id="gardenFilm">
+      <video muted loop playsinline preload="metadata" poster="assets/video/cafe-hero-poster.jpg">
+        <source src="assets/video/cafe-hero.mp4" type="video/mp4">
+      </video>
+      <div class="garden-shade" id="gardenShade"></div>
+    </div>
+    <div class="garden-ring" id="gardenRing" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><defs><path id="gRing" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+        <text><textPath href="#gRing">COFFEE · COOKIES · DESSERT · SAVOUR · </textPath></text></svg>
+    </div>
+    <div class="garden-words" id="gardenWords" aria-hidden="true">
+      <span class="l">Step<em>inside</em></span>
+      <span class="r">the<em>garden</em></span>
+    </div>
+    <div class="garden-end" id="gardenEnd">
+      <h2>A garden café,<br><em>after dusk.</em></h2>
+      <div style="display:flex; flex-direction:column; gap:20px; align-items:flex-start;">
+        <p>Fairy lights in the vines, candles on small tables, and a coffee that's never in a hurry — tucked away in Prayagraj.</p>
+        <a href="cafe.html" class="btn btn-outline" data-hover>Explore the café</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CAFE TEASER ============ -->
-<section class="cafe" id="cafe">
-  <div class="wrap cafe-wrap">
-    <div class="cafe-copy">
-      <span class="eyebrow fade-up">The Café</span>
-      <h2 class="fade-up">A garden café,<br>straight out of a daydream.</h2>
-      <p class="fade-up">Stone stairs wound in green, fairy lights at dusk, a hand-painted sign promising coffee, cookies, dessert, savour.</p>
-      <div class="cafe-sign fade-up">
-        <span>Coffee</span><span>Cookies</span><span>Dessert</span><span>Savour</span>
-      </div>
-      <a href="cafe.html" class="btn btn-outline fade-up" data-hover style="margin-top:1.8rem; display:block; width:fit-content; clear:both;">Explore the Café</a>
-    </div>
-    <div class="cafe-visual fade-up">
-      <div class="cafe-card cc1">
-        <img src="assets/cafe-garden-stairs.jpg" alt="Shubhi's Bake A Wish — garden staircase entrance" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The garden stairs</div>
-      </div>
-      <div class="cafe-card cc2">
-        <img src="assets/cafe-interior.jpg" alt="Shubhi's Bake A Wish — climbing greens &amp; garden café interior" loading="lazy">
-        <div class="photo-tint"></div>
-        <div class="inner-label">The climbing greens</div>
-      </div>
-    </div>
+<!-- ============ BLOW OUT THE CANDLE ============ -->
+<section class="wish" id="wish" aria-label="Make a wish">
+  <img class="wish-photo" src="assets/wish-candle.jpg" alt="A small celebration cake with one candle on a café table at night">
+  <canvas id="wishCanvas" aria-hidden="true"></canvas>
+  <div class="wish-copy">
+    <span class="eyebrow">Make a wish</span>
+    <h2>Close your eyes.<br><em>Make a wish.</em></h2>
+    <p>Hold the button to blow out the candle — the kitchen will pick a bake for your wish from the menu.</p>
   </div>
+  <div class="wish-act">
+    <button class="blow" id="blowBtn" type="button" aria-describedby="wishHint">
+      <svg viewBox="0 0 132 132" aria-hidden="true"><circle class="track" cx="66" cy="66" r="60"/><circle class="prog" id="blowProg" cx="66" cy="66" r="60"/></svg>
+      <span id="blowLabel">Hold to<br>blow</span>
+    </button>
+    <span class="wish-hint" id="wishHint">Press &amp; hold · or hold Space</span>
+  </div>
+  <article class="wish-card" id="wishCard" hidden aria-live="polite">
+    <figure><img id="wcImg" src="assets/tiramisu.jpg" alt=""><span class="ribbon">Your wish</span></figure>
+    <div class="body">
+      <span class="k">wish granted —</span>
+      <h3 id="wcName">Tiramisu</h3>
+      <div class="meta"><span id="wcNote">a slice</span><b id="wcPrice">₹250</b></div>
+      <div class="row">
+        <a class="btn btn-solid" href="visit.html#order" data-hover>Order this wish</a>
+        <button type="button" class="again" id="wishAgain">Relight &amp; wish again</button>
+      </div>
+    </div>
+  </article>
 </section>
 
 <!-- ============ CUSTOM CAKES BAND ============ -->
@@ -352,19 +386,6 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
     <div class="ig-cell"><img src="assets/ig-slice.jpg" alt="A slice of chocolate cake" loading="lazy"></div>
     <div class="ig-cell"><img src="assets/ig-corner.jpg" alt="A cosy café corner" loading="lazy"></div>
     <div class="ig-cell"><img src="assets/ig-hamper.jpg" alt="A festive gift hamper" loading="lazy"></div>
-  </div>
-</section>
-
-<!-- ============ CLOSING CTA ============ -->
-<section class="order" id="order">
-  <div class="wrap" style="text-align:center; padding:2rem 0;">
-    <span class="eyebrow fade-up">Get In Touch</span>
-    <h2 class="fade-up" style="font-size:clamp(2rem,4.4vw,3.4rem); margin:.6rem 0 1.6rem;">Make a wish.<br>We'll bake it.</h2>
-    <p class="fade-up" style="max-width:48ch; margin:0 auto 2rem; color:var(--ink-soft);">Custom cake orders, café reservations, or workshop bookings — reach out and we'll take it from there.</p>
-    <div class="hero-ctas fade-up" style="justify-content:center;">
-      <a href="visit.html#order" class="btn btn-solid" data-hover>Place a Wish Order</a>
-      <a href="visit.html" class="btn btn-outline" data-hover>Visit &amp; Contact</a>
-    </div>
   </div>
 </section>
 
@@ -675,4 +696,225 @@ window.addEventListener('load', () => {
     .fromTo('.wh-intro .wh-under, .wh-intro .wh-corner', {opacity:0, y:12}, {opacity:1, y:0, duration:.8, stagger:.06, ease:'power3.out'}, '-=.9');
 });
 </script>
+<script>
+/* ============ garden: a circle opens into the dusk film ============ */
+(function(){
+  const sec = document.querySelector('.garden'); if(!sec) return;
+  const film = document.getElementById('gardenFilm'), vid = film.querySelector('video');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* play only while on screen */
+  new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting && !reduce){ const p = vid.play(); if(p && p.catch) p.catch(()=>{}); } else vid.pause();
+  }), {threshold:.05}).observe(sec);
+  const rt = document.querySelector('#gardenRing text');
+  if(rt){ const fit = () => { rt.style.letterSpacing = '0px'; const L = rt.getComputedTextLength(), C = 2*Math.PI*50; rt.style.letterSpacing = ((C - L)/rt.textContent.length).toFixed(2) + 'px'; };
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit); }
+  if(reduce) return;
+  const R = () => Math.hypot(innerWidth, innerHeight) * 0.6;
+  const tl = gsap.timeline({ defaults:{ease:'none'}, scrollTrigger:{ trigger:sec, start:'top top', end:'+=170%', pin:'.garden-pin', scrub:.8, refreshPriority:5, invalidateOnRefresh:true }});
+  tl.fromTo(film, {clipPath:'circle(9vmin at 50% 50%)'}, {clipPath:() => `circle(${R()}px at 50% 50%)`, duration:.62, ease:'power2.in'}, 0)
+    .fromTo(vid, {scale:1.25}, {scale:1, duration:.7}, 0)
+    .to('#gardenWords .l', {xPercent:-60, opacity:0, duration:.4}, .05)
+    .to('#gardenWords .r', {xPercent:60, opacity:0, duration:.4}, .05)
+    .to('#gardenRing', {scale:5, opacity:0, duration:.42, ease:'power2.in'}, .04)
+    .to('#gardenShade', {opacity:1, duration:.2}, .55)
+    .fromTo('#gardenEnd', {opacity:0, y:40}, {opacity:1, y:0, duration:.22}, .66)
+    .set({}, {}, 1);
+})();
+
+/* ============ blow out the candle ============ */
+(function(){
+  const sec = document.getElementById('wish'); if(!sec) return;
+  const cv = document.getElementById('wishCanvas'), ctx = cv.getContext('2d');
+  const photo = sec.querySelector('.wish-photo');
+  const btn = document.getElementById('blowBtn'), prog = document.getElementById('blowProg'), label = document.getElementById('blowLabel');
+  const card = document.getElementById('wishCard'), again = document.getElementById('wishAgain');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* the real menu — the wish is drawn from these */
+  const MENU = [
+    ['jowar-joy','Jowar Joy','100g · millet range','₹169'],['ragi-rich','Ragi Rich','100g · millet range','₹169'],['multigrain-magic','Multigrain Magic','100g · millet range','₹169'],
+    ['millet-laddo','Millet Laddo','200g · millet range','₹320'],['millet-samosa','Millet Samosa','200g · millet range','₹320'],['apple-pie','Apple Pie','dessert','₹230'],
+    ['tiramisu','Tiramisu','a slice','₹250'],['strawberry-cheesecake','Strawberry Cheesecake','dessert','₹250'],['blueberry-cheesecake','Blueberry Cheesecake','dessert','₹250'],
+    ['biscoff-cheesecake','Biscoff Cheesecake','dessert','₹250'],['classic-tres-leches','Classic Tres Leches','per slice · on offer','₹220'],['lemon-chiffon','Lemon Chiffon','dessert','₹190'],
+    ['hummingbird-cake','Hummingbird Cake','slice','₹250'],['chocolate-eclair','Chocolate Eclair','dessert','₹120'],['cinnabon','Cinnabon','dessert','₹150'],
+    ['almond-raisin-cookie','Almond Raisin Cookie','100g','₹149'],['butter-coconut-cookies','Butter Coconut Cookies','100g','₹149'],['potato-pinwheels','Potato Pinwheels','savoury','₹90'],
+    ['minced-lamb-toast','Minced Lamb on Toast','savoury','₹185'],['mushroom-toast','Mushroom on Toast','savoury','₹130'],['scrambled-egg-toast','Scrambled Egg on Toast','savoury','₹110'],
+    ['cottage-cheese-cutlet','Cottage Cheese Cutlet','savoury','₹140'],['cheese-garlic-bread','Cheese Garlic Bread','savoury','₹100'],['garlic-bites','Garlic Bites','savoury','₹60'],
+    ['mushroom-croissant','Mushroom Croissant','bake','₹190'],['cheese-corn-bun','Cheese Corn Bun','bake','On request'],['smoothie-bowl','Smoothie Bowl','café special','₹130']
+  ];
+  let lastPick = -1;
+  const pick = () => { let i; do { i = Math.floor(Math.random()*MENU.length); } while(i === lastPick); lastPick = i; return MENU[i]; };
+  MENU.forEach(m => { const im = new Image(); im.src = `assets/${m[0]}.jpg`; });   /* warm the cache so the reveal is instant */
+
+  /* wick position in the photo's own pixels (1376 × 768) */
+  const IW = 1376, IH = 768, WICK = {x:684, y:203};
+  let W = 0, H = 0, DPR = 1, S = 1, AX = 0, AY = 0;
+  function size(){
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = sec.clientWidth; H = sec.clientHeight;
+    cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+    S = Math.max(W/IW, H/IH);                         /* same maths as object-fit: cover, centred */
+    AX = (W - IW*S)/2 + WICK.x*S; AY = (H - IH*S)/2 + WICK.y*S;
+  }
+
+  let state = 'lit', hold = 0, holding = false, life = 1, ember = 0, t0 = performance.now();
+  let smoke = [], petals = [];
+  const noise = t => Math.sin(t*2.1)*0.5 + Math.sin(t*5.3+1.3)*0.3 + Math.sin(t*11.7+.4)*0.2;
+
+  function drawFlame(t){
+    const k = life * (1 - hold*0.5);
+    if(k <= 0.01) return;
+    const f = noise(t), g = noise(t*1.7+3);
+    const h = (56 + f*5) * S * k * (1 - hold*0.25);
+    const w = (12.5 + g*1) * S * Math.max(.4, k);
+    const lean = (f*2.2 + hold*hold*26 + (holding ? Math.sin(t*38)*hold*4 : 0)) * S;
+    const bx = AX, by = AY;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    /* ambient warmth on the cake and table */
+    let gr = ctx.createRadialGradient(bx, by - h*0.4, 0, bx, by - h*0.4, 420*S*k);
+    gr.addColorStop(0, `rgba(255,170,90,${0.16*k})`); gr.addColorStop(1, 'rgba(255,170,90,0)');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+    /* halo */
+    gr = ctx.createRadialGradient(bx + lean*0.4, by - h*0.55, 0, bx + lean*0.4, by - h*0.55, 120*S*k);
+    gr.addColorStop(0, `rgba(255,214,150,${0.55*k})`); gr.addColorStop(.4, `rgba(255,170,80,${0.22*k})`); gr.addColorStop(1, 'rgba(255,150,60,0)');
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(bx + lean*0.4, by - h*0.55, 120*S*k, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+    /* the flame: a teardrop that leans and gutters */
+    const tipX = bx + lean, tipY = by - h;
+    const shape = (scale) => {
+      ctx.beginPath();
+      ctx.moveTo(tipX*scale + bx*(1-scale), tipY*scale + by*(1-scale));
+      ctx.bezierCurveTo(bx + w*1.15*scale + lean*0.35, by - h*0.5*scale, bx + w*scale, by + w*0.2*scale, bx, by + w*0.45*scale);
+      ctx.bezierCurveTo(bx - w*scale, by + w*0.2*scale, bx - w*1.15*scale + lean*0.35, by - h*0.5*scale, tipX*scale + bx*(1-scale), tipY*scale + by*(1-scale));
+      ctx.closePath();
+    };
+    ctx.save();
+    let lg = ctx.createLinearGradient(bx, by + w*0.4, tipX, tipY);
+    lg.addColorStop(0, 'rgba(110,140,255,.85)'); lg.addColorStop(.12, 'rgba(255,170,70,.95)'); lg.addColorStop(.55, 'rgba(255,200,110,.95)'); lg.addColorStop(1, 'rgba(255,120,40,0)');
+    ctx.fillStyle = lg; ctx.shadowColor = 'rgba(255,170,80,.9)'; ctx.shadowBlur = 18*S; shape(1); ctx.fill();
+    ctx.shadowBlur = 0;
+    lg = ctx.createLinearGradient(bx, by, tipX, tipY);
+    lg.addColorStop(0, 'rgba(255,255,240,.0)'); lg.addColorStop(.18, 'rgba(255,250,230,.95)'); lg.addColorStop(.7, 'rgba(255,236,190,.5)'); lg.addColorStop(1, 'rgba(255,230,180,0)');
+    ctx.fillStyle = lg; shape(.55); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawEmber(){
+    if(ember <= 0) return;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    const r = 6*S;
+    const gr = ctx.createRadialGradient(AX, AY+2*S, 0, AX, AY+2*S, r*3);
+    gr.addColorStop(0, `rgba(255,120,40,${ember})`); gr.addColorStop(1, 'rgba(255,90,30,0)');
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(AX, AY+2*S, r*3, 0, Math.PI*2); ctx.fill(); ctx.restore();
+  }
+
+  function puffSmoke(n){
+    for(let i=0;i<n;i++) smoke.push({x:AX + (Math.random()-.5)*2*S, y:AY - 2*S - i*1.5*S, vx:(Math.random()-.5)*.12*S, vy:-(0.7+Math.random()*.5)*S,
+      r:(1.2+Math.random()*1.4)*S, a:.2+Math.random()*.12, ph:Math.random()*6.28, life:0});
+  }
+  function burstPetals(){
+    for(let i=0;i<34;i++){
+      const ang = -Math.PI/2 + (Math.random()-.5)*2.4, sp = (4+Math.random()*8)*S;
+      petals.push({x:AX + (Math.random()-.5)*120*S, y:AY + 230*S, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp - 3*S,
+        rot:Math.random()*6.28, vr:(Math.random()-.5)*.2, sz:(7+Math.random()*7)*S, a:1, hue:Math.random()});
+    }
+  }
+
+  function frame(now){
+    const t = (now - t0)/1000, dt = 1/60;
+    ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
+    if(state === 'lit'){
+      hold = holding ? Math.min(1, hold + dt/1.25) : Math.max(0, hold - dt*1.8);
+      prog.style.strokeDashoffset = (377*(1-hold)).toFixed(1);
+      if(hold >= 1) blowOut();
+    } else if(state === 'blowing'){
+      life = Math.max(0, life - dt*7); if(life === 0) state = 'out';
+    } else if(state === 'relight'){
+      life = Math.min(1, life + dt*1.8); if(life >= 1) state = 'lit';
+    }
+    if(state === 'out' || state === 'blowing'){ ember = Math.max(0, ember - dt*0.55); if(Math.random() < ember*0.9) puffSmoke(1); }
+    drawEmber();
+    drawFlame(t);
+    /* smoke curls */
+    ctx.save();
+    smoke = smoke.filter(p => (p.life += dt) < 4.5);
+    smoke.forEach(p => {
+      p.ph += .04; p.x += p.vx + Math.sin(p.ph + p.life*2.4 + p.y*.01)*.7*S*Math.min(1, p.life); p.y += p.vy; p.r += .05*S;
+      const a = p.a * (1 - p.life/4.5);
+      const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      gr.addColorStop(0, `rgba(215,205,195,${a})`); gr.addColorStop(1, 'rgba(215,205,195,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+    });
+    /* rose petals */
+    petals = petals.filter(p => p.a > 0.02 && p.y < H + 60);
+    petals.forEach(p => {
+      p.vy += .16*S; p.vx *= .99; p.x += p.vx + Math.sin(p.rot)*.6; p.y += p.vy; p.rot += p.vr; if(p.vy > 0) p.a -= .006;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = p.a;
+      const gr = ctx.createLinearGradient(-p.sz, 0, p.sz, 0);
+      gr.addColorStop(0, p.hue > .5 ? '#f3b8c4' : '#eaa0ae'); gr.addColorStop(1, p.hue > .5 ? '#d97a90' : '#f6d2d8');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.ellipse(0, 0, p.sz, p.sz*.62, 0, 0, Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+    ctx.restore();
+    if(running) raf = requestAnimationFrame(frame);
+  }
+
+  function reveal(){
+    const m = pick();
+    document.getElementById('wcImg').src = `assets/${m[0]}.jpg`;
+    document.getElementById('wcImg').alt = m[1];
+    document.getElementById('wcName').textContent = m[1];
+    document.getElementById('wcNote').textContent = m[2];
+    document.getElementById('wcPrice').textContent = m[3];
+    card.hidden = false;
+    if(!reduce) gsap.fromTo(card, {opacity:0, y:50, rotate:3}, {opacity:1, y:0, rotate:0, duration:.9, ease:'expo.out'});
+  }
+
+  function blowOut(){
+    if(state !== 'lit') return;
+    state = 'blowing'; holding = false; ember = .9;
+    sec.classList.add('out');
+    puffSmoke(40); burstPetals();
+    label.innerHTML = 'Wish<br>made';
+    setTimeout(reveal, 900);
+  }
+
+  function relight(){
+    card.hidden = true; sec.classList.remove('out');
+    hold = 0; prog.style.strokeDashoffset = 377; label.innerHTML = 'Hold to<br>blow';
+    if(reduce){ return; }
+    life = 0; state = 'relight'; ember = 0;
+  }
+
+  /* hold to blow — pointer and keyboard */
+  const start = e => { if(state !== 'lit') return; if(e.cancelable) e.preventDefault(); holding = true; label.innerHTML = 'Keep<br>holding'; };
+  const stop  = () => { if(!holding) return; holding = false; if(state === 'lit') label.innerHTML = 'Hold to<br>blow'; };
+  btn.addEventListener('pointerdown', start); btn.addEventListener('pointerup', stop); btn.addEventListener('pointerleave', stop); btn.addEventListener('pointercancel', stop);
+  btn.addEventListener('contextmenu', e => e.preventDefault());
+  btn.addEventListener('keydown', e => { if((e.key === ' ' || e.key === 'Enter') && !e.repeat){ e.preventDefault(); start(e); } });
+  btn.addEventListener('keyup', e => { if(e.key === ' ' || e.key === 'Enter') stop(); });
+  again.addEventListener('click', relight);
+
+  /* reduced motion: a still candle, one click to reveal */
+  if(reduce){
+    label.innerHTML = 'Reveal<br>my wish'; document.getElementById('wishHint').textContent = 'Tap to reveal';
+    btn.addEventListener('click', () => { sec.classList.add('out'); state = 'out'; ctx.clearRect(0,0,W,H); reveal(); });
+    const still = () => { size(); ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H); if(state === 'lit') drawFlame(0); };
+    if(photo.complete) still(); else photo.addEventListener('load', still);
+    addEventListener('resize', still);
+    return;
+  }
+
+  let running = false, raf = 0;
+  new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting && !running){ running = true; size(); raf = requestAnimationFrame(frame); }
+    else if(!e.isIntersecting && running){ running = false; cancelAnimationFrame(raf); }
+  }), {threshold:0}).observe(sec);
+  addEventListener('resize', size);
+  size();
+})();
+</script>
+
 
