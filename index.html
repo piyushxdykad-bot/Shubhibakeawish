@@ -9,147 +9,182 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Italiana&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Mrs+Saint+Delafield&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>
-/* ===== "Make a wish" hero ===== */
-.wh{
-  --gl:max(6vw, env(safe-area-inset-left,0px));
-  --gr:max(6vw, env(safe-area-inset-right,0px));
-  position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden;
-  background:var(--ink); color:var(--cream-soft); isolation:isolate;
-}
-.wh canvas{position:absolute; inset:0; width:100%; height:100%; display:block;}
-.wh-video{z-index:0;}
-.wh-shade{
-  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
-  background:
-    linear-gradient(90deg, rgba(18,12,7,.78) 0%, rgba(18,12,7,.42) 42%, rgba(18,12,7,0) 72%),
-    linear-gradient(0deg, rgba(18,12,7,.82) 0%, rgba(18,12,7,0) 46%),
-    linear-gradient(180deg, rgba(18,12,7,.5) 0%, rgba(18,12,7,0) 20%);
-}
-.wh-motes{z-index:2; pointer-events:none;}
-.wh-mask{z-index:5; pointer-events:none;}
+/* ================= HOME (app) ================= */
+body{background:var(--cream);}
+.app-home{display:block;}
+.blk{padding:clamp(44px,7vw,84px) 0 0;}
+.blk-last{padding-bottom:clamp(60px,9vw,110px);}
 
-/* intro printed on the cream page */
-.wh-intro{position:absolute; inset:0; z-index:6; pointer-events:none; color:var(--ink);}
-.wh-corner{
-  position:absolute; font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.28em;
-  text-transform:uppercase; color:var(--ink-soft);
-}
-.wh-corner.tl{left:var(--gl); top:clamp(92px,13vh,120px);}
-.wh-corner.tr{right:var(--gr); top:clamp(92px,13vh,120px);}
-.wh-corner.bl{left:var(--gl); bottom:clamp(22px,4vh,40px);}
-.wh-corner.br{right:var(--gr); bottom:clamp(22px,4vh,40px);}
-.wh-script{
-  position:absolute; left:0; right:0; text-align:center;
-  top:var(--word-top, 30%); transform:translateY(-82%);
-  font-family:'Mrs Saint Delafield',cursive; font-size:clamp(3rem,7vw,6.2rem); line-height:1;
-  color:var(--terracotta-deep);
-}
-.wh-script span{display:inline-block; clip-path:inset(0 100% 0 0); padding:0 .2em;}
-.wh-under{
-  position:absolute; left:0; right:0; top:var(--word-bottom, 70%);
-  display:flex; flex-direction:column; align-items:center; gap:14px; padding-top:clamp(14px,2.4vh,26px);
-}
-.wh-tag{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.05rem,1.6vw,1.4rem); color:var(--ink-soft);}
-.wh-cue{display:inline-flex; align-items:center; gap:12px; font-family:'Jost',sans-serif; font-size:.7rem; letter-spacing:.32em; text-transform:uppercase; color:var(--terracotta-deep);}
-.wh-cue i{display:block; width:42px; height:1px; background:currentColor; transform-origin:left; animation:whCue 2.2s cubic-bezier(.7,0,.2,1) infinite;}
-@keyframes whCue{0%{transform:scaleX(0)}50%{transform:scaleX(1); transform-origin:left}50.01%{transform-origin:right}100%{transform:scaleX(0); transform-origin:right}}
+/* hero */
+.hx{padding-top:calc(env(safe-area-inset-top,0px) + clamp(84px,11vh,104px)); min-height:100svh; display:flex; flex-direction:column; justify-content:center; gap:clamp(10px,1.6vh,18px); padding-bottom:clamp(20px,4vh,40px);}
+.hx-top{display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%;}
+.hx-eyebrow{font:500 .7rem/1.3 'Jost',sans-serif; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft);}
+.hx-stage{position:relative; width:100%; height:var(--stage-h, 38vh); isolation:isolate;}
+.hx-film{position:absolute; inset:0; overflow:hidden; z-index:0;}
+.hx-video{position:absolute; inset:-6% -3%; width:106%; height:112%; object-fit:cover; z-index:0; will-change:transform;}
+.hx-mask{position:absolute; inset:0; width:100%; height:100%; z-index:1; display:block;}
+.hx-script{position:absolute; z-index:2; left:var(--sx,10%); top:var(--sy,0); font-family:'Mrs Saint Delafield',cursive; font-size:var(--sf,4rem); line-height:1; color:var(--terracotta-deep); pointer-events:none; transform:rotate(-6deg); transform-origin:left bottom;}
+.hx-script span{display:inline-block; clip-path:inset(0 100% 0 0); padding:0 .25em .1em 0;}
+.hx-app{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:clamp(16px,2.4vw,32px) clamp(20px,4vw,56px); align-items:center; width:100%;}
+.hx-lede{font:300 clamp(.98rem,1.25vw,1.08rem)/1.65 'Jost',sans-serif; color:var(--ink-soft); max-width:40ch;}
 
-/* chapters */
-.wh-chapters{
-  position:absolute; z-index:4; left:var(--gl); top:clamp(96px,14vh,128px);
-  list-style:none; margin:0; padding:0; display:flex; gap:26px; opacity:0;
-  font-family:'Jost',sans-serif; font-size:.7rem; letter-spacing:.24em; text-transform:uppercase;
-}
-.wh-chapters li{color:rgba(247,236,217,.42); display:flex; align-items:baseline; gap:8px; transition:color .5s;}
-.wh-chapters li b{font-family:'Cormorant Garamond',serif; font-size:1.05rem; letter-spacing:0; font-weight:500;}
-.wh-chapters li.on{color:var(--gold-light);}
+.search{position:relative; display:flex; align-items:center; gap:12px; height:60px; padding:0 10px 0 22px; border-radius:30px; background:var(--card); border:1px solid var(--card-line); box-shadow:0 18px 40px -28px rgba(42,31,22,.45); transition:box-shadow .35s, border-color .35s;}
+.search:focus-within{border-color:rgba(187,90,60,.45); box-shadow:0 0 0 4px rgba(187,90,60,.12), 0 18px 40px -28px rgba(42,31,22,.45);}
+.search > svg{width:20px; height:20px; flex:none; fill:none; stroke:var(--ink-soft); stroke-width:1.6; stroke-linecap:round;}
+.search input{flex:1; min-width:0; height:100%; border:0; background:transparent; font:400 1rem 'Jost',sans-serif; color:var(--ink); outline:none;}
+.search input::placeholder{color:rgba(74,58,42,.6);}
+.search input::-webkit-search-cancel-button{display:none;}
+.search kbd{flex:none; display:grid; place-items:center; width:30px; height:30px; border-radius:9px; border:1px solid var(--line); font:500 .8rem 'Jost',sans-serif; color:var(--ink-soft);}
+.search-results{position:absolute; z-index:40; left:0; right:0; top:calc(100% + 10px); list-style:none; margin:0; padding:8px; border-radius:var(--r-md); background:var(--cream-soft); border:1px solid var(--card-line); box-shadow:0 30px 60px -24px rgba(42,31,22,.45); max-height:min(420px, 60vh); overflow:auto;}
+.search-results li{display:flex; align-items:center; gap:12px; padding:8px; border-radius:12px; cursor:pointer;}
+.search-results li[aria-selected="true"], .search-results li:hover{background:rgba(187,90,60,.08);}
+.search-results img{width:46px; height:46px; border-radius:10px; object-fit:cover; flex:none;}
+.search-results .sr-t{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+.search-results .sr-t b{font:500 1.08rem/1.1 'Cormorant Garamond',serif; color:var(--ink);}
+.search-results .sr-t small{font:400 .72rem/1 'Jost',sans-serif; letter-spacing:.06em; color:var(--ink-soft);}
+.search-results .sr-empty{display:block; padding:14px; font-size:.9rem; color:var(--ink-soft); cursor:default;}
+.search-results .sr-empty a{color:var(--terracotta-deep); text-decoration:underline;}
+.search-results .stepper, .search-results .stepper button{height:36px;}
 
-/* seal */
-.wh-ring{
-  position:absolute; z-index:4; right:var(--gr); top:50%; width:clamp(130px,12vw,176px); aspect-ratio:1; max-width:100%;
-  margin-top:calc(clamp(130px,12vw,176px) / -2); opacity:0;
-}
-.wh-ring svg{width:100%; height:100%; animation:whSpin 26s linear infinite; overflow:visible;}
-.wh-ring text{font-family:'Jost',sans-serif; font-size:11.2px; letter-spacing:.32em; fill:var(--cream-soft);}
-.wh-ring-core{
-  position:absolute; inset:24%; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  background:rgba(247,236,217,.1); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(227,199,136,.35);
-}
-.wh-ring-core b{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.5rem,2.2vw,2rem); color:var(--gold-light); line-height:1;}
-.wh-ring-core span{font-family:'Jost',sans-serif; font-size:.64rem; letter-spacing:.04em; text-transform:uppercase; color:rgba(247,236,217,.8); margin-top:4px;}
-@keyframes whSpin{to{transform:rotate(360deg)}}
+.quick{grid-column:1 / -1; display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+.qa{position:relative; display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto; column-gap:14px; row-gap:4px; align-items:center; padding:16px 18px; border-radius:var(--r-md); background:var(--card); border:1px solid var(--card-line); transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s;}
+.qa-ic{grid-row:1 / 3; width:44px; height:44px; border-radius:14px; display:grid; place-items:center; background:var(--forest-deep); color:var(--gold-light); transition:transform .5s var(--spring);}
+.qa-ic svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round;}
+.qa b{font:500 1.12rem/1.1 'Cormorant Garamond',serif; color:var(--ink);}
+.qa small{font:400 .74rem/1.3 'Jost',sans-serif; color:var(--ink-soft);}
+@media(hover:hover){ .qa:hover{transform:translateY(-4px); box-shadow:var(--lift); background:var(--cream-soft);} .qa:hover .qa-ic{transform:rotate(-8deg) scale(1.06);} }
+.qa:active{transform:scale(.97);}
 
-/* badge */
-.wh-badge{
-  position:absolute; z-index:4; right:var(--gr); top:clamp(92px,13vh,120px);
-  display:inline-flex; align-items:center; gap:10px; padding:.6rem 1.05rem .6rem .85rem; border-radius:999px;
-  background:rgba(247,236,217,.12); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(247,236,217,.28); color:var(--cream-soft);
-  font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; opacity:0;
-}
-.wh-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--gold-light); box-shadow:0 0 12px 3px rgba(227,199,136,.7); animation:whPulse 2s ease-in-out infinite;}
-@keyframes whPulse{50%{box-shadow:0 0 4px 1px rgba(227,199,136,.4)}}
+/* today */
+.today{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:14px;}
+.t-card{border-radius:var(--r-lg); background:var(--card); border:1px solid var(--card-line); padding:22px; display:flex; flex-direction:column; gap:8px; min-height:220px;}
+.t-hero{grid-row:span 1; padding:0; flex-direction:row; overflow:hidden;}
+.t-hero img{width:46%; object-fit:cover;}
+.t-body{flex:1; padding:22px; display:flex; flex-direction:column; gap:10px; align-items:flex-start;}
+.t-body h3{font-size:clamp(1.6rem,2.2vw,2.1rem); line-height:1;}
+.t-body p{font-size:.88rem; line-height:1.55; color:var(--ink-soft);}
+.t-row{margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; flex-wrap:wrap;}
+.t-row b{font:500 1.6rem/1 'Cormorant Garamond',serif; color:var(--terracotta-deep);}
+.t-stat{justify-content:flex-end;}
+.t-stat .t-ic{margin-bottom:auto; width:42px; height:42px; border-radius:13px; display:grid; place-items:center; background:rgba(187,90,60,.1); color:var(--terracotta-deep);}
+.t-ic svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round;}
+.t-stat > b{font:500 clamp(2.2rem,3.4vw,3rem)/1 'Cormorant Garamond',serif; color:var(--ink);}
+.t-stat > span:last-child{font-size:.84rem; line-height:1.5; color:var(--ink-soft);}
+.t-dark{background:var(--forest-deep); border-color:transparent;}
+.t-dark > b{color:var(--cream-soft);} .t-dark > span:last-child{color:rgba(247,236,217,.7);}
+.t-dark .t-ic{background:rgba(227,199,136,.14); color:var(--gold-light);}
 
-/* content */
-.wh-content{
-  position:absolute; z-index:4; left:var(--gl); right:var(--gr); bottom:clamp(40px,7vh,76px);
-}
-.wh-eyebrow{
-  display:flex; align-items:center; gap:14px; margin:0 0 clamp(14px,2.2vh,24px);
-  font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-light);
-}
-.wh-eyebrow .rule{width:38px; height:1px; background:currentColor;}
-.wh-title{
-  margin:0; font-family:'Cormorant Garamond',serif; font-weight:500; color:var(--cream-soft);
-  font-size:clamp(2.7rem,7.2vw,7rem); line-height:.95; letter-spacing:-.015em; text-wrap:balance;
-}
-.wh-title .ln{display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em;}
-.wh-title .ln > span{display:inline-block; will-change:transform;}
-.wh-title em{font-family:'Mrs Saint Delafield',cursive; font-style:normal; font-weight:400; color:var(--gold-light); font-size:1.18em; letter-spacing:0; padding-right:.06em;}
-.wh-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px 48px; flex-wrap:wrap; margin-top:clamp(18px,3vh,32px);}
-.wh-sub{margin:0; max-width:44ch; min-width:0; font-size:clamp(.92rem,1.1vw,1.04rem); line-height:1.7; color:rgba(247,236,217,.86);}
-.wh .hero-ctas{margin-top:0;}
-.wh .btn-outline{border-color:rgba(247,236,217,.6); color:var(--cream-soft);}
-.wh .btn-outline:hover{background:var(--cream-soft); color:var(--ink);}
-.wh-meta{
-  display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:18px; margin-top:clamp(22px,4vh,42px);
-  padding-top:clamp(16px,2.4vh,24px); border-top:1px solid rgba(247,236,217,.2); max-width:780px;
-}
-.wh-meta .m b{display:block; font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.3rem,2vw,1.7rem); color:var(--gold-light); font-variant-numeric:tabular-nums;}
-.wh-meta .m span{font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(247,236,217,.72);}
+/* categories */
+.cats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.cat-tile{position:relative; aspect-ratio:4/5; border-radius:var(--r-lg); overflow:hidden; display:block; isolation:isolate; transition:transform .45s var(--ease);}
+.cat-tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform 1.2s var(--ease);}
+.cat-tile::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(20,14,9,0) 45%, rgba(20,14,9,.72));}
+.cat-tile > span{position:absolute; left:18px; right:18px; bottom:16px; display:flex; flex-direction:column; gap:4px; color:var(--cream-soft);}
+.cat-tile b{font:500 clamp(1.4rem,2vw,1.8rem)/1 'Cormorant Garamond',serif;}
+.cat-tile small{font:400 .74rem/1 'Jost',sans-serif; letter-spacing:.08em; color:rgba(247,236,217,.82);}
+@media(hover:hover){ .cat-tile:hover img{transform:scale(1.07);} }
+.cat-tile:active{transform:scale(.98);}
 
-/* progress */
-.wh-bar{position:absolute; z-index:7; left:0; right:0; bottom:0; height:2px; background:rgba(247,236,217,.08);}
-.wh-bar span{display:block; height:100%; width:100%; background:linear-gradient(90deg, var(--terracotta), var(--gold-light)); transform:scaleX(0); transform-origin:left;}
+/* bestseller rail */
+.rail-nav{display:flex; gap:8px;}
+.rn{width:46px; height:46px; border-radius:50%; border:1px solid var(--line); display:grid; place-items:center; font-size:1rem; color:var(--ink); transition:background .3s, color .3s, transform .35s var(--spring), opacity .3s;}
+.rn:hover{background:var(--ink); color:var(--cream-soft);} .rn:active{transform:scale(.9);}
+.rn:disabled{opacity:.3; pointer-events:none;}
+.rail{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain;
+  padding:4px max(var(--pad), calc((100vw - var(--shell)) / 2 + var(--pad))) 30px; scroll-padding-inline:max(var(--pad), calc((100vw - var(--shell)) / 2 + var(--pad)));}
+.rail::-webkit-scrollbar{display:none;}
+.rail.dragging{scroll-snap-type:none; cursor:grabbing;} .rail.dragging *{pointer-events:none;}
+.pcard{flex:0 0 clamp(228px, 22vw, 282px); scroll-snap-align:start; border-radius:var(--r-lg); background:var(--card); border:1px solid var(--card-line); overflow:hidden; display:flex; flex-direction:column;}
+.pc-img{position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--paper);}
+.pc-img img{width:100%; height:100%; object-fit:cover; transition:transform 1.2s var(--ease);}
+@media(hover:hover){ .pcard:hover .pc-img img{transform:scale(1.06);} }
+.pc-rank{position:absolute; left:12px; top:12px; height:28px; min-width:28px; padding:0 9px; border-radius:14px; background:rgba(251,245,234,.92); font:600 .7rem/28px 'Jost',sans-serif; color:var(--ink); text-align:center;}
+.pc-body{padding:16px 16px 16px 18px; display:flex; flex-direction:column; gap:4px; flex:1;}
+.pc-cat{font:500 .64rem/1 'Jost',sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--terracotta-deep);}
+.pc-body h3{font-size:1.4rem; line-height:1.08; margin-top:4px;}
+.pc-body small{font-size:.8rem; color:var(--ink-soft); min-height:1.2em;}
+.pc-row{margin-top:auto; padding-top:12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.pc-row > b{font:500 1.45rem/1 'Cormorant Garamond',serif; color:var(--ink);}
 
-@media (max-width:860px){
-  .wh-ring, .wh-chapters{display:none;}
-  .wh-corner.tr, .wh-corner.br{display:none;}
-  .wh-meta{grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px 18px;}
-  .wh-row{gap:18px;}
-  .wh-sub{font-size:.9rem; line-height:1.6;}
-  .wh .hero-ctas .btn{padding:14px 24px;}
-}
-@media (max-width:520px){
-  .wh-sub{display:none;}
-  .wh-corner.tl{font-size:.56rem; letter-spacing:.2em;}
-}
+/* make a wish, as a card */
+.wish-shell .wish{height:min(74vh,660px); min-height:520px; border-radius:var(--r-lg); box-shadow:0 40px 80px -50px rgba(20,14,9,.7);}
+.wish-shell .wish-copy h2{font-size:clamp(2.1rem,3.6vw,3.4rem);}
 
-/* reduced motion: a composed still, not a broken animation */
-.wh.still .wh-mask, .wh.still .wh-intro, .wh.still .wh-motes{display:none;}
-.wh.still .wh-shade, .wh.still .wh-badge, .wh.still .wh-ring, .wh.still .wh-chapters{opacity:1;}
-body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);}
+/* visit */
+.visit-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.v-card{position:relative; min-height:clamp(320px,38vw,460px); border-radius:var(--r-lg); overflow:hidden; display:flex; align-items:flex-end; isolation:isolate; color:var(--cream-soft); transition:transform .45s var(--ease);}
+.v-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform 1.4s var(--ease);}
+.v-card::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(20,14,9,0) 30%, rgba(20,14,9,.78));}
+.v-body{padding:clamp(20px,3vw,32px); display:flex; flex-direction:column; align-items:flex-start; gap:10px; max-width:440px;}
+.v-body b{font:500 clamp(1.8rem,2.8vw,2.5rem)/1 'Cormorant Garamond',serif;}
+.v-body small{font-size:.9rem; line-height:1.55; color:rgba(247,236,217,.82);}
+.v-go{font:500 .72rem/1 'Jost',sans-serif; font-style:normal; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-light); margin-top:6px;}
+@media(hover:hover){ .v-card:hover img{transform:scale(1.05);} }
+.v-card:active{transform:scale(.985);}
+
+/* ordering steps + my orders */
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:14px; counter-reset:s;}
+.steps li{position:relative; padding:24px; border-radius:var(--r-lg); background:var(--card); border:1px solid var(--card-line); display:flex; flex-direction:column; gap:8px;}
+.steps .n{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:var(--forest-deep); color:var(--gold-light); font:500 1.1rem/1 'Cormorant Garamond',serif; margin-bottom:10px;}
+.steps b{font:500 1.35rem/1.1 'Cormorant Garamond',serif;}
+.steps small{font-size:.86rem; line-height:1.55; color:var(--ink-soft);}
+.steps li:not(:last-child)::after{content:"→"; position:absolute; right:-12px; top:50%; transform:translateY(-50%); z-index:1; width:24px; height:24px; border-radius:50%; background:var(--cream); display:grid; place-items:center; font-size:.8rem; color:var(--terracotta-deep);}
+.my-orders{margin-bottom:14px;}
+.mo-card{display:flex; align-items:center; gap:16px; padding:16px 18px 16px 20px; border-radius:var(--r-lg); background:var(--forest-deep); color:var(--cream-soft);}
+.mo-card .mo-ic{width:44px; height:44px; flex:none; border-radius:14px; display:grid; place-items:center; background:rgba(227,199,136,.14); color:var(--gold-light);}
+.mo-card .mo-ic svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.5;}
+.mo-card .mo-t{flex:1; min-width:0; display:flex; flex-direction:column; gap:4px;}
+.mo-card .mo-t b{font:500 1.25rem/1.1 'Cormorant Garamond',serif;}
+.mo-card .mo-t small{font-size:.78rem; color:rgba(247,236,217,.7); letter-spacing:.04em;}
+.mo-card a{flex:none; display:inline-flex; align-items:center; height:44px; padding:0 20px; border-radius:22px; background:var(--gold-light); color:var(--ink); font:500 .7rem/1 'Jost',sans-serif; letter-spacing:.16em; text-transform:uppercase;}
+
+/* story + instagram */
+.story-card{display:grid; grid-template-columns:1fr 1fr; border-radius:var(--r-lg); overflow:hidden; background:var(--forest-deep); color:var(--cream-soft);}
+.story-card figure{margin:0; min-height:360px;} .story-card img{width:100%; height:100%; object-fit:cover;}
+.sc-body{padding:clamp(28px,5vw,64px); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:16px;}
+.sc-body .kick{color:var(--gold-light);}
+.sc-body h2{color:var(--cream-soft); font-size:clamp(2rem,3.6vw,3.2rem); line-height:1;}
+.story-card h2 em{color:var(--gold-light);}
+.sc-body p{font-size:.95rem; line-height:1.7; color:rgba(247,236,217,.78); max-width:46ch;}
+.sc-body .btn-solid{background:var(--gold-light); color:var(--ink); border-color:var(--gold-light);}
+.ig-head{margin-top:clamp(44px,7vw,84px);}
+.ig{display:grid; grid-template-columns:repeat(6,1fr); gap:10px;}
+.ig a{aspect-ratio:1; border-radius:var(--r-sm); overflow:hidden; display:block;}
+.ig img{width:100%; height:100%; object-fit:cover; transition:transform 1s var(--ease), filter .5s;}
+@media(hover:hover){ .ig a:hover img{transform:scale(1.08); filter:saturate(1.15);} }
+
+/* ---------- tablet & phone ---------- */
+@media(max-width:980px){
+  .today{grid-template-columns:1fr 1fr;}
+  .t-hero{grid-column:1 / -1;}
+  .cats{grid-template-columns:repeat(2,1fr);}
+  .steps{grid-template-columns:1fr;}
+  .steps li:not(:last-child)::after{right:50%; top:auto; bottom:-12px; transform:translateX(50%) rotate(90deg);}
+  .ig{grid-template-columns:repeat(3,1fr);}
+  .story-card{grid-template-columns:1fr;} .story-card figure{min-height:0; aspect-ratio:16/10;}
+  .rail-nav{display:none;}
+}
+@media(max-width:720px){
+  .hx{min-height:0; justify-content:flex-start; padding-top:calc(env(safe-area-inset-top,0px) + 84px);}
+  .hx-eyebrow{display:none;}
+  .hx-top{justify-content:flex-start;}
+  .hx-app{grid-template-columns:1fr; gap:14px;}
+  .hx-lede{font-size:.95rem;}
+  .search{height:54px;} .search kbd{display:none;}
+  .quick{grid-template-columns:1fr 1fr; gap:10px;}
+  .qa{grid-template-columns:1fr; grid-template-rows:auto; row-gap:6px; padding:14px;}
+  .qa-ic{grid-row:auto; width:40px; height:40px; margin-bottom:6px;}
+  .t-hero{flex-direction:column;} .t-hero img{width:100%; aspect-ratio:16/10;}
+  .t-card{min-height:180px; padding:18px;}
+  .visit-grid{grid-template-columns:1fr;}
+  .sec-head h2{font-size:clamp(1.75rem,7.4vw,2.3rem);}
+  .wish-shell{padding-left:0; padding-right:0;}
+  .wish-shell .wish{border-radius:0; height:640px;}
+}
 </style>
-
-
-</head>
-<body>
-<div class="cursor"></div>
-<div class="cursor-ring"></div>
 
 <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Shubhi's Bake A Wish">
   <div class="ld-half top"></div><div class="ld-half bot"></div>
@@ -195,172 +230,145 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
 })();
 </script>
 
+</head>
+<body>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
 <header id="siteHeader">
-  <a href="index.html" class="logo-mark">
+  <a href="index.html" class="logo-mark" aria-label="Shubhi's Bake A Wish, home">
     <span class="script">Shubhi's</span>
     <span class="tiny">Bake&nbsp;A&nbsp;Wish</span>
   </a>
-  <nav class="links" id="navLinks">
-    <a href="story.html">Our Story</a>
+  <nav class="links" id="navLinks" aria-label="Main">
     <a href="menu.html">Menu</a>
+    <a href="index.html#wish">Make a Wish</a>
     <a href="cafe.html">The Café</a>
-    <a href="cafe.html#workshops">Workshops</a>
-    <a href="track.html">Track order</a>
-    <a href="visit.html#order" class="nav-cta">Order Now</a>
+    <a href="story.html">Our Story</a>
+    <a href="track.html">Orders</a>
+    <a href="menu.html" class="nav-cta">Order Now</a>
   </nav>
-  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="hdr-tools">
+    <button type="button" class="hdr-bag" aria-label="Open basket"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8h13l-1.1 12.2H6.6L5.5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="hdr-count" hidden>0</span></button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
-<!-- ============ HERO : "Make a wish" — fly through the word into the café ============ -->
-<section class="wh" id="home" aria-label="Shubhi's Bake A Wish — home bakery &amp; garden café">
-  <canvas class="wh-video" id="whVideo" aria-hidden="true"></canvas>
-  <div class="wh-shade" id="whShade"></div>
-  <canvas class="wh-motes" id="whMotes" aria-hidden="true"></canvas>
-  <canvas class="wh-mask" id="whMask" aria-hidden="true"></canvas>
+<main class="app-home">
 
-  <!-- intro: printed on the cream page around the cut-out word -->
-  <div class="wh-intro" id="whIntro" aria-hidden="true">
-    <div class="wh-corner tl ic">Organic · Preservative‑free · Zero‑waste</div>
-    <div class="wh-corner tr ic">Prayagraj, Uttar Pradesh</div>
-    <div class="wh-script ic" id="whScript"><span>Shubhi's</span></div>
-    <div class="wh-under ic">
-      <span class="wh-tag">Home bakery &amp; garden café</span>
-      <span class="wh-cue"><i></i>Scroll to step inside</span>
-    </div>
-    <div class="wh-corner bl ic">Est. in a home kitchen</div>
-    <div class="wh-corner br ic">@shubhisbakeawish</div>
+<!-- ============ HERO: one screen, the wish is a window into the garden ============ -->
+<section class="hx" id="home" aria-label="Shubhi's Bake A Wish">
+  <div class="shell hx-top">
+    <span class="hx-eyebrow">Home bakery &amp; garden café · Prayagraj</span>
+    <span class="status-pill" id="statusPill"><i></i><span>Baking today</span></span>
   </div>
 
-  <!-- chapters: the three real stages of the scroll -->
-  <ol class="wh-chapters" id="whChapters" aria-hidden="true">
-    <li class="on"><b>I</b>Make a wish</li>
-    <li><b>II</b>Step inside</li>
-    <li><b>III</b>Take a seat</li>
-  </ol>
-
-  <!-- rotating seal -->
-  <div class="wh-ring" id="whRing" aria-hidden="true">
-    <svg viewBox="0 0 200 200">
-      <defs><path id="whCircle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
-      <text id="whRingText"><textPath href="#whCircle">HANDBAKED DAILY · ORGANIC · ZERO WASTE · </textPath></text>
-    </svg>
-    <div class="wh-ring-core"><b>0%</b><span>preservatives</span></div>
+  <div class="hx-stage" id="hxStage">
+    <div class="hx-film"><video class="hx-video" id="hxVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/cafe-hero-poster.jpg" aria-hidden="true">
+      <source src="assets/video/cafe-hero.mp4" type="video/mp4">
+    </video></div>
+    <canvas class="hx-mask" id="hxMask" aria-hidden="true"></canvas>
+    <span class="hx-script" id="hxScript" aria-hidden="true"><span>Shubhi's</span></span>
+    <h1 class="sr-only">Shubhi's Bake A Wish — handbaked cakes, cookies, breads and tarts in Prayagraj</h1>
   </div>
 
-  <div class="wh-badge" id="whBadge"><span class="dot"></span><span id="whBadgeText">100% Organic</span></div>
-
-  <!-- revealed over the film -->
-  <div class="wh-content" id="whContent">
-    <p class="wh-eyebrow"><span class="rule"></span>Home bakery &amp; garden café · Prayagraj</p>
-    <h1 class="wh-title">
-      <span class="ln"><span>Baked with heart,</span></span>
-      <span class="ln"><span><em>a wish</em> at a time.</span></span>
-    </h1>
-    <div class="wh-row">
-      <p class="wh-sub">Cakes, cookies, breads &amp; tarts — handbaked with organic, preservative‑free love, and served under the vines with a side of calm.</p>
-      <div class="hero-ctas">
-        <a href="visit.html#order" class="btn btn-solid" data-hover>Order on WhatsApp</a>
-        <a href="menu.html" class="btn btn-outline" data-hover>Explore the Menu</a>
-      </div>
+  <div class="shell hx-app">
+    <p class="hx-lede">Cakes, cookies, breads &amp; tarts — handbaked, organic where possible, never a preservative. Order ahead, pick up warm.</p>
+    <div class="search" role="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+      <label class="sr-only" for="q">Search the menu</label>
+      <input id="q" type="search" autocomplete="off" placeholder="What are you craving? Try “cheesecake”" aria-controls="qResults" aria-expanded="false">
+      <kbd>/</kbd>
+      <ul class="search-results" id="qResults" role="listbox" hidden></ul>
     </div>
-    <div class="wh-meta" id="whMeta">
-      <div class="m"><b data-to="655" data-suf="+">0</b><span>Bakes shared</span></div>
-      <div class="m"><b data-to="3.8" data-suf="K+">0</b><span>Happy wishers</span></div>
-      <div class="m"><b data-to="27" data-suf="">0</b><span>Bakes on the menu</span></div>
-      <div class="m"><b>Prayagraj</b><span>Home &amp; café</span></div>
-    </div>
+    <nav class="quick" aria-label="Quick actions">
+      <a href="menu.html" class="qa">
+        <span class="qa-ic"><svg viewBox="0 0 24 24"><path d="M5.5 8h13l-1.1 12.2H6.6L5.5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></span>
+        <b>Order online</b><small>27 bakes · pickup or delivery</small>
+      </a>
+      <a href="visit.html#order" class="qa">
+        <span class="qa-ic"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-6h12v6M8 14v-3h8v3M12 11V8"/><path d="M12 8c-1 0-1.6-.8-1.2-1.8L12 4l1.2 2.2c.4 1-.2 1.8-1.2 1.8Z"/></svg></span>
+        <b>Custom cake</b><small>Order a day ahead</small>
+      </a>
+      <a href="#wish" class="qa">
+        <span class="qa-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4Z"/><path d="M18 15l.8 2 2 .8-2 .8L18 21l-.8-2.4-2-.8 2-.8Z"/></svg></span>
+        <b>Make a wish</b><small>Let the kitchen pick</small>
+      </a>
+      <a href="track.html" class="qa">
+        <span class="qa-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span>
+        <b>Track order</b><small>Code + last 4 digits</small>
+      </a>
+    </nav>
   </div>
-
-  <div class="wh-bar"><span id="whBar"></span></div>
 </section>
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee-band">
-  <div class="marquee-track" id="marqueeTrack">
-    <span><i>✦</i>Healthy Bakery<i>✦</i>Home Bakery<i>✦</i>100% Homemade<i>✦</i>Preservative Free<i>✦</i>Zero Waste<i>✦</i>Organic Handbaking<i>✦</i>Prayagraj</span>
-    <span><i>✦</i>Healthy Bakery<i>✦</i>Home Bakery<i>✦</i>100% Homemade<i>✦</i>Preservative Free<i>✦</i>Zero Waste<i>✦</i>Organic Handbaking<i>✦</i>Prayagraj</span>
-  </div>
-</div>
-
-<!-- ============ STORY ============ -->
-<section class="about" id="story">
-  <div class="wrap split">
-    <div class="frame">
-      <img src="assets/about-hero.jpg" alt="Flour-dusted hands kneading dough in a home kitchen" loading="lazy" data-parallax>
-      <div class="tag"><span>Surabhi Shrivastava Sahai</span><span>Founder</span></div>
+<!-- ============ TODAY ============ -->
+<section class="blk" aria-labelledby="todayH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">Today at Shubhi's</span><h2 id="todayH">Fresh out of the <em>oven</em></h2></div>
     </div>
-    <div>
-      <span class="eyebrow">Our story</span>
-      <h2 data-lines>
-        <span class="ln"><span>U wish,</span></span>
-        <span class="ln"><span><em>I'll accomplish.</em></span></span>
-      </h2>
-      <p class="fade-up">It started in a home kitchen, with a whisk, a wish, and a stubborn love for doing things the slow, honest way. No shortcuts, no preservatives, no waste.</p>
-      <div class="about-stats">
-        <div class="stat fade-up"><b>655+</b><span>Bakes shared</span></div>
-        <div class="stat fade-up"><b>3.8K+</b><span>Wishers</span></div>
-        <div class="stat fade-up"><b>27</b><span>Bakes on the menu</span></div>
-        <div class="stat fade-up"><b>0%</b><span>Preservatives</span></div>
-      </div>
-      <a href="story.html" class="btn btn-outline fade-up" data-hover style="margin-top:34px;">Read the full story</a>
+    <div class="today">
+      <article class="t-card t-hero fade-up" id="todayPick">
+        <img src="assets/cinnabon.jpg" alt="" loading="lazy" id="tdImg">
+        <div class="t-body">
+          <span class="chip">Bake of the day</span>
+          <h3 id="tdName">Cinnabon</h3>
+          <p id="tdNote">Baked this morning, gone by evening.</p>
+          <div class="t-row"><b id="tdPrice">₹150</b><span class="stepper-slot" data-slug="cinnabon" id="tdSlot"></span></div>
+        </div>
+      </article>
+      <article class="t-card t-stat fade-up">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span>
+        <b>~30 min</b><span>Pickup after the café confirms your order</span>
+      </article>
+      <article class="t-card t-stat fade-up">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4-3-7-6.5-7-10.5A7 7 0 0 1 12 4a7 7 0 0 1 7 6.5c0 4-3 7.5-7 10.5Z"/><path d="M12 8v6M9 11h6"/></svg></span>
+        <b>0%</b><span>Preservatives. Millets where they make sense, organic where we can.</span>
+      </article>
+      <article class="t-card t-stat t-dark fade-up">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4c2.5 2.5 3.5 5 3.5 8S14.5 17.5 12 20c-2.5-2.5-3.5-5-3.5-8S9.5 6.5 12 4Z"/><circle cx="12" cy="12" r="8"/></svg></span>
+        <b>3.8K+</b><span>Wishers following along on Instagram</span>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ============ PRINTED MENU CARD ============ -->
-<section class="mcard" id="menu">
-  <div class="wrap">
-    <div class="sh">
-      <div>
-        <span class="eyebrow">From the menu</span>
-        <h2 data-lines><span class="ln"><span>Handbaked,</span></span><span class="ln"><span><em>always.</em></span></span></h2>
-      </div>
-      <div class="fade-up" style="display:flex; flex-direction:column; gap:20px; align-items:flex-start;">
-        <p>A few favourites from the real Shubhi's catalogue — hover a name to see it, tap to find it on the menu.</p>
-        <a href="menu.html" class="btn btn-solid" data-hover>See all 27 bakes</a>
-      </div>
+<!-- ============ CATEGORIES ============ -->
+<section class="blk" aria-labelledby="catH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">Browse</span><h2 id="catH">What are you <em>in the mood</em> for?</h2></div>
+      <a href="menu.html" class="see-all">Full menu <i>→</i></a>
     </div>
-    <ul class="mcard-list">
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/tiramisu.jpg"><span class="th"><img src="assets/tiramisu.jpg" alt="" loading="lazy"></span><span class="n">01</span><span class="nm">Tiramisu<small>a slice</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/strawberry-cheesecake.jpg"><span class="th"><img src="assets/strawberry-cheesecake.jpg" alt="" loading="lazy"></span><span class="n">02</span><span class="nm">Strawberry Cheesecake</span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/hummingbird-cake.jpg"><span class="th"><img src="assets/hummingbird-cake.jpg" alt="" loading="lazy"></span><span class="n">03</span><span class="nm">Hummingbird Cake<small>slice</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
-      <li><a class="mrow" href="menu.html#millet" data-img="assets/jowar-joy.jpg"><span class="th"><img src="assets/jowar-joy.jpg" alt="" loading="lazy"></span><span class="n">04</span><span class="nm">Jowar Joy<small>100g · millet</small></span><span class="lead" aria-hidden="true"></span><span class="pr">₹169</span></a></li>
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/biscoff-cheesecake.jpg"><span class="th"><img src="assets/biscoff-cheesecake.jpg" alt="" loading="lazy"></span><span class="n">05</span><span class="nm">Biscoff Cheesecake</span><span class="lead" aria-hidden="true"></span><span class="pr">₹250</span></a></li>
-      <li><a class="mrow" href="menu.html#bakes" data-img="assets/mushroom-croissant.jpg"><span class="th"><img src="assets/mushroom-croissant.jpg" alt="" loading="lazy"></span><span class="n">06</span><span class="nm">Mushroom Croissant</span><span class="lead" aria-hidden="true"></span><span class="pr">₹190</span></a></li>
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/chocolate-eclair.jpg"><span class="th"><img src="assets/chocolate-eclair.jpg" alt="" loading="lazy"></span><span class="n">07</span><span class="nm">Chocolate Eclair</span><span class="lead" aria-hidden="true"></span><span class="pr">₹120</span></a></li>
-      <li><a class="mrow" href="menu.html#desserts" data-img="assets/cinnabon.jpg"><span class="th"><img src="assets/cinnabon.jpg" alt="" loading="lazy"></span><span class="n">08</span><span class="nm">Cinnabon</span><span class="lead" aria-hidden="true"></span><span class="pr">₹150</span></a></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ STEP INTO THE GARDEN (circle reveal) ============ -->
-<section class="garden" id="cafe" aria-label="The garden café">
-  <div class="garden-pin">
-    <div class="garden-film" id="gardenFilm">
-      <video muted loop playsinline preload="metadata" poster="assets/video/cafe-hero-poster.jpg">
-        <source src="assets/video/cafe-hero.mp4" type="video/mp4">
-      </video>
-      <div class="garden-shade" id="gardenShade"></div>
-    </div>
-    <div class="garden-ring" id="gardenRing" aria-hidden="true">
-      <svg viewBox="0 0 120 120"><defs><path id="gRing" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
-        <text><textPath href="#gRing">COFFEE · COOKIES · DESSERT · SAVOUR · </textPath></text></svg>
-    </div>
-    <div class="garden-words" id="gardenWords" aria-hidden="true">
-      <span class="l">Step<em>inside</em></span>
-      <span class="r">the<em>garden</em></span>
-    </div>
-    <div class="garden-end" id="gardenEnd">
-      <h2>A garden café,<br><em>after dusk.</em></h2>
-      <div style="display:flex; flex-direction:column; gap:20px; align-items:flex-start;">
-        <p>Fairy lights in the vines, candles on small tables, and a coffee that's never in a hurry — tucked away in Prayagraj.</p>
-        <a href="cafe.html" class="btn btn-outline" data-hover>Explore the café</a>
-      </div>
+    <div class="cats">
+      <a href="menu.html#desserts" class="cat-tile fade-up"><img src="assets/biscoff-cheesecake.jpg" alt="" loading="lazy"><span><b>Desserts</b><small>12 bakes · from ₹120</small></span></a>
+      <a href="menu.html#millet" class="cat-tile fade-up"><img src="assets/millet-laddo.jpg" alt="" loading="lazy"><span><b>Millet Range</b><small>5 bakes · from ₹169</small></span></a>
+      <a href="menu.html#savouries" class="cat-tile fade-up"><img src="assets/mushroom-toast.jpg" alt="" loading="lazy"><span><b>Savouries</b><small>7 plates · from ₹60</small></span></a>
+      <a href="menu.html#bakes" class="cat-tile fade-up"><img src="assets/mushroom-croissant.jpg" alt="" loading="lazy"><span><b>Bakes &amp; More</b><small>3 bakes · from ₹130</small></span></a>
     </div>
   </div>
 </section>
 
-<!-- ============ BLOW OUT THE CANDLE ============ -->
+<!-- ============ BESTSELLERS ============ -->
+<section class="blk" aria-labelledby="bestH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">Most wished for</span><h2 id="bestH">Bestsellers</h2></div>
+      <div class="rail-nav"><button type="button" class="rn prev" aria-label="Previous bakes">←</button><button type="button" class="rn next" aria-label="More bakes">→</button></div>
+    </div>
+  </div>
+  <div class="rail" id="bestRail" tabindex="-1"></div>
+</section>
+
+<!-- ============ MAKE A WISH (app card) ============ -->
+<section class="blk" aria-labelledby="wishH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">A little ritual</span><h2 id="wishH">Can't decide? <em>Make a wish.</em></h2></div>
+    </div>
+  </div>
+  <div class="shell wish-shell">
 <section class="wish" id="wish" aria-label="Make a wish">
   <img class="wish-photo" src="assets/wish-candle.jpg" alt="A small celebration cake with one candle on a café table at night">
   <canvas id="wishCanvas" aria-hidden="true"></canvas>
@@ -389,51 +397,73 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
     </div>
   </article>
 </section>
+  </div>
+</section>
 
-<!-- ============ CUSTOM CAKES BAND ============ -->
-<section class="feature">
-  <div class="wrap split">
-    <div class="frame fade-up">
-      <img src="assets/custom-cake.jpg" alt="A two-tier custom celebration cake with fresh flowers" loading="lazy" data-parallax>
-      <div class="tag"><span>Custom orders</span><span>Made to wish</span></div>
+<!-- ============ VISIT ============ -->
+<section class="blk" aria-labelledby="visitH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">Beyond the box</span><h2 id="visitH">Come for the <em>garden</em></h2></div>
+      <a href="cafe.html" class="see-all">The café <i>→</i></a>
     </div>
-    <div>
-      <span class="eyebrow">Celebration cakes</span>
-      <h2 data-lines>
-        <span class="ln"><span>U wish,</span></span>
-        <span class="ln"><span><em>I'll accomplish.</em></span></span>
-      </h2>
-      <p class="fade-up">Birthdays, anniversaries, festivals, the small wins — tell us the occasion and the cake gets designed around it, handbaked and finished by hand.</p>
-      <ul class="ticks fade-up">
-        <li>Custom celebration cakes</li><li>Festive &amp; gifting hampers</li><li>Millet &amp; healthy options</li><li>Message on the cake</li>
-      </ul>
-      <div class="hero-ctas fade-up" style="margin-top:0;">
-        <a href="visit.html#order" class="btn btn-solid" data-hover>Place a Wish Order</a>
-        <a href="menu.html" class="btn btn-outline" data-hover>See the Menu</a>
+    <div class="visit-grid">
+      <a href="cafe.html" class="v-card fade-up">
+        <img src="assets/cafe-garden-stairs.jpg" alt="Climbing greens and fairy lights around the café's garden staircase" loading="lazy">
+        <span class="v-body"><span class="chip light">Garden café</span><b>Tables under the vines</b><small>Fairy lights, slow coffee, the whole menu fresh from the counter.</small><i class="v-go">Plan a visit →</i></span>
+      </a>
+      <a href="cafe.html#workshops" class="v-card fade-up">
+        <img src="assets/workshop-scene.jpg" alt="A baking workshop at the café table" loading="lazy">
+        <span class="v-body"><span class="chip light">Workshops</span><b>Bake it with us</b><small>Festive and weekend baking workshops for kids and grown-ups.</small><i class="v-go">See workshops →</i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDERING, AS AN APP ============ -->
+<section class="blk" aria-labelledby="howH">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">How ordering works</span><h2 id="howH">Three taps to <em>warm bread</em></h2></div>
+    </div>
+    <div class="my-orders" id="myOrders" hidden></div>
+    <ol class="steps">
+      <li class="fade-up"><span class="n">1</span><b>Add to basket</b><small>Pick from 27 bakes, or ask for a custom cake.</small></li>
+      <li class="fade-up"><span class="n">2</span><b>Checkout in a minute</b><small>Name, phone, pickup or delivery. Pay on pickup or by UPI.</small></li>
+      <li class="fade-up"><span class="n">3</span><b>Track it live</b><small>Received → In the oven → Ready, with a note from the kitchen.</small></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ STORY + INSTAGRAM ============ -->
+<section class="blk blk-last" aria-labelledby="storyH">
+  <div class="shell">
+    <div class="story-card fade-up">
+      <figure><img src="assets/about-hero.jpg" alt="Flour-dusted hands kneading dough in a home kitchen" loading="lazy"></figure>
+      <div class="sc-body">
+        <span class="kick">Our story</span>
+        <h2 id="storyH">U wish, <em>I'll accomplish.</em></h2>
+        <p>It started in a home kitchen with a whisk, a wish and a stubborn love for the slow, honest way. Surabhi Shrivastava Sahai's bakes travelled by word of mouth — one birthday, then a dozen, then a garden café full of regulars.</p>
+        <a href="story.html" class="btn btn-solid">Read the story</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============ INSTAGRAM ============ -->
-<section class="ig-strip">
-  <div class="wrap">
-    <div class="ig-top">
-      <h2 class="fade-up">Follow the wish,<br><span class="script" style="color:var(--gold-light); font-size:1.1em;">@shubhisbakeawish</span></h2>
-      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="btn btn-outline" style="border-color:rgba(247,236,217,.4); color:var(--cream-soft);" data-hover>View Instagram</a>
+    <div class="sec-head ig-head">
+      <div><span class="kick">@shubhisbakeawish</span><h2>From the <em>feed</em></h2></div>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="see-all">Follow <i>↗</i></a>
+    </div>
+    <div class="ig">
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-slice.jpg" alt="A slice of layered cake" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-latte.jpg" alt="A latte on a garden table" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-hamper.jpg" alt="A festive bake hamper" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-hands.jpg" alt="Hands finishing a cake" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-flatlay.jpg" alt="A flat lay of cookies and breads" loading="lazy"></a>
+      <a href="https://www.instagram.com/shubhisbakeawish" target="_blank" rel="noopener" class="fade-up"><img src="assets/ig-corner.jpg" alt="A cosy corner of the café" loading="lazy"></a>
     </div>
   </div>
-  <div class="ig-grid fade-up">
-    <div class="ig-cell"><img src="assets/ig-flatlay.jpg" alt="Red velvet slice and cappuccino" loading="lazy"></div>
-    <div class="ig-cell"><img src="assets/ig-latte.jpg" alt="Latte art in the garden" loading="lazy"></div>
-    <div class="ig-cell"><img src="assets/ig-hands.jpg" alt="Hands shaping dough" loading="lazy"></div>
-    <div class="ig-cell"><img src="assets/ig-slice.jpg" alt="A slice of chocolate cake" loading="lazy"></div>
-    <div class="ig-cell"><img src="assets/ig-corner.jpg" alt="A cosy café corner" loading="lazy"></div>
-    <div class="ig-cell"><img src="assets/ig-hamper.jpg" alt="A festive gift hamper" loading="lazy"></div>
-  </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+</main>
+
 <footer>
   <div class="wrap">
     <div class="foot-top">
@@ -472,308 +502,59 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
 <script src="assets/site.js"></script>
 <script src="assets/config.js"></script>
 <script src="assets/order.js"></script>
+<script src="assets/app.js"></script>
 <script>
-/* ============ "Make a wish" hero ============ */
+/* ---------- hero intro (after the loader or the page veil) ---------- */
 (function(){
-  const hero = document.getElementById('home');
-  if(!hero) return;
-  const vC = document.getElementById('whVideo'), vX = vC.getContext('2d');
-  const mC = document.getElementById('whMask'),  mX = mC.getContext('2d');
-  const pC = document.getElementById('whMotes'), pX = pC.getContext('2d');
-  const intro = document.getElementById('whIntro');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const TOTAL = 63, frames = [];
-  const FONT = '"Playfair Display", "Bodoni Moda", Didot, Georgia, serif';
-  const st = { zoom:0, prog:0, mx:0, my:0, tmx:0, tmy:0 };
-  const geo = {};
-  let W = 0, H = 0, DPR = 1, frame = 0, grain = null, maskShown = true;
-
-  /* ---------- paper grain (drawn once) ---------- */
-  function makeGrain(){
-    const g = document.createElement('canvas'); g.width = g.height = 180;
-    const x = g.getContext('2d'), d = x.createImageData(180,180);
-    for(let i=0;i<d.data.length;i+=4){
-      const v = 120 + Math.random()*90;
-      d.data[i]=v; d.data[i+1]=v*0.92; d.data[i+2]=v*0.8; d.data[i+3]=Math.random()<0.5 ? 14 : 0;
-    }
-    x.putImageData(d,0,0);
-    grain = mX.createPattern(g,'repeat');
-  }
-
-  /* ---------- geometry of the cut-out word ---------- */
-  function measure(){
-    mX.setTransform(1,0,0,1,0,0);
-    mX.font = `900 100px ${FONT}`;
-    const w100 = mX.measureText('wish').width || 260;
-    const fs = Math.min((W*0.86)/w100*100, H*0.44);
-    mX.font = `900 ${fs}px ${FONT}`;
-    const tw = mX.measureText('wish').width;
-    const ww = mX.measureText('w').width, wi = mX.measureText('wi').width;
-    const asc = mX.measureText('h').actualBoundingBoxAscent || fs*0.74;
-    const xh  = mX.measureText('x').actualBoundingBoxAscent || fs*0.52;
-    const baseline = H*0.53 + asc*0.42;
-    geo.fs = fs; geo.left = W/2 - tw/2; geo.baseline = baseline;
-    geo.fx = geo.left + (ww + wi)/2;          /* centre of the stem of the "i" */
-    geo.fy = baseline - xh*0.42;
-    geo.smax = Math.max(W,H)*2.4 / (fs*0.1);  /* enough zoom for the stem to swallow the screen */
-    intro.style.setProperty('--word-top', (baseline - asc) + 'px');
-    intro.style.setProperty('--word-bottom', (baseline + fs*0.04) + 'px');
-  }
-
-  function size(){
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = hero.clientWidth; H = hero.clientHeight;
-    [vC, mC, pC].forEach(c => { c.width = Math.round(W*DPR); c.height = Math.round(H*DPR); });
-    if(!grain) makeGrain();
-    measure(); drawVideo(); drawMask();
-  }
-
-  /* ---------- film ---------- */
-  function drawVideo(){
-    const img = frames[frame];
-    if(!img || !img.complete || !img.naturalWidth) return;
-    const cw = vC.width, ch = vC.height;
-    const push = 1 + 0.22*(1 - st.zoom);            /* film settles as we fly through the letter */
-    const s = Math.max(cw/img.naturalWidth, ch/img.naturalHeight) * push;
-    const dw = img.naturalWidth*s, dh = img.naturalHeight*s;
-    vX.drawImage(img, (cw-dw)/2 - st.mx*8*DPR, (ch-dh)/2 - st.my*6*DPR, dw, dh);
-  }
-
-  /* ---------- cream page with the word cut out ---------- */
-  function drawMask(){
-    if(reduce) return;
-    const t = st.zoom;
-    mX.setTransform(DPR,0,0,DPR,0,0);
-    mX.globalCompositeOperation = 'source-over';
-    mX.clearRect(0,0,W,H);
-    if(t >= 0.995){ mC.style.visibility = 'hidden'; maskShown = false; return; }
-    mC.style.visibility = 'visible'; maskShown = true;
-    /* dissolve the paper over the last stretch so the handoff is seamless at any screen ratio */
-    mC.style.opacity = t > 0.82 ? Math.max(0, 1 - (t - 0.82)/0.16).toFixed(3) : '1';
-
-    const g = mX.createRadialGradient(W/2, H*0.46, 0, W/2, H/2, Math.max(W,H)*0.78);
-    g.addColorStop(0, '#fbf5ea'); g.addColorStop(1, '#e9d7b8');
-    mX.fillStyle = g; mX.fillRect(0,0,W,H);
-    if(grain){ mX.fillStyle = grain; mX.fillRect(0,0,W,H); }
-
-    const s  = Math.pow(geo.smax, Math.pow(t, 1.35));
-    const ox = st.mx*16*(1-t), oy = st.my*10*(1-t);
-    mX.save();
-    mX.translate(geo.fx + ox, geo.fy + oy); mX.scale(s, s); mX.translate(-geo.fx, -geo.fy);
-    mX.font = `900 ${geo.fs}px ${FONT}`; mX.textAlign = 'left'; mX.textBaseline = 'alphabetic';
-    /* hairline edge first, then punch the letters out — keeps only the outer half of the line,
-       so overlapping glyph contours (Playfair's "w") never show as stray strokes */
-    mX.lineWidth = 2.6 / s; mX.strokeStyle = 'rgba(156,69,48,.6)'; mX.lineJoin = 'round';
-    mX.strokeText('wish', geo.left, geo.baseline);
-    mX.globalCompositeOperation = 'destination-out';
-    mX.fillStyle = '#000';
-    mX.fillText('wish', geo.left, geo.baseline);
-    mX.restore();
-    mX.globalCompositeOperation = 'source-over';
-  }
-
-  /* ---------- frames ---------- */
-  const pad = n => String(n).padStart(3,'0');
-  for(let i=1;i<=TOTAL;i++){
-    const img = new Image();
-    img.decoding = 'async';
-    img.src = `assets/hero-frames/frame-${pad(i)}.jpg`;
-    img.onload = () => { window.__whLoaded = (window.__whLoaded||0) + 1; if(i-1 === frame) drawVideo(); };
-    img.onerror = () => { window.__whLoaded = (window.__whLoaded||0) + 1; };
-    frames.push(img);
-  }
-
-  /* ---------- sunlit dust ---------- */
-  let motes = [];
-  function seedMotes(){
-    const n = W < 700 ? 38 : 80;
-    motes = [];
-    for(let i=0;i<n;i++) motes.push(mote(true, false));
-    for(let i=0;i<(W<700?3:7);i++) motes.push(mote(true, true));
-  }
-  function mote(init, bokeh){
-    return {
-      x: Math.random()*W, y: init ? Math.random()*H : H + 40,
-      r: bokeh ? 16 + Math.random()*46 : 0.5 + Math.random()*1.9,
-      vy: -(bokeh ? 0.05 + Math.random()*0.08 : 0.08 + Math.random()*0.32),
-      vx: (Math.random() - 0.5)*0.14, ph: Math.random()*6.28,
-      a: bokeh ? 0.05 + Math.random()*0.07 : 0.3 + Math.random()*0.5, bokeh
-    };
-  }
-  let heroVisible = true;
-  function tick(){
-    st.mx += (st.tmx - st.mx)*0.06; st.my += (st.tmy - st.my)*0.06;
-    if(heroVisible){
-      if(st.zoom < 0.995 || maskShown) drawMask();
-      drawVideo();
-      pX.setTransform(DPR,0,0,DPR,0,0);
-      pX.clearRect(0,0,W,H);
-      pX.globalCompositeOperation = 'lighter';
-      for(const m of motes){
-        m.ph += 0.012; m.x += m.vx + Math.sin(m.ph)*0.16 + st.mx*0.05; m.y += m.vy;
-        if(m.y < -80 || m.x < -80 || m.x > W + 80){ Object.assign(m, mote(false, m.bokeh)); }
-        const tw = m.bokeh ? 1 : 0.55 + 0.45*Math.sin(m.ph*2.3);
-        const gr = pX.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r*(m.bokeh?1:3));
-        gr.addColorStop(0, `rgba(255,222,160,${m.a*tw})`);
-        gr.addColorStop(1, 'rgba(255,222,160,0)');
-        pX.fillStyle = gr;
-        pX.beginPath(); pX.arc(m.x, m.y, m.r*(m.bokeh?1:3), 0, Math.PI*2); pX.fill();
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-
-  window.addEventListener('mousemove', e => {
-    st.tmx = (e.clientX / window.innerWidth - 0.5)*2;
-    st.tmy = (e.clientY / window.innerHeight - 0.5)*2;
-  });
-
-  /* ---------- count-ups ---------- */
-  let counted = false;
-  function countUp(){
-    if(counted) return; counted = true;
-    document.querySelectorAll('#whMeta b[data-to]').forEach(b => {
-      const to = parseFloat(b.dataset.to), suf = b.dataset.suf || '', o = {v:0};
-      gsap.to(o, {v:to, duration:1.6, ease:'power2.out', onUpdate:() => {
-        b.textContent = (to % 1 ? o.v.toFixed(1) : Math.round(o.v)) + suf;
-      }});
-    });
-  }
-
-  /* ---------- reduced motion: a composed still ---------- */
-  if(reduce){
-    hero.classList.add('still');
-    document.body.classList.add('wh-still');
-    size();
-    frame = 40;
-    const show = () => drawVideo();
-    frames[frame].complete ? show() : frames[frame].addEventListener('load', show, {once:true});
-    document.querySelectorAll('#whMeta b[data-to]').forEach(b => b.textContent = b.dataset.to + (b.dataset.suf||''));
-    window.addEventListener('resize', size);
-    return;
-  }
-
-  /* ---------- scroll choreography (pinned) ---------- */
-  const chapters = document.querySelectorAll('#whChapters li');
-  const badgeText = document.getElementById('whBadgeText');
-  const badgeStates = ['100% Organic', 'Zero‑waste kitchen', 'Preservative‑free', 'Handbaked daily'];
-  const bar = document.getElementById('whBar');
-  let lastBand = -1, lastCh = -1;
-
-  function onProgress(p){
-    st.prog = p;
-    frame = Math.max(0, Math.min(TOTAL-1, Math.round(((p - 0.02)/0.94) * (TOTAL-1))));
-    bar.style.transform = `scaleX(${p})`;
-    const ch = p < 0.3 ? 0 : p < 0.62 ? 1 : 2;
-    if(ch !== lastCh){ lastCh = ch; chapters.forEach((li,i) => li.classList.toggle('on', i === ch)); }
-    const band = Math.min(badgeStates.length-1, Math.floor(Math.max(0, p - 0.45)/0.12));
-    if(p > 0.45 && band !== lastBand){
-      lastBand = band;
-      gsap.to(badgeText, {opacity:0, duration:.15, onComplete:() => { badgeText.textContent = badgeStates[band]; gsap.to(badgeText, {opacity:1, duration:.25}); }});
-    }
-    if(p > 0.6) countUp();
-  }
-
-  /* fit the seal's words exactly once around its circle */
-  function fitRing(){
-    const t = document.getElementById('whRingText');
-    if(!t || !t.getComputedTextLength) return;
-    t.style.letterSpacing = '0px';
-    const chars = t.textContent.length, C = 2*Math.PI*76;
-    const L = t.getComputedTextLength();
-    t.style.letterSpacing = ((C - L) / chars).toFixed(2) + 'px';
-  }
-
-  function build(){
-    size(); seedMotes(); fitRing();
-    const tl = gsap.timeline({
-      defaults:{ ease:'none' },
-      scrollTrigger:{
-        trigger: hero, start:'top top', end:'+=280%', pin:true, scrub:0.9, anticipatePin:1,
-        refreshPriority: 10,   /* measure the pin first so every reveal further down the page accounts for it */
-        onUpdate: self => onProgress(self.progress)
-      }
-    });
-    tl.to(st, {zoom:1, duration:.32, ease:'power1.in'}, 0)
-      .to(intro, {opacity:0, filter:'blur(10px)', scale:1.06, duration:.1}, .015)
-      .to('#whShade', {opacity:1, duration:.12}, .2)
-      .to('#whChapters', {opacity:1, duration:.06}, .22)
-      .fromTo('.wh-eyebrow', {opacity:0, y:18}, {opacity:1, y:0, duration:.07}, .33)
-      .fromTo('.wh-title .ln > span', {yPercent:112, rotate:2}, {yPercent:0, rotate:0, duration:.12, stagger:.045, ease:'power3.out'}, .35)
-      .fromTo(['.wh-sub', '.wh .hero-ctas'], {opacity:0, y:26}, {opacity:1, y:0, duration:.09, stagger:.03}, .46)
-      .fromTo('#whBadge', {opacity:0, y:-12}, {opacity:1, y:0, duration:.06}, .45)
-      .fromTo('#whRing', {opacity:0, scale:.7, rotate:-60}, {opacity:1, scale:1, rotate:0, duration:.14, ease:'power2.out'}, .5)
-      .fromTo('#whMeta .m', {opacity:0, y:28}, {opacity:1, y:0, duration:.08, stagger:.025}, .6)
-      .to('#whContent', {y:-18, duration:.1}, .9)
-      .set({}, {}, 1);
-
-    /* the hero is on screen for the whole pinned stretch plus one viewport after it */
-    const pinST = tl.scrollTrigger;
-    hero.addEventListener('focusin', e => {
-      if(!e.target.closest('#whContent') || st.prog > .7) return;
-      const y = pinST.start + (pinST.end - pinST.start) * 0.8;
-      if(window.__lenis) window.__lenis.scrollTo(y, {immediate:true}); else window.scrollTo(0, y);
-    });
-    const checkVisible = () => { heroVisible = window.scrollY < pinST.end + H; };
-    window.addEventListener('scroll', checkVisible, {passive:true});
-    ScrollTrigger.sort();
-    ScrollTrigger.refresh();
-
-    window.addEventListener('resize', () => { size(); seedMotes(); });
-    requestAnimationFrame(tick);
-  }
-
-  /* wait for the cut-out face before measuring, so the word is never drawn in a fallback font */
-  const ready = (document.fonts && document.fonts.load)
-    ? Promise.race([document.fonts.load(`900 100px "Playfair Display"`), new Promise(r => setTimeout(r, 2500))])
-    : Promise.resolve();
-  ready.then(build);
-  window.__whRefit = () => { size(); ScrollTrigger.refresh(); };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const parts = '.hx-top, .hx-lede, .search, .qa';
+  gsap.set('header', {y:-30, opacity:0});   /* primed now: GSAP re-parents fixed elements on first parse */
+  if(!reduce){ gsap.set(parts, {y:26, opacity:0}); gsap.set('#hxStage', {scale:1.05, filter:'blur(10px)', opacity:0}); }
+  window.__heroIntro = function(){
+    if(window.__heroIntroRan) return; window.__heroIntroRan = true;
+    const tl = gsap.timeline({onComplete:() => window.ScrollTrigger && ScrollTrigger.refresh()});
+    tl.to('header', {y:0, opacity:1, duration:.8, ease:'power3.out', clearProps:'opacity'}, .3);
+    if(reduce){ gsap.set('#hxScript span', {clipPath:'inset(0 0% 0 0)'}); return; }
+    tl.to('#hxStage', {scale:1, filter:'blur(0px)', opacity:1, duration:1.4, ease:'expo.out', clearProps:'transform,filter,opacity'}, 0)
+      .to('#hxScript span', {clipPath:'inset(0 0% 0 0)', duration:1.2, ease:'power2.inOut'}, .45)
+      .to(parts, {y:0, opacity:1, duration:.9, stagger:.06, ease:'power3.out', clearProps:'transform,opacity'}, .35);
+  };
 })();
 
-/* ---------- hero intro (shared by the loader and the veil arrival) ---------- */
-window.__heroIntro = function(){
-  if(window.__heroIntroRan) return; window.__heroIntroRan = true;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const done = () => { if(window.__whRefit) window.__whRefit(); };
-  const tl = gsap.timeline({ onComplete: done });
-  tl.to('header', {y:0, opacity:1, duration:.8, ease:'power3.out', clearProps:'opacity'}, .35);
-  if(reduce){ gsap.set('#whScript span', {clipPath:'inset(0 0% 0 0)'}); tl.fromTo('#whContent', {opacity:0}, {opacity:1, duration:.6}, 0); return; }
-  tl.fromTo('#whMask', {scale:1.12, filter:'blur(8px)'}, {scale:1, filter:'blur(0px)', duration:1.5, ease:'expo.out', clearProps:'transform,filter'}, 0)
-    .to('#whScript span', {clipPath:'inset(0 0% 0 0)', duration:1.25, ease:'power2.inOut'}, .25)
-    .fromTo('.wh-intro .wh-under, .wh-intro .wh-corner', {opacity:0, y:14}, {opacity:1, y:0, duration:.85, stagger:.07, ease:'power3.out'}, .4);
-};
-
-/* ---------- loader: real progress from the hero frames + fonts ---------- */
+/* ---------- loader: real progress (fonts, hero film, poster) ---------- */
 (function(){
-  /* prime the fixed header's transform now, while nothing is focusable: GSAP re-parents fixed elements on first parse, which would steal focus later */
-  gsap.set('header', {y:-30, opacity:0});
   const loader = document.getElementById('loader');
-  const unlock = () => { document.querySelectorAll('[data-ld-inert]').forEach(el => { el.removeAttribute('inert'); el.removeAttribute('data-ld-inert'); }); document.documentElement.classList.remove('is-loading'); window.scrollTo(0,0); if(window.__lenis){ window.__lenis.scrollTo(0,{immediate:true}); } };
+  const unlock = () => {
+    document.querySelectorAll('[data-ld-inert]').forEach(el => { el.removeAttribute('inert'); el.removeAttribute('data-ld-inert'); });
+    document.documentElement.classList.remove('is-loading'); window.scrollTo(0,0);
+    if(window.__lenis) window.__lenis.scrollTo(0, {immediate:true});
+  };
   if(window.__arrivedVia === 'veil'){
-    /* the veil (site.js) lifts on fonts-ready; start the hero as it goes */
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
-    Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(() => setTimeout(window.__heroIntro, 450));
+    Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(() => setTimeout(window.__heroIntro, 420));
     return;
   }
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const num = document.getElementById('ldNum'), bar = document.getElementById('ldBar'), cap = document.getElementById('ldCap');
   const script = document.getElementById('ldScript'), glow = document.getElementById('ldGlow'), mid = document.getElementById('ldMid');
   const halves = loader.querySelectorAll('.ld-half');
   const CAPS = ['Preheating the oven', 'Whisking the batter', 'Into the oven', 'Making your wish'];
-  let fontsDone = false;
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = true; });
-  const t0 = performance.now(), MIN = reduce ? 400 : 1700, MAX = 8000;
+  const got = {fonts:false, film:false, poster:false};
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { got.fonts = true; });
+  const v = document.getElementById('hxVideo');
+  const filmOk = () => { got.film = true; };
+  if(v.readyState >= 3) filmOk(); else { v.addEventListener('canplay', filmOk, {once:true}); v.addEventListener('error', filmOk, {once:true}); setTimeout(filmOk, 5000); }
+  const po = new Image(); po.onload = po.onerror = () => { got.poster = true; }; po.src = v.getAttribute('poster');
+  const t0 = performance.now(), MIN = reduce ? 400 : 1600, MAX = 7000;
   let shown = 0, capIdx = -1, finished = false;
   gsap.fromTo(mid, {opacity:0, y:16}, {opacity:1, y:0, duration:.7, ease:'power3.out'});
-  const real = () => Math.min(1, (window.__whLoaded || 0) / 63 * .85 + (fontsDone ? .15 : 0));
+  const real = () => (got.fonts ? .3 : 0) + (got.poster ? .25 : 0) + (got.film ? .45 : 0);
   const tick = () => {
     if(finished) return;
     const el = performance.now() - t0;
-    /* never run ahead of real loading, and never faster than the minimum show time */
-    const cap1 = Math.min(1, el / MIN);
-    let target = Math.min(real(), cap1);
+    /* creep toward the next milestone so the number never freezes */
+    let target = Math.min(real() + .12 * (1 - Math.exp(-el / 900)), Math.min(1, el / MIN));
+    if(real() >= 1) target = Math.min(1, el / MIN);
     if(el > MAX) target = 1;
     shown += (target - shown) * .09;
     if(target === 1 && 1 - shown < .004) shown = 1;
@@ -789,12 +570,10 @@ window.__heroIntro = function(){
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
-
   function exit(){
-    loader.classList.add('done');
-    loader.setAttribute('aria-label', 'Loaded');
+    loader.classList.add('done'); loader.setAttribute('aria-label', 'Loaded');
     if(reduce){ gsap.to(loader, {opacity:0, duration:.4, onComplete:() => { loader.style.display = 'none'; }}); unlock(); window.__heroIntro(); return; }
-    const tl = gsap.timeline({ onComplete:() => { loader.style.display = 'none'; } });
+    const tl = gsap.timeline({onComplete:() => { loader.style.display = 'none'; }});
     tl.to(mid, {y:-30, opacity:0, duration:.55, ease:'power3.in'}, .15)
       .to(glow, {scale:2.2, opacity:0, duration:.9, ease:'power2.in'}, .15)
       .to(halves[0], {yPercent:-100, duration:1.1, ease:'expo.inOut'}, .5)
@@ -805,31 +584,167 @@ window.__heroIntro = function(){
 })();
 </script>
 <script>
-/* ============ garden: a circle opens into the dusk film ============ */
+/* ============ HOME: hero window, search, today, rail, my orders ============ */
 (function(){
-  const sec = document.querySelector('.garden'); if(!sec) return;
-  const film = document.getElementById('gardenFilm'), vid = film.querySelector('video');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* play only while on screen */
-  new IntersectionObserver(es => es.forEach(e => {
-    if(e.isIntersecting && !reduce){ const p = vid.play(); if(p && p.catch) p.catch(()=>{}); } else vid.pause();
-  }), {threshold:.05}).observe(sec);
-  const rt = document.querySelector('#gardenRing text');
-  if(rt){ const fit = () => { rt.style.letterSpacing = '0px'; const L = rt.getComputedTextLength(), C = 2*Math.PI*50; rt.style.letterSpacing = ((C - L)/rt.textContent.length).toFixed(2) + 'px'; };
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit); }
-  if(reduce) return;
-  const R = () => Math.hypot(innerWidth, innerHeight) * 0.6;
-  const tl = gsap.timeline({ defaults:{ease:'none'}, scrollTrigger:{ trigger:sec, start:'top top', end:'+=170%', pin:'.garden-pin', scrub:.8, refreshPriority:5, invalidateOnRefresh:true }});
-  tl.fromTo(film, {clipPath:'circle(9vmin at 50% 50%)'}, {clipPath:() => `circle(${R()}px at 50% 50%)`, duration:.62, ease:'power2.in'}, 0)
-    .fromTo(vid, {scale:1.25}, {scale:1, duration:.7}, 0)
-    .to('#gardenWords .l', {xPercent:-60, opacity:0, duration:.4}, .05)
-    .to('#gardenWords .r', {xPercent:60, opacity:0, duration:.4}, .05)
-    .to('#gardenRing', {scale:5, opacity:0, duration:.42, ease:'power2.in'}, .04)
-    .to('#gardenShade', {opacity:1, duration:.2}, .55)
-    .fromTo('#gardenEnd', {opacity:0, y:40}, {opacity:1, y:0, duration:.22}, .66)
-    .set({}, {}, 1);
-})();
+  const S = window.SBW, C = S.CATALOGUE, REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const money = n => n == null ? 'On request' : (S.rupees ? S.rupees(n) : '₹' + n);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+  /* ---------- hero: cream page with "wish" cut out of it, the garden film behind ---------- */
+  const stage = document.getElementById('hxStage'), cv = document.getElementById('hxMask'), ctx = cv.getContext('2d');
+  const video = document.getElementById('hxVideo'), script = document.getElementById('hxScript');
+  const FONT = w => `700 ${w}px "Cormorant Garamond"`;
+  function drawMask(){
+    const W = stage.clientWidth, DPR = Math.min(devicePixelRatio || 1, 2), small = innerWidth < 720;
+    ctx.font = FONT(100);
+    const m = ctx.measureText('wish');
+    const asc = m.actualBoundingBoxAscent || 72, desc = m.actualBoundingBoxDescent || 2, w100 = m.width;
+    const maxH = Math.max(120, Math.min(innerHeight * (small ? .26 : .36), 420));
+    const fs = Math.min((W * (small ? .98 : .9)) / w100 * 100, maxH / ((asc + desc) / 100));
+    const pad = fs * .07, H = Math.round((asc + desc) * fs / 100 + pad * 2);
+    stage.style.setProperty('--stage-h', H + 'px');
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = getComputedStyle(document.body).backgroundColor || '#f7ecd9';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = FONT(fs); ctx.textBaseline = 'alphabetic';
+    const tw = ctx.measureText('wish').width, x = (W - tw) / 2, base = pad + asc * fs / 100;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = '#000';
+    ctx.fillText('wish', x, base);
+    ctx.globalCompositeOperation = 'source-over';
+    /* a hairline of gold around the letters */
+    ctx.lineWidth = Math.max(1, fs / 260); ctx.strokeStyle = 'rgba(199,154,75,.55)';
+    ctx.strokeText('wish', x, base);
+    stage.style.setProperty('--sx', (x + tw * .02) + 'px');
+    const sf = Math.max(34, fs * .3);
+    stage.style.setProperty('--sy', (base - fs * .44 - sf * .78) + 'px');
+    stage.style.setProperty('--sf', sf + 'px');
+  }
+  const fontReady = document.fonts ? Promise.race([document.fonts.load(FONT(100)), new Promise(r => setTimeout(r, 2500))]) : Promise.resolve();
+  fontReady.then(() => { drawMask(); if(window.ScrollTrigger) ScrollTrigger.refresh(); });
+  drawMask();
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { drawMask(); }, 120); });
+  /* play only while visible */
+  new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting && !REDUCE){ const p = video.play(); p && p.catch && p.catch(() => {}); } else video.pause(); })).observe(stage);
+  if(REDUCE) video.removeAttribute('autoplay');
+  if(!REDUCE && window.gsap){
+    /* the film drifts with the pointer and sinks as you scroll */
+    if(matchMedia('(hover:hover)').matches){
+      const qx = gsap.quickTo(video, 'x', {duration:1.2, ease:'power3'}), qy = gsap.quickTo(video, 'y', {duration:1.2, ease:'power3'});
+      stage.closest('.hx').addEventListener('pointermove', e => { qx((e.clientX / innerWidth - .5) * -26); qy((e.clientY / innerHeight - .5) * -14); });
+    }
+    gsap.to(video, {yPercent:6, scale:1.06, ease:'none', scrollTrigger:{trigger:'.hx', start:'top top', end:'bottom top', scrub:.6}});
+    gsap.fromTo('#hxStage .hx-film, #hxMask, #hxScript', {opacity:1}, {opacity:.35, ease:'none', immediateRender:false, scrollTrigger:{trigger:'.hx', start:'40% top', end:'bottom top', scrub:.6}});
+  }
+
+  /* ---------- search ---------- */
+  const q = document.getElementById('q'), list = document.getElementById('qResults');
+  const ALL = Object.entries(C).map(([slug, it]) => ({slug, ...it, hay:(it.name + ' ' + it.cat + ' ' + (it.note || '')).toLowerCase()}));
+  let sel = -1;
+  function show(open){ list.hidden = !open; q.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  function results(){
+    const v = q.value.trim().toLowerCase();
+    if(!v){ show(false); return; }
+    const words = v.split(/\s+/);
+    const hits = ALL.filter(it => words.every(w => it.hay.includes(w))).slice(0, 6);
+    sel = -1;
+    list.innerHTML = hits.length ? hits.map((it, i) =>
+      `<li role="option" id="sr${i}" data-slug="${it.slug}" aria-selected="false"><img src="assets/${it.slug}.jpg" alt=""><span class="sr-t"><b>${esc(it.name)}</b><small>${esc(it.cat)} · ${money(it.price)}</small></span><span class="stepper-slot" data-slug="${it.slug}"></span></li>`).join('')
+      : `<li class="sr-empty" role="option" aria-disabled="true">No bake called “${esc(q.value.trim())}”. <a href="menu.html">Browse the full menu</a></li>`;
+    S.renderSteppers(list);
+    show(true);
+  }
+  function mark(i){
+    const items = [...list.querySelectorAll('li[data-slug]')]; if(!items.length) return;
+    sel = (i + items.length) % items.length;
+    items.forEach((li, k) => li.setAttribute('aria-selected', k === sel ? 'true' : 'false'));
+    q.setAttribute('aria-activedescendant', items[sel].id);
+    items[sel].scrollIntoView({block:'nearest'});
+  }
+  q.addEventListener('input', results);
+  q.addEventListener('focus', () => { if(q.value.trim()) results(); });
+  q.addEventListener('keydown', e => {
+    if(e.key === 'ArrowDown'){ e.preventDefault(); mark(sel + 1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); mark(sel - 1); }
+    else if(e.key === 'Enter'){
+      e.preventDefault();
+      const li = list.querySelectorAll('li[data-slug]')[sel < 0 ? 0 : sel];
+      if(li){ const slug = li.dataset.slug; if(C[slug].price != null){ S.Basket.add(slug); S.toast && S.toast(`${C[slug].name} added to your basket`); } }
+      else if(q.value.trim()) location.href = 'menu.html';
+    }
+    else if(e.key === 'Escape'){ show(false); }
+  });
+  list.addEventListener('click', e => {
+    if(e.target.closest('.stepper, a')) return;
+    const li = e.target.closest('li[data-slug]'); if(!li) return;
+    const b = li.querySelector('.st-add, .st-plus'); if(b) b.click();
+  });
+  document.addEventListener('pointerdown', e => { if(!e.target.closest('.search')) show(false); });
+  document.addEventListener('keydown', e => {
+    if(e.key === '/' && !/input|textarea|select/i.test(document.activeElement.tagName) && !e.metaKey && !e.ctrlKey){ e.preventDefault(); q.focus(); }
+  });
+
+  /* ---------- today's bake (changes daily) ---------- */
+  const DAILY = ['cinnabon','tiramisu','apple-pie','lemon-chiffon','hummingbird-cake','mushroom-croissant','chocolate-eclair','classic-tres-leches'];
+  const NOTES = {
+    'cinnabon':'Rolled, proved and glazed this morning.', 'tiramisu':'Layered last night, sliced to order.',
+    'apple-pie':'Lattice top, cinnamon apples, all butter.', 'lemon-chiffon':'Light as air, bright with lemon.',
+    'hummingbird-cake':'Banana, pineapple, pecans and cream cheese.', 'mushroom-croissant':'Flaky, buttery, filled with garlic mushrooms.',
+    'chocolate-eclair':'Crisp choux, silky custard, dark glaze.', 'classic-tres-leches':'Soaked in three milks — a regular\'s favourite.'
+  };
+  const day = Math.floor((Date.now() + 19800000) / 86400000), td = DAILY[day % DAILY.length];
+  document.getElementById('tdImg').src = `assets/${td}.jpg`;
+  document.getElementById('tdImg').alt = C[td].name;
+  document.getElementById('tdName').textContent = C[td].name;
+  document.getElementById('tdNote').textContent = NOTES[td];
+  document.getElementById('tdPrice').textContent = money(C[td].price) + (C[td].note ? ' · ' + C[td].note : '');
+  const slot = document.getElementById('tdSlot'); slot.dataset.slug = td; delete slot.dataset.k;
+
+  /* ---------- bestsellers rail ---------- */
+  const BEST = ['tiramisu','biscoff-cheesecake','cinnabon','classic-tres-leches','mushroom-croissant','millet-laddo','chocolate-eclair','strawberry-cheesecake','cheese-garlic-bread','apple-pie'];
+  const rail = document.getElementById('bestRail');
+  rail.innerHTML = BEST.map((slug, i) => { const it = C[slug]; return `
+    <article class="pcard lift">
+      <div class="pc-img"><img src="assets/${slug}.jpg" alt="${esc(it.name)}" loading="lazy" draggable="false"><span class="pc-rank">#${i + 1}</span></div>
+      <div class="pc-body"><span class="pc-cat">${esc(it.cat)}</span><h3>${esc(it.name)}</h3><small>${esc(it.note || ' ')}</small>
+        <div class="pc-row"><b>${money(it.price)}</b><span class="stepper-slot" data-slug="${slug}"></span></div></div>
+    </article>`; }).join('');
+  S.renderSteppers();
+  const prev = document.querySelector('.rn.prev'), next = document.querySelector('.rn.next');
+  const step = () => (rail.querySelector('.pcard').offsetWidth + 14) * (innerWidth > 1100 ? 2 : 1);
+  prev.addEventListener('click', () => rail.scrollBy({left:-step(), behavior:REDUCE ? 'auto' : 'smooth'}));
+  next.addEventListener('click', () => rail.scrollBy({left: step(), behavior:REDUCE ? 'auto' : 'smooth'}));
+  const ends = () => { prev.disabled = rail.scrollLeft < 8; next.disabled = rail.scrollLeft > rail.scrollWidth - rail.clientWidth - 8; };
+  rail.addEventListener('scroll', ends, {passive:true}); ends(); addEventListener('resize', ends);
+  /* mouse drag (touch scrolls natively) */
+  let dn = null;
+  rail.addEventListener('pointerdown', e => { if(e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('button')) return; dn = {x:e.clientX, s:rail.scrollLeft, moved:false}; });
+  addEventListener('pointermove', e => { if(!dn) return; const dx = e.clientX - dn.x; if(Math.abs(dx) > 5 && !dn.moved){ dn.moved = true; rail.classList.add('dragging'); } if(dn.moved) rail.scrollLeft = dn.s - dx; });
+  addEventListener('pointerup', () => { if(!dn) return; const moved = dn.moved; dn = null; if(moved){ rail.classList.remove('dragging'); ends(); } });
+  if(!REDUCE && window.gsap){
+    gsap.from(rail.querySelectorAll('.pcard'), {y:40, opacity:0, duration:.9, stagger:.07, ease:'power3.out', clearProps:'transform,opacity',
+      scrollTrigger:{trigger:rail, start:'top 85%', once:true}});
+  }
+
+  /* ---------- my last order ---------- */
+  function myOrders(){
+    const box = document.getElementById('myOrders'); const mine = (S.API && S.API.myOrders) ? S.API.myOrders() : [];
+    if(!mine.length){ box.hidden = true; return; }
+    const o = mine[0], when = new Date(o.at || Date.now());
+    box.innerHTML = `<div class="mo-card"><span class="mo-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span>
+      <span class="mo-t"><b>Your order ${esc(o.code)}</b><small>Placed ${when.toLocaleDateString('en-IN', {day:'numeric', month:'short'})} · ${when.toLocaleTimeString('en-IN', {hour:'numeric', minute:'2-digit'})}</small></span>
+      <a href="track.html#${encodeURIComponent(o.code)}">Track</a></div>`;
+    box.hidden = false;
+  }
+  myOrders(); addEventListener('pageshow', myOrders);
+
+  /* lift effect on the static cards too */
+  document.querySelectorAll('.t-card, .steps li').forEach(c => c.classList.add('lift'));
+})();
+</script>
+<script>
 /* ============ blow out the candle ============ */
 (function(){
   const sec = document.getElementById('wish'); if(!sec) return;
@@ -1026,8 +941,6 @@ window.__heroIntro = function(){
   size();
 })();
 </script>
-
-
 
 </body>
 </html>
