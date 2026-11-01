@@ -45,45 +45,66 @@ gsap.registerPlugin(ScrollTrigger);
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const DESKTOP = window.matchMedia('(min-width: 861px)').matches;
 
-/* ---------- curtain between pages ---------- */
+/* ---------- veil between pages: a curved panel carries the next page's name ---------- */
 (function(){
-  let curtain = document.querySelector('.curtain');
-  if(!curtain){
-    curtain = document.createElement('div');
-    curtain.className = 'curtain';
-    curtain.innerHTML = '<span class="script">Shubhi\'s</span>';
-    document.body.appendChild(curtain);
-  }
-  if(REDUCE){ curtain.classList.remove('is-covering'); return; }
-  const under = document.createElement('div'); under.className = 'curtain-under'; under.setAttribute('aria-hidden','true');
-  document.body.appendChild(under);
-  const sig = curtain.querySelector('.script');
-  const lift = () => {
-    if(!curtain.classList.contains('is-covering')) return;
-    gsap.set(under, {y:0, yPercent:0});
-    const tl = gsap.timeline({delay:.12, onComplete:() => { curtain.classList.remove('is-covering'); gsap.set([curtain, under], {clearProps:'transform'}); gsap.set(under, {yPercent:100}); }});
-    tl.to(sig, {yPercent:-60, opacity:0, duration:.5, ease:'power2.in'}, 0)
-      .to(curtain, {yPercent:-100, duration:1, ease:'expo.inOut'}, .1)
-      .to(under, {yPercent:-100, duration:1, ease:'expo.inOut'}, .24);
+  const PAGES = {
+    'index.html':['00','Home'], 'story.html':['01','Our Story'], 'menu.html':['02','The Menu'],
+    'cafe.html':['03','The Café'], 'visit.html':['04','Visit & Order'], 'track.html':['05','Track Order'], 'admin.html':['—','Orders']
   };
-  if(document.readyState === 'complete') lift(); else window.addEventListener('load', lift);
-  window.addEventListener('pageshow', e => { if(e.persisted){ curtain.classList.remove('is-covering'); gsap.set(curtain, {y:0, yPercent:100}); } });
+  const veil = document.querySelector('.veil');
+  if(!veil || typeof gsap === 'undefined'){ if(veil) veil.classList.remove('is-on'); return; }
+  const panel = veil.querySelector('.veil-panel'), cTop = veil.querySelector('.veil-curve.top'), cBot = veil.querySelector('.veil-curve.bot');
+  const words = veil.querySelectorAll('.veil-inner > span > span');
+  const no = veil.querySelector('.veil-no > span'), title = veil.querySelector('.veil-title > span');
+  if(!veil.querySelector('.veil-bar')){ const b = document.createElement('i'); b.className = 'veil-bar'; panel.appendChild(b); }
+  const bar = veil.querySelector('.veil-bar');
+  const off = () => { veil.classList.remove('is-on'); gsap.set([panel, cTop, cBot, ...words], {clearProps:'all'}); gsap.set(bar, {opacity:0}); };
+  let navigating = false;
 
+  /* arriving: the panel is already covering (class is-on in the markup) — lift it */
+  let lifted = false;
+  const lift = () => {
+    if(lifted || !veil.classList.contains('is-on')) return; lifted = true;
+    if(REDUCE){ off(); return; }
+    gsap.set(panel, {yPercent:0}); gsap.set(bar, {opacity:0});
+    const tl = gsap.timeline({onComplete:off});
+    tl.to(words, {yPercent:-110, duration:.55, stagger:.05, ease:'power3.in'}, 0)
+      .to(cBot, {scaleY:1, duration:.5, ease:'power2.in'}, .3)
+      .to(panel, {yPercent:-100, duration:.95, ease:'expo.inOut'}, .32)
+      .to(cBot, {scaleY:0, duration:.6, ease:'power2.out'}, .8);
+  };
+  if(veil.classList.contains('is-on')){
+    const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+    Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(() => requestAnimationFrame(lift));
+    setTimeout(lift, 1800);   /* never hold a page hostage */
+  }
+  window.addEventListener('pageshow', e => { if(e.persisted){ navigating = false; off(); } });
+
+  /* leaving: cover with the destination's number and name, then go */
   document.addEventListener('click', e => {
     const a = e.target.closest('a');
-    if(!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+    if(!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank' || a.hasAttribute('download')) return;
     const href = a.getAttribute('href') || '';
-    if(!/^[\w-]+\.html(#[\w-]+)?$/.test(href)) return;            /* only our own pages */
+    if(!/^[\w-]+\.html(#[\w-]+)?$/.test(href)) return;
     const [file] = href.split('#');
     const here = location.pathname.split('/').pop() || 'index.html';
-    if(file === here) return;                                          /* same-page anchors scroll normally */
+    if(file === here) return;
     e.preventDefault();
-    /* y:0 first — otherwise GSAP reads the CSS translateY(100%) as a pixel offset and the curtain never arrives */
-    const tl = gsap.timeline({onComplete:() => { location.href = href; }});
-    tl.fromTo(under, {y:0, yPercent:100}, {yPercent:0, duration:.75, ease:'expo.inOut'}, 0)
-      .fromTo(curtain, {y:0, yPercent:100}, {yPercent:0, duration:.75, ease:'expo.inOut'}, .12)
-      .fromTo(sig, {yPercent:60, opacity:0, clipPath:'inset(0 100% 0 0)'}, {yPercent:0, opacity:1, clipPath:'inset(0 0% 0 0)', duration:.6, ease:'power2.out'}, .55)
-      .to({}, {duration:.15});
+    if(navigating) return; navigating = true;
+    try{ sessionStorage.setItem('sbw-nav', '1'); }catch(_){}
+    if(REDUCE){ location.href = href; return; }
+    const lab = PAGES[file] || ['', ''];
+    no.textContent = lab[0]; title.textContent = lab[1];
+    gsap.killTweensOf([panel, cTop, cBot, ...words]);
+    veil.classList.add('is-on');
+    gsap.set(panel, {yPercent:100}); gsap.set(cTop, {scaleY:0}); gsap.set(words, {yPercent:110}); gsap.set(bar, {opacity:0});
+    if(window.__lenis) window.__lenis.stop();
+    const tl = gsap.timeline({onComplete:() => { gsap.to(bar, {opacity:1, duration:.3}); location.href = href; }});
+    tl.to(cTop, {scaleY:1, duration:.45, ease:'power2.in'}, 0)
+      .to(panel, {yPercent:0, duration:.85, ease:'expo.inOut'}, 0)
+      .to(cTop, {scaleY:0, duration:.55, ease:'power2.out'}, .5)
+      .to(words, {yPercent:0, duration:.7, stagger:.06, ease:'expo.out'}, .45)
+      .to({}, {duration:.12});
   });
 })();
 
@@ -402,7 +423,8 @@ document.addEventListener('click', e => {
 
 /* ---------- inertia scrolling (wheel / trackpad only; touch stays native) ---------- */
 (function(){
-  if(REDUCE || typeof Lenis === 'undefined') return;
+  /* quirks mode (a page served without <!doctype>) scrolls <body>, not <html>: Lenis can't drive it, so stay native */
+  if(REDUCE || typeof Lenis === 'undefined' || document.compatMode !== 'CSS1Compat') return;
   const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), wheelMultiplier: 1, smoothWheel: true });
   window.__lenis = lenis;
   lenis.on('scroll', ScrollTrigger.update);
@@ -412,9 +434,13 @@ document.addEventListener('click', e => {
   gsap.ticker.lagSmoothing(0);
   document.querySelectorAll('.bag, .bag-list, nav.links, .co-done, .cat-list').forEach(el => el.setAttribute('data-lenis-prevent', ''));
   /* pause page scroll while the basket or mobile menu is open */
-  new MutationObserver(() => {
-    document.querySelector('.bag.open, nav.links.open') ? lenis.stop() : lenis.start();
-  }).observe(document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+  const sync = () => {
+    (document.documentElement.classList.contains('is-loading') || document.querySelector('.bag.open, nav.links.open')) ? lenis.stop() : lenis.start();
+  };
+  const mo = new MutationObserver(sync);
+  mo.observe(document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+  mo.observe(document.documentElement, {attributes:true, attributeFilter:['class']});
+  sync();
 })();
 
 /* ---------- headings rise word by word from behind a mask ---------- */

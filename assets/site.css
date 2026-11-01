@@ -1035,3 +1035,49 @@ a:focus-visible, button:focus-visible, select:focus-visible, [tabindex]:focus-vi
 .mrow .nm small{font-size:.68rem;}
 .blow span{font-size:.68rem;}
 .wish-hint{font-size:.68rem;}
+
+/* =====================================================================
+   LOADER (home) + VEIL (page transitions)
+   ===================================================================== */
+html.is-loading, html.is-loading body{overflow:hidden !important;}
+
+.loader{position:fixed; inset:0; z-index:10000; color:var(--cream-soft); display:grid; place-items:center; pointer-events:auto;}
+.ld-half{position:absolute; left:0; right:0; height:50.5%; background:var(--forest-deep);}
+.ld-half.top{top:0;} .ld-half.bot{bottom:0;}
+.ld-glow{position:absolute; left:50%; top:50%; width:min(90vw,900px); aspect-ratio:1; transform:translate(-50%,-50%) scale(.6); border-radius:50%;
+  background:radial-gradient(circle, rgba(232,160,88,.34) 0%, rgba(187,90,60,.16) 34%, rgba(31,51,39,0) 66%); opacity:.25; pointer-events:none;}
+.ld-mid{position:relative; display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;}
+.ld-script{font-family:'Mrs Saint Delafield',cursive; font-size:clamp(4rem,11vw,8.5rem); line-height:.9; color:var(--gold-light); clip-path:inset(0 100% 0 0); padding:0 .2em;}
+.ld-count{font-family:'Italiana',serif; font-size:clamp(3.4rem,8vw,6.4rem); line-height:1; letter-spacing:.02em; font-variant-numeric:tabular-nums; display:flex; align-items:flex-start;}
+.ld-count b{font-weight:400; min-width:2.2ch; text-align:right;}
+.ld-count i{font-style:normal; font-size:.38em; margin:.18em 0 0 .12em; color:var(--gold-light);}
+.ld-line{width:min(260px,60vw); height:1px; background:rgba(227,199,136,.22); overflow:hidden;}
+.ld-line span{display:block; height:100%; background:var(--gold-light); transform-origin:left; transform:scaleX(0);}
+.ld-cap{font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(247,236,217,.7); min-height:1.2em;}
+.ld-corner{position:absolute; bottom:max(28px, calc(env(safe-area-inset-bottom,0px) + 20px)); font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(247,236,217,.5);}
+.ld-corner.l{left:max(6vw, env(safe-area-inset-left,0px));} .ld-corner.r{right:max(6vw, env(safe-area-inset-right,0px));}
+.loader.done{pointer-events:none;}
+@media(max-width:620px){ .ld-corner.r{display:none;} .ld-corner.l{left:0; right:0; text-align:center;} }
+
+.veil{position:fixed; inset:0; z-index:9500; pointer-events:none; visibility:hidden;}
+.veil.is-on{visibility:visible; pointer-events:auto;}
+.veil-panel{position:absolute; inset:0; background:var(--forest-deep); transform:translateY(105%);}
+.veil.is-on .veil-panel{transform:none;}
+.veil-curve{position:absolute; left:-20%; width:140%; height:24vh; background:var(--forest-deep); border-radius:50%; transform:scaleY(0); pointer-events:none;}
+.veil-curve.top{top:-12vh;} .veil-curve.bot{bottom:-12vh;}
+.veil-inner{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(10px,2vh,18px); text-align:center; padding:0 6vw;}
+.veil-inner > span{display:block; overflow:hidden; padding-bottom:.08em;}
+.veil-inner > span > span{display:inline-block;}
+.veil-no{font-family:'Italiana',serif; font-size:clamp(1rem,1.6vw,1.3rem); letter-spacing:.42em; color:var(--gold-light);}
+.veil-title{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(3rem,10vw,8.4rem); line-height:.95; letter-spacing:-.02em; color:var(--cream-soft);}
+.veil-script{font-family:'Mrs Saint Delafield',cursive; font-size:clamp(1.6rem,3vw,2.4rem); color:var(--gold-light);}
+.veil-bar{position:absolute; left:50%; bottom:clamp(36px,7vh,70px); width:120px; height:1px; transform:translateX(-50%); background:rgba(227,199,136,.2); overflow:hidden;}
+.veil-bar::after{content:""; position:absolute; inset:0; background:var(--gold-light); transform:translateX(-100%); animation:veilBar 1.2s cubic-bezier(.7,0,.2,1) infinite;}
+@keyframes veilBar{to{transform:translateX(100%);}}
+
+@media (prefers-reduced-motion: reduce){
+  .veil{display:none;}
+  .ld-script{clip-path:none;}
+}
+/* old curtain retired */
+.curtain, .curtain-under{display:none !important;}

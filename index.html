@@ -1,5 +1,9 @@
-<title>Shubhi's Bake A Wish</title>
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shubhi's Bake A Wish</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Shubhi's Bake A Wish — a home bakery & garden café in Prayagraj. Cakes, cookies, breads & tarts, handbaked with organic, preservative-free love.">
 
@@ -142,14 +146,54 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
 </style>
 
 
+</head>
+<body>
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
-<div id="preloader">
-  <div class="script">Shubhi's Bake A Wish</div>
-  <div class="bar"></div>
-  <div class="pct">PRAYAGRAJ · HOME BAKERY &amp; CAFÉ</div>
+<div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Shubhi's Bake A Wish">
+  <div class="ld-half top"></div><div class="ld-half bot"></div>
+  <div class="ld-glow" id="ldGlow"></div>
+  <div class="ld-mid" id="ldMid">
+    <span class="ld-script" id="ldScript">Shubhi's</span>
+    <span class="ld-count"><b id="ldNum">0</b><i>%</i></span>
+    <span class="ld-line"><span id="ldBar"></span></span>
+    <span class="ld-cap" id="ldCap">Preheating the oven</span>
+  </div>
+  <span class="ld-corner l">Home bakery &amp; garden café</span>
+  <span class="ld-corner r">Prayagraj · Est. in a home kitchen</span>
 </div>
+<div class="veil" aria-hidden="true">
+  <div class="veil-panel"><i class="veil-curve top"></i><i class="veil-curve bot"></i>
+    <div class="veil-inner">
+      <span class="veil-no"><span>00</span></span>
+      <span class="veil-title"><span>Home</span></span>
+      <span class="veil-script"><span>Shubhi's · Bake a Wish</span></span>
+    </div>
+  </div>
+</div>
+<script>
+/* decide before first paint: full loader on a fresh visit, the veil when arriving from another page */
+(function(){
+  var d = document.documentElement, viaNav = false;
+  try{ viaNav = sessionStorage.getItem('sbw-nav') === '1'; sessionStorage.removeItem('sbw-nav'); }catch(e){}
+  try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  window.scrollTo(0,0);
+  window.__whLoaded = 0;
+  if(viaNav){
+    window.__arrivedVia = 'veil';
+    document.getElementById('loader').style.display = 'none';
+    document.querySelector('.veil').classList.add('is-on');
+  } else {
+    d.classList.add('is-loading');
+    /* nothing behind the loader can take focus until it lifts */
+    document.addEventListener('DOMContentLoaded', function(){
+      if(!d.classList.contains('is-loading')) return;
+      [].forEach.call(document.body.children, function(el){ if(el.id !== 'loader' && el.tagName !== 'SCRIPT'){ el.setAttribute('inert',''); el.setAttribute('data-ld-inert',''); } });
+    });
+  }
+})();
+</script>
 
 <header id="siteHeader">
   <a href="index.html" class="logo-mark">
@@ -535,7 +579,8 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
     const img = new Image();
     img.decoding = 'async';
     img.src = `assets/hero-frames/frame-${pad(i)}.jpg`;
-    img.onload = () => { if(i-1 === frame) drawVideo(); };
+    img.onload = () => { window.__whLoaded = (window.__whLoaded||0) + 1; if(i-1 === frame) drawVideo(); };
+    img.onerror = () => { window.__whLoaded = (window.__whLoaded||0) + 1; };
     frames.push(img);
   }
 
@@ -603,7 +648,7 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
     size();
     frame = 40;
     const show = () => drawVideo();
-    frames[frame].complete ? show() : frames[frame].onload = show;
+    frames[frame].complete ? show() : frames[frame].addEventListener('load', show, {once:true});
     document.querySelectorAll('#whMeta b[data-to]').forEach(b => b.textContent = b.dataset.to + (b.dataset.suf||''));
     window.addEventListener('resize', size);
     return;
@@ -687,22 +732,77 @@ body.wh-still header{background:rgba(247,236,217,0.9); backdrop-filter:blur(14px
   window.__whRefit = () => { size(); ScrollTrigger.refresh(); };
 })();
 
-/* ---------- entrance: curtain lifts, the name writes itself ---------- */
-window.addEventListener('load', () => {
+/* ---------- hero intro (shared by the loader and the veil arrival) ---------- */
+window.__heroIntro = function(){
+  if(window.__heroIntroRan) return; window.__heroIntroRan = true;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const pre = document.getElementById('preloader');
-  const tl = gsap.timeline({ onComplete: () => { pre.style.display = 'none'; if(window.__whRefit) window.__whRefit(); } });
-  tl.to('#preloader .script', {opacity:1, duration:.5, ease:'power2.out'})
-    .to(pre, {yPercent:-100, duration:1.05, ease:'expo.inOut', delay:.35})
-    .fromTo('header', {y:-30, opacity:0}, {y:0, opacity:1, duration:.7, ease:'power3.out'}, '-=.45');
-  if(reduce){
-    tl.fromTo('#whContent', {opacity:0}, {opacity:1, duration:.6}, '-=.3');
+  const done = () => { if(window.__whRefit) window.__whRefit(); };
+  const tl = gsap.timeline({ onComplete: done });
+  tl.to('header', {y:0, opacity:1, duration:.8, ease:'power3.out', clearProps:'opacity'}, .35);
+  if(reduce){ gsap.set('#whScript span', {clipPath:'inset(0 0% 0 0)'}); tl.fromTo('#whContent', {opacity:0}, {opacity:1, duration:.6}, 0); return; }
+  tl.fromTo('#whMask', {scale:1.12, filter:'blur(8px)'}, {scale:1, filter:'blur(0px)', duration:1.5, ease:'expo.out', clearProps:'transform,filter'}, 0)
+    .to('#whScript span', {clipPath:'inset(0 0% 0 0)', duration:1.25, ease:'power2.inOut'}, .25)
+    .fromTo('.wh-intro .wh-under, .wh-intro .wh-corner', {opacity:0, y:14}, {opacity:1, y:0, duration:.85, stagger:.07, ease:'power3.out'}, .4);
+};
+
+/* ---------- loader: real progress from the hero frames + fonts ---------- */
+(function(){
+  /* prime the fixed header's transform now, while nothing is focusable: GSAP re-parents fixed elements on first parse, which would steal focus later */
+  gsap.set('header', {y:-30, opacity:0});
+  const loader = document.getElementById('loader');
+  const unlock = () => { document.querySelectorAll('[data-ld-inert]').forEach(el => { el.removeAttribute('inert'); el.removeAttribute('data-ld-inert'); }); document.documentElement.classList.remove('is-loading'); window.scrollTo(0,0); if(window.__lenis){ window.__lenis.scrollTo(0,{immediate:true}); } };
+  if(window.__arrivedVia === 'veil'){
+    /* the veil (site.js) lifts on fonts-ready; start the hero as it goes */
+    const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+    Promise.race([fonts, new Promise(r => setTimeout(r, 1200))]).then(() => setTimeout(window.__heroIntro, 450));
     return;
   }
-  tl.fromTo('#whMask', {scale:1.08, filter:'blur(6px)'}, {scale:1, filter:'blur(0px)', duration:1.3, ease:'expo.out', clearProps:'transform,filter'}, '-=.75')
-    .to('#whScript span', {clipPath:'inset(0 0% 0 0)', duration:1.25, ease:'power2.inOut'}, '-=.95')
-    .fromTo('.wh-intro .wh-under, .wh-intro .wh-corner', {opacity:0, y:12}, {opacity:1, y:0, duration:.8, stagger:.06, ease:'power3.out'}, '-=.9');
-});
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const num = document.getElementById('ldNum'), bar = document.getElementById('ldBar'), cap = document.getElementById('ldCap');
+  const script = document.getElementById('ldScript'), glow = document.getElementById('ldGlow'), mid = document.getElementById('ldMid');
+  const halves = loader.querySelectorAll('.ld-half');
+  const CAPS = ['Preheating the oven', 'Whisking the batter', 'Into the oven', 'Making your wish'];
+  let fontsDone = false;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsDone = true; });
+  const t0 = performance.now(), MIN = reduce ? 400 : 1700, MAX = 8000;
+  let shown = 0, capIdx = -1, finished = false;
+  gsap.fromTo(mid, {opacity:0, y:16}, {opacity:1, y:0, duration:.7, ease:'power3.out'});
+  const real = () => Math.min(1, (window.__whLoaded || 0) / 63 * .85 + (fontsDone ? .15 : 0));
+  const tick = () => {
+    if(finished) return;
+    const el = performance.now() - t0;
+    /* never run ahead of real loading, and never faster than the minimum show time */
+    const cap1 = Math.min(1, el / MIN);
+    let target = Math.min(real(), cap1);
+    if(el > MAX) target = 1;
+    shown += (target - shown) * .09;
+    if(target === 1 && 1 - shown < .004) shown = 1;
+    const p = shown;
+    num.textContent = Math.round(p * 100);
+    bar.style.transform = `scaleX(${p})`;
+    script.style.clipPath = `inset(0 ${(100 - p * 100).toFixed(2)}% 0 0)`;
+    glow.style.opacity = (.25 + p * .75).toFixed(3);
+    glow.style.transform = `translate(-50%,-50%) scale(${(.6 + p * .55).toFixed(3)})`;
+    const ci = Math.min(CAPS.length - 1, Math.floor(p * CAPS.length));
+    if(ci !== capIdx){ capIdx = ci; gsap.fromTo(cap, {opacity:0, y:6}, {opacity:1, y:0, duration:.4, ease:'power2.out'}); cap.textContent = CAPS[ci]; }
+    if(p >= 1){ finished = true; exit(); return; }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
+  function exit(){
+    loader.classList.add('done');
+    loader.setAttribute('aria-label', 'Loaded');
+    if(reduce){ gsap.to(loader, {opacity:0, duration:.4, onComplete:() => { loader.style.display = 'none'; }}); unlock(); window.__heroIntro(); return; }
+    const tl = gsap.timeline({ onComplete:() => { loader.style.display = 'none'; } });
+    tl.to(mid, {y:-30, opacity:0, duration:.55, ease:'power3.in'}, .15)
+      .to(glow, {scale:2.2, opacity:0, duration:.9, ease:'power2.in'}, .15)
+      .to(halves[0], {yPercent:-100, duration:1.1, ease:'expo.inOut'}, .5)
+      .to(halves[1], {yPercent:100, duration:1.1, ease:'expo.inOut'}, .5)
+      .to(loader.querySelectorAll('.ld-corner'), {opacity:0, duration:.3}, .3)
+      .add(() => { unlock(); window.__heroIntro(); }, .6);
+  }
+})();
 </script>
 <script>
 /* ============ garden: a circle opens into the dusk film ============ */
@@ -830,8 +930,10 @@ window.addEventListener('load', () => {
     }
   }
 
+  let lastNow = 0;
   function frame(now){
-    const t = (now - t0)/1000, dt = 1/60;
+    /* real elapsed time (capped), so the hold feels the same on a slow phone as on a fast laptop */
+    const t = (now - t0)/1000, dt = lastNow ? Math.min(.05, Math.max(0, (now - lastNow)/1000)) : 1/60; lastNow = now;
     ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
     if(state === 'lit'){
       hold = holding ? Math.min(1, hold + dt/1.25) : Math.max(0, hold - dt*1.8);
@@ -926,3 +1028,6 @@ window.addEventListener('load', () => {
 </script>
 
 
+
+</body>
+</html>
