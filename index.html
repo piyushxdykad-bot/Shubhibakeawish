@@ -120,39 +120,36 @@
   .hero{
     position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center;
     padding:140px 6vw 80px; overflow:hidden;
+    background:var(--ink);
+  }
+  .hero-canvas{
+    position:absolute; inset:0; width:100%; height:100%; display:block; z-index:0; background:var(--ink);
+  }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
     background:
-      radial-gradient(ellipse at 15% 20%, rgba(187,90,60,0.16), transparent 55%),
-      radial-gradient(ellipse at 85% 80%, rgba(47,74,58,0.18), transparent 55%),
-      var(--cream);
+      linear-gradient(180deg, rgba(21,16,10,.62) 0%, rgba(21,16,10,.2) 38%, rgba(21,16,10,.3) 62%, rgba(21,16,10,.78) 100%),
+      radial-gradient(ellipse at 85% 15%, rgba(187,90,60,.18), transparent 55%);
   }
-  .hero .texture{
-    position:absolute; inset:0; opacity:.5; mix-blend-mode:multiply; pointer-events:none;
-    background-image: radial-gradient(rgba(42,31,22,.045) 1px, transparent 1px);
-    background-size:3px 3px;
-  }
-  .hero-grain-blob{
-    position:absolute; border-radius:50%; filter:blur(60px); opacity:.5; pointer-events:none;
-  }
-  .blob1{width:420px; height:420px; background:var(--gold-light); top:-120px; right:-80px; opacity:.35;}
-  .blob2{width:360px; height:360px; background:var(--rose); bottom:-140px; left:-100px; opacity:.3;}
+  .hero-grain-blob{display:none;}
 
   .hero-top-row{display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:2;}
   .hero h1{
-    font-size:clamp(3.2rem, 9vw, 7.6rem); line-height:.92; color:var(--ink);
-    display:flex; flex-direction:column;
+    font-size:clamp(3.2rem, 9vw, 7.6rem); line-height:.92; color:var(--cream-soft);
+    display:flex; flex-direction:column; text-shadow:0 10px 40px rgba(0,0,0,.35);
   }
   .hero h1 .line{overflow:hidden; display:block;}
   .hero h1 .line span{display:inline-block; transform:translateY(110%);}
-  .hero h1 .script-word{font-family:'Mrs Saint Delafield', cursive; color:var(--terracotta); font-size:1.12em; font-weight:400;}
+  .hero h1 .script-word{font-family:'Mrs Saint Delafield', cursive; color:var(--gold-light); font-size:1.12em; font-weight:400;}
   .hero-sub{
-    max-width:360px; font-size:1rem; line-height:1.7; color:var(--ink-soft); padding-bottom:10px;
+    max-width:360px; font-size:1rem; line-height:1.7; color:rgba(247,236,217,.88); padding-bottom:10px;
   }
   .hero-meta{
     display:flex; gap:46px; margin-top:54px; flex-wrap:wrap; position:relative; z-index:2;
   }
-  .hero-meta .item{border-left:1px solid var(--line); padding-left:18px;}
-  .hero-meta .item b{display:block; font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--terracotta-deep);}
-  .hero-meta .item span{font-size:.7rem; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-soft);}
+  .hero-meta .item{border-left:1px solid rgba(247,236,217,.3); padding-left:18px;}
+  .hero-meta .item b{display:block; font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--gold-light);}
+  .hero-meta .item span{font-size:.7rem; text-transform:uppercase; letter-spacing:.14em; color:rgba(247,236,217,.78);}
 
   .hero-ctas{display:flex; gap:18px; margin-top:50px; flex-wrap:wrap; position:relative; z-index:2;}
   .btn{
@@ -164,12 +161,14 @@
   .btn-solid:hover{box-shadow:0 18px 40px -14px rgba(156,69,48,.6); transform:translateY(-3px);}
   .btn-outline{border:1px solid var(--ink); color:var(--ink);}
   .btn-outline:hover{background:var(--ink); color:var(--cream-soft); transform:translateY(-3px);}
+  .hero .btn-outline{border-color:rgba(247,236,217,.65); color:var(--cream-soft);}
+  .hero .btn-outline:hover{background:var(--cream-soft); color:var(--ink);}
 
   .scroll-cue{
     position:absolute; right:6vw; bottom:48px; display:flex; flex-direction:column; align-items:center; gap:10px;
-    font-size:.64rem; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft);
+    font-size:.64rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(247,236,217,.78); z-index:2;
   }
-  .scroll-cue .stick{width:1px; height:50px; background:var(--line); position:relative; overflow:hidden;}
+  .scroll-cue .stick{width:1px; height:50px; background:rgba(247,236,217,.3); position:relative; overflow:hidden;}
   .scroll-cue .stick::after{content:""; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--terracotta); animation:cue 2s infinite;}
   @keyframes cue{to{top:100%;}}
 
@@ -307,12 +306,13 @@
   .cafe-card{
     position:absolute; border-radius:4px; overflow:hidden; box-shadow:0 40px 70px -30px rgba(0,0,0,.6);
   }
-  .cc1{width:72%; height:64%; top:0; right:0; background:linear-gradient(160deg,#4a6350,#1f332a); z-index:2;}
-  .cc2{width:56%; height:48%; bottom:0; left:0; background:linear-gradient(200deg,#c79a4b,#8a6a2f); z-index:3; border:6px solid var(--forest-deep);}
+  .cc1{width:72%; height:64%; top:0; right:0; background:#1f332a; z-index:2;}
+  .cc2{width:56%; height:48%; bottom:0; left:0; background:#8a6a2f; z-index:3; border:6px solid var(--forest-deep);}
+  .cafe-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;}
+  .cafe-card .photo-tint{position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,30,24,0) 45%, rgba(15,22,17,.85) 100%);}
   .cafe-card .inner-label{
-    position:absolute; bottom:16px; left:16px; right:16px; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; opacity:.8;
+    position:absolute; bottom:16px; left:16px; right:16px; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; opacity:.9; color:var(--cream-soft); z-index:2;
   }
-  .cafe-card svg{position:absolute; inset:0; width:100%; height:100%; opacity:.9;}
   .cafe-stairs{position:absolute; bottom:-6%; right:-6%; width:46%; opacity:.9; z-index:4;}
 
   .cafe-words{display:flex; gap:0; flex-wrap:wrap; margin-top:60px; border-top:1px solid rgba(247,236,217,.14); padding-top:28px;}
@@ -333,11 +333,14 @@
   }
   .w-card:hover{transform:translateY(-10px);}
   .w-card .w-top{height:220px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;}
-  .w-card .w-top svg{width:60%; height:60%;}
-  .w1 .w-top{background:linear-gradient(135deg,#bb5a3c,#8a3f28);}
-  .w2 .w-top{background:linear-gradient(135deg,#2f4a3a,#16261c);}
-  .w3 .w-top{background:linear-gradient(135deg,#c79a4b,#8a6a2f);}
-  .w4 .w-top{background:linear-gradient(135deg,#c97e6e,#9c5546);}
+  .w-card .w-top img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.9,.2,1);}
+  .w-card:hover .w-top img{transform:scale(1.08);}
+  .w-card .w-top .w-tint{position:absolute; inset:0; mix-blend-mode:multiply;}
+  .w-card .w-top svg{width:46%; height:46%; position:relative; z-index:2; filter:drop-shadow(0 4px 14px rgba(0,0,0,.4));}
+  .w1 .w-top .w-tint{background:linear-gradient(135deg,rgba(187,90,60,.72),rgba(138,63,40,.55));}
+  .w2 .w-top .w-tint{background:linear-gradient(135deg,rgba(47,74,58,.72),rgba(22,38,28,.55));}
+  .w3 .w-top .w-tint{background:linear-gradient(135deg,rgba(199,154,75,.72),rgba(138,106,47,.55));}
+  .w4 .w-top .w-tint{background:linear-gradient(135deg,rgba(201,126,110,.72),rgba(156,85,70,.55));}
   .w-card .w-body{padding:26px 26px 30px;}
   .w-card .tag{font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--terracotta-deep);}
   .w-card h3{font-size:1.5rem; margin:10px 0 10px;}
@@ -455,9 +458,8 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
-  <div class="texture"></div>
-  <div class="hero-grain-blob blob1"></div>
-  <div class="hero-grain-blob blob2"></div>
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-scrim"></div>
 
   <div class="wrap">
     <div class="hero-top-row">
@@ -497,7 +499,7 @@
 <section class="about" id="story">
   <div class="wrap about-grid">
     <div class="about-art fade-up">
-      <img src="assets/celebration-cake.jpg" alt="A Shubhi's Bake A Wish celebration cake" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+      <img src="assets/about-hero.jpg" alt="Shubhi's Bake A Wish — home kitchen bakes" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" loading="lazy">
       <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(31,51,39,0) 55%, rgba(21,36,27,.88) 100%);"></div>
       <div class="tag" style="color:var(--cream);"><span>Surabhi Shrivastava Sahai</span><span>Founder</span></div>
     </div>
@@ -618,23 +620,14 @@
     </div>
     <div class="cafe-visual fade-up">
       <div class="cafe-card cc1">
-        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a6350"/><stop offset="1" stop-color="#1b2b21"/></linearGradient></defs>
-          <rect width="200" height="200" fill="url(#g1)"/>
-          <g stroke="#e3c788" stroke-width="1" opacity=".55" fill="none">
-            <path d="M20 180 C40 120 30 80 60 20"/><path d="M40 180 C55 120 45 80 75 25"/>
-            <path d="M160 20 C140 80 150 120 120 180"/>
-          </g>
-        </svg>
+        <img src="assets/cafe-interior.jpg" alt="Shubhi's Bake A Wish — climbing greens &amp; garden café interior" loading="lazy">
+        <div class="photo-tint"></div>
         <div class="inner-label">The climbing greens</div>
       </div>
       <div class="cafe-card cc2">
-        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="#8a6a2f"/>
-          <g fill="none" stroke="#2a1f16" stroke-width="1.2" opacity=".5">
-            <line x1="0" y1="40" x2="200" y2="40"/><line x1="0" y1="80" x2="200" y2="80"/>
-            <line x1="0" y1="120" x2="200" y2="120"/><line x1="0" y1="160" x2="200" y2="160"/>
-          </g>
-        </svg>
-        <div class="inner-label">Hand-painted café sign</div>
+        <img src="assets/cafe-tablescape.jpg" alt="Shubhi's Bake A Wish — café tablescape" loading="lazy">
+        <div class="photo-tint"></div>
+        <div class="inner-label">A table set for a wish</div>
       </div>
     </div>
   </div>
@@ -659,19 +652,19 @@
     </div>
     <div class="w-scroll">
       <div class="w-card w1 fade-up">
-        <div class="w-top"><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></svg></div>
+        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Baking workshop at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></svg></div>
         <div class="w-body"><span class="tag">Baking Workshop</span><h3>Learn to Bake a Wish</h3><p>Hands-on sessions on cakes, cookies &amp; breads — taught the home-bakery way, small batches at a time.</p></div>
       </div>
       <div class="w-card w2 fade-up">
-        <div class="w-top"><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 8c6 8 10 12 10 20a10 10 0 0 1-20 0c0-8 4-12 10-20Z"/></svg></div>
+        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Festive café evening at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 8c6 8 10 12 10 20a10 10 0 0 1-20 0c0-8 4-12 10-20Z"/></svg></div>
         <div class="w-body"><span class="tag">Festive Edition</span><h3>Diwali at the Café</h3><p>Festive hampers, diyas on the stairs, and a menu dressed for the season.</p></div>
       </div>
       <div class="w-card w3 fade-up">
-        <div class="w-top"><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M14 20c0-6 5-10 10-10s10 4 10 10v8H14v-8Z"/><path d="M10 34h28"/></svg></div>
+        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Gifting hampers at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M14 20c0-6 5-10 10-10s10 4 10 10v8H14v-8Z"/><path d="M10 34h28"/></svg></div>
         <div class="w-body"><span class="tag">Gifting</span><h3>Rakhi &amp; Superfood Hampers</h3><p>Nourishing festive gift boxes, hand-picked for siblings who irritate you most — and deserve it most.</p></div>
       </div>
       <div class="w-card w4 fade-up">
-        <div class="w-top"><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 10a14 14 0 1 0 0 28 14 14 0 0 0 0-28Z"/><path d="M19 20h1M28 20h1M19 28c2 2 8 2 10 0"/></svg></div>
+        <div class="w-top"><img src="assets/workshop-scene.jpg" alt="Halloween café evening at Shubhi's Bake A Wish" loading="lazy"><div class="w-tint"></div><svg viewBox="0 0 48 48" fill="none" stroke="#f7ecd9" stroke-width="1.2"><path d="M24 10a14 14 0 1 0 0 28 14 14 0 0 0 0-28Z"/><path d="M19 20h1M28 20h1M19 28c2 2 8 2 10 0"/></svg></div>
         <div class="w-body"><span class="tag">Spooky Edition</span><h3>Vampire Halloween</h3><p>Spooky vibes, sweet treats &amp; a dress code — face painting and games for the little ones too.</p></div>
       </div>
     </div>
@@ -790,6 +783,61 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 gsap.registerPlugin(ScrollTrigger);
+
+/* hero: scroll-scrubbed cinematic frame sequence */
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const TOTAL = 63;
+  const frames = [];
+  let current = 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function pad(n){ return String(n).padStart(3,'0'); }
+
+  function draw(i){
+    const img = frames[i];
+    if(!img || !img.complete || !img.naturalWidth) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cw = canvas.clientWidth * dpr, ch = canvas.clientHeight * dpr;
+    if(canvas.width !== cw) canvas.width = cw;
+    if(canvas.height !== ch) canvas.height = ch;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    const scale = Math.max(cw/iw, ch/ih);
+    const dw = iw*scale, dh = ih*scale;
+    const dx = (cw-dw)/2, dy = (ch-dh)/2;
+    ctx.clearRect(0,0,cw,ch);
+    ctx.drawImage(img, dx, dy, dw, dh);
+  }
+
+  for(let i=1;i<=TOTAL;i++){
+    const img = new Image();
+    img.src = `assets/hero-frames/frame-${pad(i)}.jpg`;
+    if(i===1) img.onload = ()=>draw(0);
+    frames.push(img);
+  }
+
+  window.addEventListener('resize', ()=>draw(current));
+
+  if(reduceMotion){
+    const mid = Math.floor(TOTAL/2);
+    const showMid = ()=>{ current = mid; draw(current); };
+    frames[mid].onload = showMid;
+    if(frames[mid].complete) showMid();
+  } else {
+    ScrollTrigger.create({
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: self => {
+        current = Math.min(TOTAL-1, Math.max(0, Math.floor(self.progress * TOTAL)));
+        draw(current);
+      }
+    });
+  }
+})();
 
 /* preloader */
 window.addEventListener('load', () => {
