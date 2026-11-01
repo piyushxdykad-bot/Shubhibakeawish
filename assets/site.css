@@ -1173,3 +1173,4 @@ body.bag-is-open .minicart{opacity:0; pointer-events:none;}
 /* toast sits above the basket strip */
 body:has(.minicart.on) .sbw-toast{bottom:max(96px, calc(env(safe-area-inset-bottom,0px) + 90px));}
 @media(max-width:980px){ body.has-tabbar .sbw-toast{bottom:auto;} }
+.sec-head h2 em{font-size:1.32em; line-height:.7; padding:0 .12em .1em 0; display:inline-block;}

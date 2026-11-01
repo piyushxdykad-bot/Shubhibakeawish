@@ -86,16 +86,41 @@
   }
   S.renderSteppers = renderSteppers;
 
+  /* the bake flies into the basket */
+  function flyToBag(from){
+    if(REDUCE || !window.gsap) return;
+    const card = from.closest('.pcard, .t-card, .hx-float, li, .item-card, .mrow, article');
+    const img = card && card.querySelector('img');
+    const targets = [...document.querySelectorAll('.hdr-bag, .tabbar [data-bag]')].filter(t => t.offsetParent && t.getBoundingClientRect().width);
+    if(!img || !targets.length) return;
+    const a = img.getBoundingClientRect(), b = targets[0].getBoundingClientRect();
+    const size = Math.min(110, a.width * .6), dot = img.cloneNode(); dot.removeAttribute('id'); dot.className = 'fly-dot'; dot.alt = '';
+    Object.assign(dot.style, {width:size + 'px', height:size + 'px'});
+    document.body.appendChild(dot);
+    const x0 = a.left + a.width / 2 - size / 2, y0 = a.top + a.height / 2 - size / 2;
+    const x1 = b.left + b.width / 2 - size / 2, y1 = b.top + b.height / 2 - size / 2;
+    gsap.set(dot, {x:x0, y:y0, scale:.4, opacity:0});
+    const tl = gsap.timeline({onComplete:() => { dot.remove(); targets.forEach(bump); }});
+    tl.to(dot, {scale:1, opacity:1, duration:.25, ease:'back.out(2)'})
+      .to(dot, {x:x1, duration:.8, ease:'power2.inOut'}, .2)
+      .to(dot, {y:Math.max(12, Math.min(y0, y1) - 120), duration:.4, ease:'power2.out'}, .2)
+      .to(dot, {y:y1, duration:.4, ease:'power2.in'}, .6)
+      .to(dot, {scale:.15, opacity:.2, duration:.35, ease:'power2.in'}, .7);
+  }
+
   document.addEventListener('click', e => {
     const b = e.target.closest('.st-add, .st-plus, .st-minus'); if(!b) return;
     e.preventDefault();
     const slug = b.dataset.slug, cur = (Basket.items().find(l => l.slug === slug) || {}).qty || 0;
     if(b.classList.contains('st-minus')) Basket.setQty(slug, cur - 1);
-    else { Basket.add(slug); if(!cur && S.toast) S.toast(`${CATALOGUE[slug].name} added to your basket`); }
+    else { flyToBag(b); Basket.add(slug); if(!cur && S.toast) S.toast(`${CATALOGUE[slug].name} added to your basket`); }
     /* keep keyboard focus on the control that replaced the one pressed */
     const slot = b.closest('.stepper-slot');
     if(slot) requestAnimationFrame(() => { const f = slot.querySelector(b.classList.contains('st-minus') ? '.st-minus, .st-add' : '.st-plus, .st-add'); if(f) f.focus({preventScroll:true}); });
   });
+
+  /* menu page "Add" buttons fly too */
+  document.addEventListener('click', e => { const b = e.target.closest('button.add'); if(b) flyToBag(b); }, true);
 
   S.onChange(() => { syncCounts(); renderSteppers(); });
   syncCounts(); renderSteppers();
