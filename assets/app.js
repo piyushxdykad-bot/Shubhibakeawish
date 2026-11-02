@@ -70,7 +70,7 @@
 
   /* ---------- steppers: any [data-slug].stepper-slot ---------- */
   function renderSteppers(root){
-    const q = Object.fromEntries(Basket.items().map(l => [l.slug, l.qty]));
+    const q = {}; Object.keys(CATALOGUE).forEach(k => { q[k] = Basket.qtyOf(k); });
     (root || document).querySelectorAll('.stepper-slot[data-slug]').forEach(slot => {
       const slug = slot.dataset.slug, item = CATALOGUE[slug]; if(!item) return;
       const n = q[slug] || 0, name = item.name;
@@ -111,7 +111,7 @@
   document.addEventListener('click', e => {
     const b = e.target.closest('.st-add, .st-plus, .st-minus'); if(!b) return;
     e.preventDefault();
-    const slug = b.dataset.slug, cur = (Basket.items().find(l => l.slug === slug) || {}).qty || 0;
+    const slug = b.dataset.slug, cur = Basket.qtyOf(slug);
     if(b.classList.contains('st-minus')) Basket.setQty(slug, cur - 1);
     else { flyToBag(b); Basket.add(slug); if(!cur && S.toast) S.toast(`${CATALOGUE[slug].name} added to your basket`); }
     /* keep keyboard focus on the control that replaced the one pressed */

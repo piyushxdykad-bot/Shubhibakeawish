@@ -515,7 +515,7 @@ document.addEventListener('click', e => {
   document.querySelectorAll('.bag, .bag-list, nav.links, .co-done, .cat-list').forEach(el => el.setAttribute('data-lenis-prevent', ''));
   /* pause page scroll while the basket or mobile menu is open */
   const sync = () => {
-    (document.documentElement.classList.contains('is-loading') || document.querySelector('.bag.open, nav.links.open')) ? lenis.stop() : lenis.start();
+    (document.documentElement.classList.contains('is-loading') || document.querySelector('.bag.open, nav.links.open, .sheet-wrap.open')) ? lenis.stop() : lenis.start();
   };
   const mo = new MutationObserver(sync);
   mo.observe(document.body, {subtree:true, attributes:true, attributeFilter:['class']});

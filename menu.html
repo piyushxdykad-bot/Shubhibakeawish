@@ -75,6 +75,22 @@
 </div>
 
 <main style="background:var(--cream);">
+<div class="shell mtools">
+  <div class="search mt-search" role="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+    <label class="sr-only" for="mq">Search the menu</label>
+    <input id="mq" type="search" autocomplete="off" placeholder="Search 27 bakes…">
+  </div>
+  <div class="mt-chips" role="group" aria-label="Filter by diet">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="veg" aria-pressed="false"><span class="diet d-veg inline"><i></i></span>Veg</button>
+    <button type="button" data-f="eggless" aria-pressed="false">Eggless</button>
+    <button type="button" data-f="egg" aria-pressed="false"><span class="diet d-egg inline"><i></i></span>Contains egg</button>
+    <button type="button" data-f="nonveg" aria-pressed="false"><span class="diet d-nonveg inline"><i></i></span>Non-veg</button>
+  </div>
+  <a href="#cake" class="mt-cake"><img src="assets/custom-cake.jpg" alt=""><span><b>Design a custom cake</b><small>Size · flavour · eggless · message · photo</small></span><i>→</i></a>
+  <p class="mt-empty" id="mtEmpty" hidden>No bakes match that. <button type="button" id="mtReset">Clear filters</button></p>
+</div>
 
   <section class="cat" id="millet">
     <div class="wrap">
@@ -256,5 +272,33 @@
 <script src="assets/config.js"></script>
 <script src="assets/order.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/sheets.js"></script>
+<script>
+/* menu: search + diet filters */
+(function(){
+  const S = window.SBW; if(!S) return;
+  const q = document.getElementById('mq'), chips = [...document.querySelectorAll('.mt-chips button')], empty = document.getElementById('mtEmpty');
+  let f = 'all';
+  const slugOf = el => el.dataset.sheet || ((/assets\/([\w-]+)\.jpg/.exec((el.querySelector('img') || {}).getAttribute ? el.querySelector('img').getAttribute('src') : el.dataset.img || '') || [])[1]);
+  const ok = slug => { const m = S.CATALOGUE[slug]; if(!m) return true;
+    const t = q.value.trim().toLowerCase(), hay = (m.name + ' ' + m.cat + ' ' + (m.d || '') + ' ' + (m.i || []).join(' ')).toLowerCase();
+    const diet = f === 'all' || (f === 'eggless' ? (m.diet === 'veg' || m.eggless) : m.diet === f);
+    return diet && (!t || t.split(/\s+/).every(w => hay.includes(w))); };
+  function apply(){
+    let shown = 0;
+    document.querySelectorAll('section.cat').forEach(sec => {
+      let n = 0;
+      sec.querySelectorAll('.item-card').forEach(c => { const v = ok(slugOf(c)); c.hidden = !v; if(v) n++; });
+      sec.querySelectorAll('.mcard-list li').forEach(li => { const r = li.querySelector('.mrow'); if(!r) return; li.hidden = !ok(slugOf(r)); });
+      sec.hidden = !n; shown += n;
+    });
+    empty.hidden = shown > 0;
+    if(window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+  chips.forEach(c => c.addEventListener('click', () => { f = c.dataset.f; chips.forEach(x => x.setAttribute('aria-pressed', x === c)); apply(); }));
+  let t; q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(apply, 120); });
+  document.getElementById('mtReset').addEventListener('click', () => { q.value = ''; f = 'all'; chips.forEach(x => x.setAttribute('aria-pressed', x.dataset.f === 'all')); apply(); });
+})();
+</script>
 </body>
 </html>

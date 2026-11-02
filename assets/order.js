@@ -1,6 +1,42 @@
 /* Shubhi's Bake A Wish — basket, checkout API, tracking API (shared by every page) */
 (function(){
 const CATALOGUE = {"jowar-joy": {"name": "Jowar Joy", "note": "100g", "price": 169, "cat": "Millet Range"}, "ragi-rich": {"name": "Ragi Rich", "note": "100g", "price": 169, "cat": "Millet Range"}, "multigrain-magic": {"name": "Multigrain Magic", "note": "100g", "price": 169, "cat": "Millet Range"}, "millet-laddo": {"name": "Millet Laddo", "note": "200g", "price": 320, "cat": "Millet Range"}, "millet-samosa": {"name": "Millet Samosa", "note": "200g", "price": 320, "cat": "Millet Range"}, "apple-pie": {"name": "Apple Pie", "note": "", "price": 230, "cat": "Desserts"}, "tiramisu": {"name": "Tiramisu", "note": "a slice", "price": 250, "cat": "Desserts"}, "strawberry-cheesecake": {"name": "Strawberry Cheesecake", "note": "", "price": 250, "cat": "Desserts"}, "blueberry-cheesecake": {"name": "Blueberry Cheesecake", "note": "", "price": 250, "cat": "Desserts"}, "biscoff-cheesecake": {"name": "Biscoff Cheesecake", "note": "", "price": 250, "cat": "Desserts"}, "classic-tres-leches": {"name": "Classic Tres Leches", "note": "per slice", "price": 220, "cat": "Desserts"}, "lemon-chiffon": {"name": "Lemon Chiffon", "note": "", "price": 190, "cat": "Desserts"}, "hummingbird-cake": {"name": "Hummingbird Cake", "note": "slice", "price": 250, "cat": "Desserts"}, "chocolate-eclair": {"name": "Chocolate Eclair", "note": "", "price": 120, "cat": "Desserts"}, "cinnabon": {"name": "Cinnabon", "note": "", "price": 150, "cat": "Desserts"}, "almond-raisin-cookie": {"name": "Almond Raisin Cookie", "note": "100g", "price": 149, "cat": "Desserts"}, "butter-coconut-cookies": {"name": "Butter Coconut Cookies", "note": "100g", "price": 149, "cat": "Desserts"}, "potato-pinwheels": {"name": "Potato Pinwheels", "note": "", "price": 90, "cat": "Savouries"}, "minced-lamb-toast": {"name": "Minced Lamb on Toast", "note": "", "price": 185, "cat": "Savouries"}, "mushroom-toast": {"name": "Mushroom on Toast", "note": "", "price": 130, "cat": "Savouries"}, "scrambled-egg-toast": {"name": "Scrambled Egg on Toast", "note": "", "price": 110, "cat": "Savouries"}, "cottage-cheese-cutlet": {"name": "Cottage Cheese Cutlet", "note": "", "price": 140, "cat": "Savouries"}, "cheese-garlic-bread": {"name": "Cheese Garlic Bread", "note": "", "price": 100, "cat": "Savouries"}, "garlic-bites": {"name": "Garlic Bites", "note": "", "price": 60, "cat": "Savouries"}, "mushroom-croissant": {"name": "Mushroom Croissant", "note": "", "price": 190, "cat": "Bakes & More"}, "cheese-corn-bun": {"name": "Cheese Corn Bun", "note": "", "price": null, "cat": "Bakes & More"}, "smoothie-bowl": {"name": "Smoothie Bowl", "note": "", "price": 130, "cat": "Bakes & More"}};
+
+/* ---------------- what's in each bake (indicative, for the concept) ----------------
+   diet: veg = no egg · egg = contains egg · nonveg = meat.  eggless: an eggless version can be made */
+const INFO = {
+  'jowar-joy':{diet:'veg', d:'Crisp jowar cookies sweetened with jaggery and a breath of cardamom.', i:['Jowar flour','Jaggery','Butter','Cardamom'], a:['Dairy']},
+  'ragi-rich':{diet:'veg', d:'Dark, crunchy ragi cookies with cocoa — the millet range\'s chocolate fix.', i:['Ragi flour','Jaggery','Butter','Cocoa'], a:['Dairy']},
+  'multigrain-magic':{diet:'veg', d:'Five-grain cookies studded with seeds, toasty and not too sweet.', i:['Multigrain flour','Jaggery','Butter','Sesame','Flax'], a:['Dairy','Gluten','Sesame']},
+  'millet-laddo':{diet:'veg', d:'Roasted millet laddoos bound with ghee, jaggery and chopped nuts.', i:['Millets','Ghee','Jaggery','Almonds','Cashews'], a:['Dairy','Nuts']},
+  'millet-samosa':{diet:'veg', d:'Baked, not fried — a millet crust around spiced potato and peas.', i:['Millet flour','Potato','Peas','Spices'], a:['Gluten']},
+  'apple-pie':{diet:'egg', eggless:true, d:'All-butter lattice pie with cinnamon-baked apples.', i:['Apples','Butter','Flour','Cinnamon','Brown sugar','Egg wash'], a:['Gluten','Dairy','Egg']},
+  'tiramisu':{diet:'egg', eggless:true, d:'Espresso-soaked sponge under clouds of mascarpone, dusted with cocoa.', i:['Mascarpone','Espresso','Sponge','Cocoa','Egg'], a:['Dairy','Gluten','Egg']},
+  'strawberry-cheesecake':{diet:'egg', eggless:true, d:'Baked vanilla cheesecake under a glossy strawberry compote.', i:['Cream cheese','Strawberries','Biscuit base','Butter','Egg'], a:['Dairy','Gluten','Egg']},
+  'blueberry-cheesecake':{diet:'egg', eggless:true, d:'Creamy baked cheesecake with a tart blueberry topping.', i:['Cream cheese','Blueberries','Biscuit base','Butter','Egg'], a:['Dairy','Gluten','Egg']},
+  'biscoff-cheesecake':{diet:'egg', eggless:true, d:'Biscoff base, Biscoff swirl, a whole Biscoff on top. No regrets.', i:['Cream cheese','Biscoff spread','Biscoff biscuits','Butter','Egg'], a:['Dairy','Gluten','Egg']},
+  'classic-tres-leches':{diet:'egg', eggless:true, d:'Sponge soaked in three milks and topped with whipped cream.', i:['Sponge','Condensed milk','Evaporated milk','Cream','Egg'], a:['Dairy','Gluten','Egg']},
+  'lemon-chiffon':{diet:'egg', d:'Light-as-air chiffon sponge bright with fresh lemon.', i:['Flour','Eggs','Lemon','Sugar','Oil'], a:['Gluten','Egg']},
+  'hummingbird-cake':{diet:'egg', eggless:true, d:'Banana, pineapple and pecan sponge with cream cheese frosting.', i:['Banana','Pineapple','Pecans','Cream cheese','Egg'], a:['Dairy','Gluten','Egg','Nuts']},
+  'chocolate-eclair':{diet:'egg', d:'Crisp choux filled with vanilla custard under a dark chocolate glaze.', i:['Choux pastry','Custard','Dark chocolate','Eggs'], a:['Dairy','Gluten','Egg']},
+  'cinnabon':{diet:'egg', eggless:true, d:'Soft, swirled cinnamon roll with a cream cheese glaze.', i:['Flour','Butter','Cinnamon','Brown sugar','Cream cheese','Egg'], a:['Dairy','Gluten','Egg']},
+  'almond-raisin-cookie':{diet:'veg', d:'Buttery cookies with toasted almonds and plump raisins.', i:['Flour','Butter','Almonds','Raisins'], a:['Dairy','Gluten','Nuts']},
+  'butter-coconut-cookies':{diet:'veg', d:'Melt-in-the-mouth butter cookies with toasted coconut.', i:['Flour','Butter','Desiccated coconut'], a:['Dairy','Gluten']},
+  'potato-pinwheels':{diet:'veg', d:'Flaky pastry rolled around spiced potato, baked golden.', i:['Puff pastry','Potato','Spices','Coriander'], a:['Dairy','Gluten']},
+  'minced-lamb-toast':{diet:'nonveg', d:'Slow-cooked spiced lamb mince on toasted sourdough.', i:['Lamb mince','Onion','Spices','Sourdough'], a:['Gluten']},
+  'mushroom-toast':{diet:'veg', d:'Garlic-butter mushrooms and herbs on toasted sourdough.', i:['Mushrooms','Garlic','Butter','Herbs','Sourdough'], a:['Dairy','Gluten']},
+  'scrambled-egg-toast':{diet:'egg', d:'Soft, buttery scrambled eggs on toast with chives.', i:['Eggs','Butter','Chives','Sourdough'], a:['Dairy','Gluten','Egg']},
+  'cottage-cheese-cutlet':{diet:'veg', d:'Crisp paneer and vegetable cutlets with mint chutney.', i:['Paneer','Vegetables','Breadcrumbs','Mint'], a:['Dairy','Gluten']},
+  'cheese-garlic-bread':{diet:'veg', d:'House bread loaded with garlic butter and melted cheese.', i:['Bread','Garlic butter','Mozzarella','Herbs'], a:['Dairy','Gluten']},
+  'garlic-bites':{diet:'veg', d:'Pull-apart garlic knots, warm from the oven.', i:['Bread dough','Garlic','Butter','Parsley'], a:['Dairy','Gluten']},
+  'mushroom-croissant':{diet:'egg', eggless:true, d:'Laminated butter croissant filled with creamy garlic mushrooms.', i:['Croissant dough','Butter','Mushrooms','Cream','Egg wash'], a:['Dairy','Gluten','Egg']},
+  'cheese-corn-bun':{diet:'veg', d:'Soft bun filled with sweet corn and cheese.', i:['Bun dough','Sweet corn','Cheese'], a:['Dairy','Gluten']},
+  'smoothie-bowl':{diet:'veg', d:'Thick fruit smoothie topped with granola, seeds and fresh fruit.', i:['Banana','Berries','Yogurt','Granola','Seeds'], a:['Dairy','Nuts']},
+  'custom-cake':{diet:'veg', d:'Your cake, your way — sized, flavoured and finished to your wish.', i:[], a:[]}
+};
+CATALOGUE['custom-cake'] = {name:'Custom cake', note:'made to order', price:null, cat:'Custom'};
+Object.keys(INFO).forEach(k => { if(CATALOGUE[k]) Object.assign(CATALOGUE[k], INFO[k]); });
+const DIET = {veg:'Veg', egg:'Contains egg', nonveg:'Non-veg'};
 const CFG = window.SBW_CONFIG || {};
 const LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
 const rupees = n => '₹' + Number(n).toLocaleString('en-IN');
@@ -11,24 +47,29 @@ const store = {
 
 /* ---------------- basket ---------------- */
 const Basket = {
+  /* a line: {slug, qty, opt?:'eggless'|'cc-<id>', meta?:{...}} */
   items(){ return store.get('sbw-basket', []).filter(l => CATALOGUE[l.slug]); },
   save(list){ store.set('sbw-basket', list); emit(); },
-  add(slug, qty = 1){
+  add(slug, qty = 1, opt = null, meta = null){
     if(!CATALOGUE[slug]) return;
-    const list = this.items(); const l = list.find(x => x.slug === slug);
-    if(l) l.qty = Math.min(20, l.qty + qty); else list.push({slug, qty});
+    const list = this.items(); const l = list.find(x => x.slug === slug && (x.opt || null) === opt);
+    if(l) l.qty = Math.min(20, l.qty + qty); else { const n = {slug, qty}; if(opt) n.opt = opt; if(meta) n.meta = meta; list.push(n); }
     this.save(list);
   },
-  setQty(slug, qty){
+  setQty(slug, qty, opt = null){
     let list = this.items();
-    if(qty <= 0) list = list.filter(l => l.slug !== slug);
-    else { const l = list.find(x => x.slug === slug); if(l) l.qty = Math.min(20, qty); }
+    if(qty <= 0) list = list.filter(l => !(l.slug === slug && (l.opt || null) === opt));
+    else { const l = list.find(x => x.slug === slug && (x.opt || null) === opt); if(l) l.qty = Math.min(20, qty); }
     this.save(list);
   },
+  qtyOf(slug){ return this.items().filter(l => l.slug === slug && !l.opt).reduce((a, l) => a + l.qty, 0); },
   clear(){ this.save([]); },
   count(){ return this.items().reduce((a, l) => a + l.qty, 0); },
   total(){ return this.items().reduce((a, l) => a + (CATALOGUE[l.slug].price || 0) * l.qty, 0); },
-  hasOnRequest(){ return this.items().some(l => CATALOGUE[l.slug].price == null); }
+  hasOnRequest(){ return this.items().some(l => CATALOGUE[l.slug].price == null); },
+  label(l){ return l.opt === 'eggless' ? 'Eggless' : (l.meta && l.meta.summary) || ''; },
+  /* options travel to the café inside the order note */
+  notes(){ return this.items().filter(l => l.opt).map(l => `${l.qty} × ${CATALOGUE[l.slug].name} — ${this.label(l)}`).join(' | '); }
 };
 const listeners = new Set();
 function emit(){ listeners.forEach(f => { try{ f(); }catch(e){ console.error(e); } }); }
@@ -68,7 +109,9 @@ const API = {
   live: LIVE,
   statuses: STATUSES,
   async placeOrder(f){
-    const items = Basket.items().map(l => ({slug:l.slug, qty:l.qty}));
+    const merged = {}; Basket.items().forEach(l => { merged[l.slug] = (merged[l.slug] || 0) + l.qty; });
+    const items = Object.entries(merged).map(([slug, qty]) => ({slug, qty}));
+    const opts = Basket.notes(); if(opts) f = {...f, note:[opts, f.note].filter(Boolean).join(' · ')};
     if(LIVE){
       const res = await rpc('place_order', {p_name:f.name, p_phone:f.phone, p_fulfilment:f.fulfilment, p_address:f.address || null,
         p_date:f.date, p_time:f.time || null, p_note:f.note || null, p_items:items});
@@ -79,7 +122,7 @@ const API = {
     if((f.name||'').trim().length < 2) throw new Error('Please add your name');
     if(!/^[0-9]{10,13}$/.test(phone)) throw new Error('Please add a valid phone number');
     if(f.fulfilment === 'delivery' && (f.address||'').trim().length < 8) throw new Error('Please add a delivery address');
-    const lines = items.map(l => ({slug:l.slug, name:CATALOGUE[l.slug].name, qty:l.qty, unit_paise: CATALOGUE[l.slug].price == null ? null : CATALOGUE[l.slug].price*100}));
+    const lines = Basket.items().map(l => ({slug:l.slug, name:CATALOGUE[l.slug].name + (l.opt ? ' (' + Basket.label(l) + ')' : ''), qty:l.qty, unit_paise: CATALOGUE[l.slug].price == null ? null : CATALOGUE[l.slug].price*100}));
     const o = {code:Demo.code(), status:'received', created_at:new Date().toISOString(), fulfilment:f.fulfilment, wanted_date:f.date, wanted_time:f.time||null,
       items:lines, total_paise:Basket.total()*100, has_on_request:Basket.hasOnRequest(), first_name:f.name.trim().split(/\s+/)[0], phone, name:f.name.trim(),
       address:f.fulfilment === 'delivery' ? f.address.trim() : null, note:f.note || null, message:null, events:[{status:'received', at:new Date().toISOString()}]};
@@ -170,13 +213,13 @@ function buildDrawer(){
     items.forEach(l => {
       const m = CATALOGUE[l.slug];
       const li = el('li', 'bag-line');
-      const img = el('img'); img.src = `assets/${l.slug}.jpg`; img.alt = ''; img.loading = 'lazy';
-      const mid = el('div', 'bag-mid'); mid.append(el('b', '', m.name), el('small', '', [m.note, m.price == null ? 'price on request' : rupees(m.price)].filter(Boolean).join(' · ')));
+      const img = el('img'); img.src = `assets/${l.slug === 'custom-cake' ? 'custom-cake' : l.slug}.jpg`; img.alt = ''; img.loading = 'lazy';
+      const mid = el('div', 'bag-mid'); mid.append(el('b', '', m.name), el('small', '', [Basket.label(l) || m.note, m.price == null ? 'price on request' : rupees(m.price)].filter(Boolean).join(' · ')));
       const q = el('div', 'qty');
       const minus = el('button', '', '−'); minus.type = 'button'; minus.setAttribute('aria-label', `One fewer ${m.name}`);
       const val = el('span', '', String(l.qty));
       const plus = el('button', '', '+'); plus.type = 'button'; plus.setAttribute('aria-label', `One more ${m.name}`);
-      minus.onclick = () => Basket.setQty(l.slug, l.qty - 1); plus.onclick = () => Basket.setQty(l.slug, l.qty + 1);
+      minus.onclick = () => Basket.setQty(l.slug, l.qty - 1, l.opt || null); plus.onclick = () => Basket.setQty(l.slug, l.qty + 1, l.opt || null);
       q.append(minus, val, plus); mid.append(q);
       const pr = el('span', 'bag-pr', m.price == null ? '—' : rupees(m.price * l.qty));
       li.append(img, mid, pr); ul.append(li);
@@ -192,21 +235,18 @@ function addButtons(){
   const slugOf = src => { const m = /assets\/([\w-]+)\.jpg/.exec(src || ''); return m && CATALOGUE[m[1]] ? m[1] : null; };
   document.querySelectorAll('.item-card').forEach(card => {
     const slug = slugOf(card.querySelector('img') && card.querySelector('img').getAttribute('src'));
-    if(!slug || card.querySelector('.add')) return;
-    const b = el('button', 'add', 'Add'); b.type = 'button'; b.dataset.slug = slug; b.setAttribute('aria-label', `Add ${CATALOGUE[slug].name} to basket`);
-    card.querySelector('.item-body').append(b);
+    if(!slug || card.querySelector('.stepper-slot')) return;
+    card.dataset.sheet = slug;
+    const s = el('span', 'stepper-slot'); s.dataset.slug = slug;
+    card.querySelector('.item-body').append(s);
   });
   document.querySelectorAll('div.mrow[data-img]').forEach(row => {
     const slug = slugOf(row.dataset.img);
-    if(!slug || row.querySelector('.add')) return;
-    const b = el('button', 'add', '+'); b.type = 'button'; b.dataset.slug = slug; b.setAttribute('aria-label', `Add ${CATALOGUE[slug].name} to basket`);
-    row.append(b); row.classList.add('has-add');
+    if(!slug || row.querySelector('.stepper-slot')) return;
+    row.dataset.sheet = slug;
+    const s = el('span', 'stepper-slot'); s.dataset.slug = slug;
+    row.append(s); row.classList.add('has-add');
   });
-  const counts = () => {
-    const q = Object.fromEntries(Basket.items().map(l => [l.slug, l.qty]));
-    document.querySelectorAll('button.add').forEach(b => { const n = q[b.dataset.slug]; b.classList.toggle('in', !!n); b.dataset.n = n || ''; });
-  };
-  listeners.add(counts); counts();
 }
 
 function toast(msg){
@@ -216,15 +256,6 @@ function toast(msg){
 }
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('button.add');
-  if(b){
-    e.preventDefault(); e.stopPropagation();
-    Basket.add(b.dataset.slug);
-    toast(`${CATALOGUE[b.dataset.slug].name} added to your basket`);
-    const fab = document.querySelector('.bag-fab');
-    if(fab && window.gsap) gsap.fromTo(fab, {scale:1.25}, {scale:1, duration:.6, ease:'elastic.out(1,.4)'});
-    return;
-  }
   /* the candle wish's "Order this wish" puts that bake in the basket */
   const w = e.target.closest('#wishCard .btn-solid');
   if(w){
@@ -233,7 +264,7 @@ document.addEventListener('click', e => {
   }
 });
 
-window.SBW = {Basket, API, CATALOGUE, rupees, onChange: f => { listeners.add(f); }, toast};
+window.SBW = {Basket, API, CATALOGUE, DIET, rupees, onChange: f => { listeners.add(f); }, toast};
 const boot = () => { buildDrawer(); addButtons(); };
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

@@ -41,7 +41,8 @@ insert into public.menu_items (slug, name, note, price_paise, category) values
   ('garlic-bites', 'Garlic Bites', null, 6000, 'Savouries'),
   ('mushroom-croissant', 'Mushroom Croissant', null, 19000, 'Bakes & More'),
   ('cheese-corn-bun', 'Cheese Corn Bun', null, null, 'Bakes & More'),
-  ('smoothie-bowl', 'Smoothie Bowl', null, 13000, 'Bakes & More')
+  ('smoothie-bowl', 'Smoothie Bowl', null, 13000, 'Bakes & More'),
+  ('custom-cake', 'Custom cake', 'made to order', null, 'Custom')
 on conflict (slug) do update set name = excluded.name, note = excluded.note,
   price_paise = excluded.price_paise, category = excluded.category;
 

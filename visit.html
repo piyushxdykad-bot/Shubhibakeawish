@@ -121,85 +121,65 @@
   </div>
 </section>
 
-<!-- ============ ORDER ============ -->
-<section class="order" id="order">
-  <div class="wrap order-grid">
-    <div class="order-copy">
-      <span class="eyebrow">Get in touch</span>
-      <h2 data-lines style="margin:18px 0 24px;">
-        <span class="ln"><span>Your order,</span></span>
-        <span class="ln"><span>straight to <em>the oven.</em></span></span>
-      </h2>
-      <p class="fade-up">Order straight from the menu — pick up at the café or have it delivered. You'll get an order code to track every step, from the oven to your door.</p>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
-        <div><b>Order &amp; enquiries</b><span class="sel">+91 91984 53309</span></div>
-      </div>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></div>
-        <div><b>Find us</b><span>Prayagraj, Uttar Pradesh</span></div>
-      </div>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <div><b>Café timings</b><span>Message us for today's timings</span></div>
-      </div>
-      <div class="order-detail fade-up">
-        <div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16v12H4z"/><path d="M8 8c0-2 1.5-4 4-4s4 2 4 4"/></svg></div>
-        <div><b>Something not on the menu?</b><span>Custom cakes &amp; hampers — <a href="https://wa.me/919198453309" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;">message on WhatsApp</a></span></div>
-      </div>
-      <a href="track.html" class="btn btn-outline fade-up" data-hover style="margin-top:12px;">Track an existing order</a>
+<!-- ============ ORDER + SHOP DETAILS (app style) ============ -->
+<section class="vx" id="order">
+  <div class="shell">
+    <div class="sec-head">
+      <div><span class="kick">Order &amp; visit</span><h2>Your order, straight to <em>the oven.</em></h2></div>
+      <span class="status-pill" id="vxStatus"><i></i><span>Checking hours…</span></span>
     </div>
-
-    <form class="order-form checkout fade-up" id="checkout" novalidate>
-      <div class="co-top"><span class="script">Shubhi's</span><span class="demo-flag" id="demoFlag" hidden>Demo mode · orders stay in this browser</span></div>
-      <h3>Checkout</h3>
-
-      <div class="co-basket" id="coBasket">
-        <ul id="coLines"></ul>
-        <div class="co-empty" id="coEmpty" hidden>
-          <p>Your basket is empty.</p>
-          <a href="menu.html" class="btn btn-outline">Choose from the menu</a>
-        </div>
-        <div class="co-sum" id="coSum"><span>Total</span><b id="coTotal">₹0</b></div>
-        <p class="co-fine" id="coFine"></p>
+    <div class="vx-grid">
+      <div class="vx-card vx-basket fade-up">
+        <span class="kick">Your basket</span>
+        <ul class="vx-lines" id="vxLines"></ul>
+        <div class="vx-empty" id="vxEmpty"><p>Nothing in the basket yet.</p><a href="menu.html" class="btn btn-solid">Browse the menu</a></div>
+        <div class="vx-tot" id="vxTot" hidden><span>Subtotal</span><b id="vxSum">₹0</b></div>
+        <button type="button" class="ps-add" data-checkout id="vxGo" hidden>Checkout <b>→</b></button>
+        <a href="track.html" class="vx-link">Track an existing order →</a>
       </div>
-
-      <fieldset class="co-seg" id="coFul">
-        <legend>How would you like it?</legend>
-        <label><input type="radio" name="ful" value="pickup" checked><span>Pick up at the café</span></label>
-        <label><input type="radio" name="ful" value="delivery"><span>Deliver to me</span></label>
-      </fieldset>
-
-      <div class="field"><label for="c-name">Your name</label><input id="c-name" type="text" autocomplete="name" placeholder="Full name" required></div>
-      <div class="field-row">
-        <div class="field"><label for="c-phone">Phone (WhatsApp)</label><input id="c-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="98765 43210" required></div>
-        <div class="field"><label for="c-date">Date</label><input id="c-date" type="date" required></div>
+      <a href="#cake" class="vx-card vx-cake fade-up">
+        <img src="assets/custom-cake.jpg" alt="A two-tier custom celebration cake with fresh flowers" loading="lazy">
+        <span class="vx-cake-in"><span class="chip light">Made to order</span><b>Design a custom cake</b><small>Size, flavour, eggless, a message on top and your reference photo — in four taps.</small><i>Start designing →</i></span>
+      </a>
+      <div class="vx-card vx-info fade-up">
+        <div class="vx-row"><span class="vx-ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+          <div><b>Find us</b><span>Gate no. 5, 20/12 A, Panna Lal Road, opp. Company Garden, George Town, Prayagraj 211002</span>
+          <a class="vx-link" href="https://www.google.com/maps/search/?api=1&amp;query=Shubhi%27s+Bake+A+Wish+Panna+Lal+Road+George+Town+Prayagraj" target="_blank" rel="noopener">Open in Google Maps ↗</a></div></div>
+        <div class="vx-row"><span class="vx-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div><b>Opening hours</b><ul class="hours" id="vxHours"></ul><small class="ps-hint">From the café's public listing — message to confirm on holidays.</small></div></div>
+        <div class="vx-row"><span class="vx-ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+          <div><b>Orders &amp; enquiries</b><span>+91 91984 53309</span><a class="vx-link" href="https://wa.me/919198453309" target="_blank" rel="noopener">Message on WhatsApp ↗</a></div></div>
       </div>
-      <div class="field" id="addrField" hidden><label for="c-addr">Delivery address</label><textarea id="c-addr" rows="2" autocomplete="street-address" placeholder="House, street, area — Prayagraj"></textarea></div>
-      <div class="field-row">
-        <div class="field"><label for="c-time">Preferred time</label><input id="c-time" type="time"></div>
-        <div class="field"><label for="c-pay">Payment</label><select id="c-pay"><option>Pay at pickup / on delivery</option><option>UPI after the café confirms</option></select></div>
+      <div class="vx-card vx-deliv fade-up">
+        <span class="kick">Delivery</span>
+        <h3>Where we deliver</h3>
+        <ul class="zones">
+          <li><b>Up to 3 km</b><span>Civil Lines, George Town, Tagore Town, Allahpur</span><em>₹40</em></li>
+          <li><b>3 – 6 km</b><span>Katra, Ashok Nagar, Lukerganj, Mumfordganj</span><em>₹70</em></li>
+          <li><b>6 km +</b><span>Naini, Jhunsi, Phaphamau and beyond</span><em>On request</em></li>
+        </ul>
+        <p class="ps-hint">Free delivery on orders over ₹999 within 6 km. Sample zones and charges — the café confirms yours on WhatsApp.</p>
       </div>
-      <div class="field"><label for="c-note">A little note</label><textarea id="c-note" rows="2" placeholder="Message on the cake, allergies, occasion…"></textarea></div>
-      <p class="form-err" id="coErr" role="alert"></p>
-      <button type="submit" class="btn btn-solid" id="coBtn" data-hover>Place order</button>
-      <p class="co-legal">The café confirms every order, its time and any delivery charge on WhatsApp before baking.</p>
-
-      <div class="co-done" id="coDone" hidden>
-        <span class="script">wish received —</span>
-        <h3>Order placed!</h3>
-        <p class="lbl">Your order code</p>
-        <div class="co-code"><b id="doneCode">SBW-XXXXXX</b><button type="button" id="copyCode" class="co-copy">Copy</button></div>
-        <p class="co-fine" id="doneNote"></p>
-        <div class="row">
-          <a class="btn btn-solid" id="doneTrack" href="track.html">Track my order</a>
-          <a class="btn btn-outline" id="doneWa" href="https://wa.me/919198453309" target="_blank" rel="noopener">Tell the café on WhatsApp</a>
-        </div>
-        <button type="button" id="newOrder" class="co-again">Start a new order</button>
-      </div>
-    </form>
+    </div>
   </div>
 </section>
+
+<!-- ============ FAQ ============ -->
+<section class="vx vx-faq" aria-labelledby="faqH">
+  <div class="shell">
+    <div class="sec-head"><div><span class="kick">Good to know</span><h2 id="faqH">Questions, <em>answered</em></h2></div></div>
+    <div class="faq">
+      <details class="fade-up" open><summary>How far ahead should I order?</summary><p>Bakes from the menu can usually be ordered for the same day. Custom cakes need at least 24 hours, and two-tier cakes 48 hours. For festivals, order a few days early.</p></details>
+      <details class="fade-up"><summary>Can you make it eggless?</summary><p>Yes — anything marked “Eggless option” can be made without egg at the same price. Choose “Eggless” on the item, or switch it on in the cake builder. Look for the green dot for bakes that are always egg-free.</p></details>
+      <details class="fade-up"><summary>What do the green, amber and red marks mean?</summary><p>Green dot: vegetarian, no egg. Amber dot: contains egg. Red triangle: non-vegetarian.</p></details>
+      <details class="fade-up"><summary>How far do you deliver?</summary><p>Up to about 6 km from George Town as standard, further on request. Delivery charges are confirmed by the café when they confirm your order on WhatsApp.</p></details>
+      <details class="fade-up"><summary>How should I store my bakes?</summary><p>Cakes, cheesecakes and tres leches: refrigerate and enjoy within 2–3 days. Cookies and millet bakes: airtight jar, up to 2 weeks. Savouries are best the same day — warm them for a few minutes before eating.</p></details>
+      <details class="fade-up"><summary>How do I pay?</summary><p>Pay at pickup, on delivery, or by UPI once the café confirms your order. Custom cakes may need an advance.</p></details>
+      <details class="fade-up"><summary>Can I change or cancel my order?</summary><p>Message the café on WhatsApp with your order code as early as possible. Changes are easy before your bake goes into the oven.</p></details>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ CLIENT LOVE (real highlights) ============ -->
 <section class="love on-dark" id="reviews">
@@ -231,9 +211,9 @@
       <div>
         <span class="eyebrow">On the map</span>
         <h2 data-lines style="font-size:clamp(2.2rem,4.4vw,3.6rem); margin:16px 0 18px; line-height:1.02;"><span class="ln"><span>Tucked away,</span></span><span class="ln"><span>easy to find.</span></span></h2>
-        <p class="fade-up" style="color:var(--ink-soft); max-width:42ch; line-height:1.8;">A quiet garden address in Prayagraj, Uttar Pradesh — look for the climbing vines, the fairy lights and the hand-painted sign. Message the café for directions.</p>
+        <p class="fade-up" style="color:var(--ink-soft); max-width:42ch; line-height:1.8;">Gate no. 5, Panna Lal Road, opposite Company Garden in George Town — look for the climbing vines, the fairy lights and the hand-painted sign. Tap the map for directions.</p>
       </div>
-      <div class="map-card fade-up">
+      <a class="map-card fade-up" href="https://www.google.com/maps/search/?api=1&amp;query=Shubhi%27s+Bake+A+Wish+Panna+Lal+Road+George+Town+Prayagraj" target="_blank" rel="noopener" aria-label="Open the café in Google Maps">
         <img class="dusk" src="assets/visit-dusk.jpg" alt="" aria-hidden="true">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="rgba(247,236,217,.08)" stroke-width="1"/></pattern></defs>
@@ -242,8 +222,8 @@
           <path d="M0 90 C 90 120, 160 70, 240 100 S 340 70, 400 95" fill="none" stroke="rgba(247,236,217,.18)" stroke-width="2"/>
         </svg>
         <div class="pin"><div class="pin-pulse"></div><div class="pin-dot"></div></div>
-        <span class="map-label">Prayagraj, Uttar Pradesh</span>
-      </div>
+        <span class="map-label">George Town, Prayagraj</span>
+      </a>
     </div>
   </div>
 </section>
@@ -308,77 +288,28 @@
 <script src="assets/config.js"></script>
 <script src="assets/order.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/sheets.js"></script>
 <script>
+/* visit page: basket summary, opening hours and live open/closed */
 (function(){
   const S = window.SBW; if(!S) return;
   const $ = id => document.getElementById(id);
-  const form = $('checkout'), err = $('coErr'), btn = $('coBtn');
-  if(!S.API.live) $('demoFlag').hidden = false;
-
-  /* earliest date = today in India */
-  const today = new Date(Date.now() + 5.5*3600e3).toISOString().slice(0,10);
-  $('c-date').min = today; if(!$('c-date').value) $('c-date').value = today;
-  const max = new Date(Date.now() + 5.5*3600e3 + 60*864e5).toISOString().slice(0,10); $('c-date').max = max;
-
-  /* remember the visitor's details on this device */
-  const saved = (()=>{ try{ return JSON.parse(localStorage.getItem('sbw-details')||'{}'); }catch(_){ return {}; } })();
-  ['name','phone','addr'].forEach(k => { if(saved[k]) $('c-'+k).value = saved[k]; });
-
   const render = () => {
-    const items = S.Basket.items(), ul = $('coLines'); ul.textContent = '';
-    items.forEach(l => {
-      const m = S.CATALOGUE[l.slug], li = document.createElement('li');
-      const img = document.createElement('img'); img.src = 'assets/' + l.slug + '.jpg'; img.alt = '';
-      const mid = document.createElement('div'); const b = document.createElement('b'); b.textContent = m.name;
-      const sm = document.createElement('small'); sm.textContent = l.qty + ' × ' + (m.price == null ? 'price on request' : S.rupees(m.price)); mid.append(b, sm);
-      const p = document.createElement('span'); p.className = 'p'; p.textContent = m.price == null ? '—' : S.rupees(m.price * l.qty);
-      li.append(img, mid, p); ul.append(li);
-    });
-    $('coEmpty').hidden = items.length > 0; $('coSum').hidden = !items.length;
-    $('coTotal').textContent = S.rupees(S.Basket.total());
-    $('coFine').textContent = !items.length ? '' : (S.Basket.hasOnRequest() ? 'Includes an item priced on request — the café confirms its price.' : 'Delivery charges, if any, are confirmed by the café.');
-    btn.disabled = !items.length;
-    const edit = document.createElement('li'); edit.style.cssText = 'display:block;border:none;padding:8px 0 0';
-    if(items.length){ const a = document.createElement('button'); a.type = 'button'; a.textContent = 'Edit basket'; a.className = 'co-copy'; a.onclick = () => S.openBasket && S.openBasket(); edit.append(a); ul.append(edit); }
+    const items = S.Basket.items(), ul = $('vxLines');
+    ul.innerHTML = items.map(l => { const m = S.CATALOGUE[l.slug]; return `<li><img src="assets/${l.slug}.jpg" alt=""><span><b>${m.name}</b><small>${l.qty} × ${m.price == null ? 'on request' : S.rupees(m.price)}${S.Basket.label(l) ? ' · ' + S.Basket.label(l).replace(/</g, '&lt;') : ''}</small></span></li>`; }).join('');
+    $('vxEmpty').hidden = items.length > 0; $('vxTot').hidden = $('vxGo').hidden = !items.length;
+    $('vxSum').textContent = S.rupees(S.Basket.total()) + (S.Basket.hasOnRequest() ? ' +' : '');
   };
   S.onChange(render); render();
-
-  form.querySelectorAll('input[name=ful]').forEach(r => r.addEventListener('change', () => { $('addrField').hidden = form.ful.value !== 'delivery'; }));
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault(); err.textContent = '';
-    const f = { name:$('c-name').value, phone:$('c-phone').value, fulfilment:form.ful.value, address:$('c-addr').value,
-      date:$('c-date').value, time:$('c-time').value, note:[$('c-note').value.trim(), 'Payment: ' + $('c-pay').value].filter(Boolean).join(' · ') };
-    const phone = f.phone.replace(/\D/g,'');
-    if(f.name.trim().length < 2){ err.textContent = 'Add your name so the café knows who the order is for.'; $('c-name').focus(); return; }
-    if(!/^[0-9]{10,13}$/.test(phone)){ err.textContent = 'Add a 10-digit phone number — the café confirms on WhatsApp.'; $('c-phone').focus(); return; }
-    if(f.fulfilment === 'delivery' && f.address.trim().length < 8){ err.textContent = 'Add a delivery address, or choose pickup.'; $('c-addr').focus(); return; }
-    if(!f.date){ err.textContent = 'Choose the date you need it.'; return; }
-    btn.disabled = true; btn.textContent = 'Placing your order…';
-    try{
-      const items = S.Basket.items();
-      const res = await S.API.placeOrder({...f, phone});
-      try{ localStorage.setItem('sbw-details', JSON.stringify({name:f.name.trim(), phone:f.phone.trim(), addr:f.address.trim()})); }catch(_){}
-      S.API.rememberOrder(res.code, phone.slice(-4));
-      $('doneCode').textContent = res.code;
-      $('doneNote').textContent = (res.hasOnRequest ? 'Total so far ' + S.rupees(res.total) + ' plus the item priced on request.' : 'Total ' + S.rupees(res.total) + '.') +
-        ' To track it, use this code and the last 4 digits of your phone (' + phone.slice(-4) + ').' + (S.API.live ? '' : ' Demo mode: this order is not sent to the café.');
-      $('doneTrack').href = 'track.html#' + res.code;
-      const lines = items.map(l => l.qty + ' × ' + S.CATALOGUE[l.slug].name).join(', ');
-      $('doneWa').href = 'https://wa.me/' + ((window.SBW_CONFIG||{}).whatsapp || '919198453309') + '?text=' + encodeURIComponent('Hi Shubhi\'s Bake A Wish! I just placed order ' + res.code + ' on the website: ' + lines + '.');
-      S.Basket.clear();
-      $('coDone').hidden = false;
-      $('checkout').scrollIntoView({block:'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
-      if(window.gsap) gsap.fromTo('#coDone', {opacity:0, y:24}, {opacity:1, y:0, duration:.7, ease:'expo.out'});
-    }catch(ex){ err.textContent = ex.message || 'Something went wrong — please try again.'; }
-    finally{ btn.disabled = !S.Basket.items().length; btn.textContent = 'Place order'; }
-  });
-  $('copyCode').addEventListener('click', e => {
-    const b = e.currentTarget, t = $('doneCode').textContent;
-    try{ navigator.clipboard.writeText(t).then(() => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1600); }, () => { b.textContent = 'Select & copy'; }); }catch(_){ b.textContent = 'Select & copy'; }
-  });
-  $('newOrder').addEventListener('click', () => { $('coDone').hidden = true; });
+  const HOURS = [null, [7, 21], [7, 21], [7, 21], [7, 21], [7, 21], [7, 21]];   /* Sun closed, Mon–Sat 7 am – 9 pm */
+  const NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const ist = new Date(Date.now() + 5.5 * 3600e3), day = ist.getUTCDay(), h = ist.getUTCHours() + ist.getUTCMinutes() / 60;
+  $('vxHours').innerHTML = [1,2,3,4,5,6,0].map(d => `<li class="${d === day ? 'today' : ''}"><span>${NAMES[d]}</span><b>${HOURS[d] ? '7 am – 9 pm' : 'Closed'}</b></li>`).join('');
+  const t = HOURS[day], open = t && h >= t[0] && h < t[1];
+  const pill = $('vxStatus'); pill.classList.toggle('closed', !open);
+  pill.querySelector('span').textContent = open ? `Open now · until 9 pm` : (day === 6 && h >= 21 ? 'Closed · opens Monday 7 am' : day === 0 ? 'Closed today · opens Monday 7 am' : h < 7 ? 'Closed · opens 7 am' : 'Closed · opens tomorrow 7 am');
 })();
 </script>
+
 </body>
 </html>

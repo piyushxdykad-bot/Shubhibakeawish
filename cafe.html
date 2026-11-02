@@ -163,6 +163,10 @@
         <div class="ws-body"><span class="tag">Spooky edition</span><h3>Vampire Halloween</h3><p>Spooky vibes, sweet treats and a dress code — with face painting and games for the little ones.</p></div>
       </article>
     </div>
+    <div class="wk">
+      <div class="sec-head" style="margin-top:clamp(50px,7vw,80px);"><div><span class="kick">Book a seat</span><h2>Upcoming <em>sessions</em></h2></div><span class="ps-hint">Sample schedule · small groups</span></div>
+      <div class="wk-list" id="wkList"></div>
+    </div>
     <div style="display:flex; justify-content:center; margin-top:clamp(40px,6vh,64px);">
       <a href="visit.html#order" class="btn btn-solid" data-hover>Book a Workshop</a>
     </div>
@@ -209,5 +213,38 @@
 <script src="assets/config.js"></script>
 <script src="assets/order.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/sheets.js"></script>
+<script>
+/* workshops: dated sessions with seats and booking */
+(function(){
+  const S = window.SBW; if(!S) return;
+  const W = [
+    {id:'kids-cupcakes', t:"Kids' cupcake class", tag:'Ages 6–12', date:'2026-11-07', time:'11 am – 1 pm', price:899, seats:12, left:5, img:'assets/ws-baking.jpg', d:'Little bakers mix, bake and pipe their own cupcakes — and take home a box of six.'},
+    {id:'festive-cookies', t:'Festive cookie decorating', tag:'Grown-ups', date:'2026-11-14', time:'4 – 6 pm', price:1199, seats:10, left:3, img:'assets/ws-diwali.jpg', d:'Royal icing, gold dust and a pot of chai — decorate a festive tin of butter cookies to gift.'},
+    {id:'millet-basics', t:'Millet baking basics', tag:'Hands-on', date:'2026-11-28', time:'11 am – 1:30 pm', price:1299, seats:12, left:8, img:'assets/proc-grain.jpg', d:'Bake jowar cookies, ragi brownies and a millet loaf — the café\'s healthier swaps, explained.'},
+    {id:'plum-cake', t:'Christmas cake mixing', tag:'Seasonal', date:'2026-12-12', time:'5 – 7 pm', price:999, seats:20, left:14, img:'assets/cafe-tablescape.jpg', d:'Soak the fruit, stir the batter and make a wish — the café\'s annual cake-mixing evening.'}
+  ];
+  const list = document.getElementById('wkList');
+  const fmt = iso => { const d = new Date(iso + 'T12:00:00Z'); return {dd:d.getUTCDate(), mm:d.toLocaleDateString('en-IN', {month:'short', timeZone:'UTC'}), wd:d.toLocaleDateString('en-IN', {weekday:'long', timeZone:'UTC'})}; };
+  const today = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);
+  function render(){
+    let booked = {}; try{ booked = JSON.parse(localStorage.getItem('sbw-bookings') || '{}'); }catch(_){}
+    const up = W.filter(w => w.date >= today);
+    list.innerHTML = up.length ? up.map(w => { const f = fmt(w.date), left = Math.max(0, w.left - (booked[w.id] || 0)), pct = Math.round((1 - left / w.seats) * 100);
+      return `<article class="wk-card">
+        <div class="wk-date"><b>${f.dd}</b><span>${f.mm}</span></div>
+        <img src="${w.img}" alt="" loading="lazy">
+        <div class="wk-body"><span class="chip">${w.tag}</span><h3>${w.t}</h3><p>${f.wd} · ${w.time}</p>
+          <div class="wk-seats"><i style="--p:${pct}%"></i><small>${left ? left + ' of ' + w.seats + ' seats left' : 'Fully booked'}${booked[w.id] ? ' · you have ' + booked[w.id] : ''}</small></div></div>
+        <div class="wk-cta"><b>${S.rupees(w.price)}</b><button type="button" class="btn btn-solid" data-wk="${w.id}" ${left ? '' : 'disabled'}>${left ? 'Book' : 'Waitlist'}</button></div>
+      </article>`; }).join('') : '<p class="ps-hint">New sessions are announced on Instagram — check back soon.</p>';
+    if(window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches && !render.done){ render.done = true;
+      gsap.from(list.children, {y:40, opacity:0, duration:.9, stagger:.08, ease:'expo.out', clearProps:'transform,opacity', scrollTrigger:{trigger:list, start:'top 88%', once:true}}); }
+    list.querySelectorAll('[data-wk]').forEach(b => b.addEventListener('click', () => { const w = W.find(x => x.id === b.dataset.wk); let bk = {}; try{ bk = JSON.parse(localStorage.getItem('sbw-bookings') || '{}'); }catch(_){}
+      S.bookWorkshop({...w, left:Math.max(1, w.left - (bk[w.id] || 0))}); }));
+  }
+  render(); document.addEventListener('sbw:booked', render);
+})();
+</script>
 </body>
 </html>
